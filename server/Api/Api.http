@@ -1,0 +1,40 @@
+@Api_HostAddress = http://localhost:5255
+@accessToken = paste_jwt_after_login
+
+### Login (demo — trả JWT)
+POST {{Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "demo@example.com",
+  "password": "any"
+}
+
+###
+
+### Cần JWT (dán token từ login vào biến @accessToken hoặc thay trực tiếp)
+GET {{Api_HostAddress}}/api/appusers
+Authorization: Bearer {{accessToken}}
+
+###
+
+GET {{Api_HostAddress}}/api/appinfo
+Accept: application/json
+
+###
+
+GET {{Api_HostAddress}}/api/auth/me
+Authorization: Bearer {{accessToken}}
+
+###
+
+POST {{Api_HostAddress}}/api/appusers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "email": "demo2@example.com",
+  "displayName": "Demo User 2"
+}
+
+###

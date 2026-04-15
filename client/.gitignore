@@ -11,6 +11,7 @@ next.user-config.*
 .env*.local
 
 # Common ignores
+tsconfig.tsbuildinfo
 node_modules
 .next/
 .DS_Store
