@@ -31,7 +31,7 @@ const appConfig: AppConfig = {
   publicApiPathPrefixes: ['/api/auth', '/api/appinfo'],
   requireAccessTokenForProtectedApis: requireToken,
   authenticatedEntryPath: '/home',
-  unAuthenticatedEntryPath: '/sign-in',
+  unAuthenticatedEntryPath: '/dang-nhap',
   locale: 'vi',
   activeNavTranslation: false,
 }

@@ -4,5 +4,8 @@
 
 export const ROUTES = {
   home: '/',
-  admin: '/admin',
+  /** Tổng quan khu quản trị (layout Managers). */
+  dashboard: '/dashboard',
+  rbac: '/rbac',
+  users: '/users',
 } as const

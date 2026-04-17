@@ -15,9 +15,9 @@ public sealed class OperationService : IOperationService
         _modules = modules;
     }
 
-    public async Task<IReadOnlyList<OperationDto>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<OperationDto>> GetByModuleIdAsync(Guid moduleId, CancellationToken cancellationToken = default)
     {
-        var ops = await _operations.GetAllAsync(cancellationToken);
+        var ops = await _operations.GetByModuleIdAsync(moduleId, cancellationToken);
         var modules = await _modules.GetAllAsync(cancellationToken);
         var map = modules.ToDictionary(m => m.Id, m => m.Name);
         return ops.Select(o => ToDto(o, map.GetValueOrDefault(o.ModuleId))).ToList();

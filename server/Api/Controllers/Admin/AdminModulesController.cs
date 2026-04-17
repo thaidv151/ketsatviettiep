@@ -34,14 +34,14 @@ public sealed class AdminModulesController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
-    [HttpPut("{id:guid}")]
+    [HttpPost("{id:guid}/update")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateModuleRequest request, CancellationToken cancellationToken)
     {
         var updated = await _service.UpdateAsync(id, request, cancellationToken);
         return updated is null ? NotFound() : Ok(updated);
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpPost("{id:guid}/delete")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
         await _service.DeleteAsync(id, deletedById: null, cancellationToken);

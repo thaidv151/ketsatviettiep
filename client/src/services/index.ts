@@ -6,6 +6,13 @@ export {
 } from './api'
 export type { AppConfig } from './api'
 export { rbacAdminApi } from './rbacAdminApi'
+export { appUserApi } from './appUserApi'
+export type {
+  AppUserDto,
+  AppUserDetailDto,
+  CreateAppUserRequest,
+  UpdateAppUserRequest,
+} from './appUserApi'
 export type {
   ModuleDto,
   OperationDto,
@@ -18,5 +25,5 @@ export {
   setAccessToken,
   clearAccessToken,
 } from './auth/tokenStorage'
-export { loginRequest, meRequest } from './auth/authApi'
-export type { LoginResponse, MeResponse } from './auth/authApi'
+export { loginRequest, registerRequest, meRequest } from './auth/authApi'
+export type { LoginResponse, RegisterResponse, MeResponse } from './auth/authApi'

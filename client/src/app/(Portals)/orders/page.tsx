@@ -59,7 +59,7 @@ const SAMPLE_ORDERS = [
 const getStatusColor = (status: string) => {
   switch (status) {
     case 'delivered':
-      return 'text-green-600 dark:text-green-400'
+      return 'text-blue-600 dark:text-blue-400'
     case 'shipped':
       return 'text-blue-600 dark:text-blue-400'
     case 'pending':
@@ -265,7 +265,7 @@ export default function OrdersPage() {
                         </div>
                         <div className="flex justify-between text-sm text-muted-foreground">
                           <span>Shipping</span>
-                          <span className="text-green-600 dark:text-green-400 font-semibold">
+                          <span className="text-blue-600 dark:text-blue-400 font-semibold">
                             Free
                           </span>
                         </div>

@@ -28,8 +28,14 @@ public sealed class AppDbContext : DbContext
         {
             entity.HasQueryFilter(e => !e.IsDeleted);
             entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.DisplayName).HasMaxLength(256);
+            entity.Property(e => e.Username).HasMaxLength(100);
+            entity.Property(e => e.FullName).HasMaxLength(256);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+            entity.Property(e => e.Avatar).HasMaxLength(500);
             entity.HasIndex(e => e.Email).IsUnique();
+            entity.HasIndex(e => e.Username)
+                .IsUnique()
+                .HasFilter("[Username] IS NOT NULL");
         });
 
         modelBuilder.Entity<Module>(entity =>

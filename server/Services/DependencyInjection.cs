@@ -11,6 +11,7 @@ using Repositories.RoleRepository;
 using Repositories.UserRoleRepository;
 using Services.AppInfo;
 using Services.AppUserModule;
+using Services.Mapping;
 using Services.Rbac;
 
 namespace Services;
@@ -25,6 +26,8 @@ public static class DependencyInjection
 
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(connectionString));
+
+        services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
         services.AddScoped<IAppUserRepository, AppUserRepository>();
         services.AddScoped<IAppInfoRepository, AppInfoRepository>();

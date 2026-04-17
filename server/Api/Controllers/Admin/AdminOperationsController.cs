@@ -17,8 +17,12 @@ public sealed class AdminOperationsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
-        => Ok(await _service.GetAllAsync(cancellationToken));
+    public async Task<IActionResult> GetByModuleId([FromQuery] Guid moduleId, CancellationToken cancellationToken)
+    {
+        if (moduleId == Guid.Empty)
+            return BadRequest("moduleId is required.");
+        return Ok(await _service.GetByModuleIdAsync(moduleId, cancellationToken));
+    }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
@@ -34,14 +38,14 @@ public sealed class AdminOperationsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
-    [HttpPut("{id:guid}")]
+    [HttpPost("{id:guid}/update")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateOperationRequest request, CancellationToken cancellationToken)
     {
         var updated = await _service.UpdateAsync(id, request, cancellationToken);
         return updated is null ? NotFound() : Ok(updated);
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpPost("{id:guid}/delete")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
         await _service.DeleteAsync(id, deletedById: null, cancellationToken);

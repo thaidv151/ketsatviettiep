@@ -2,7 +2,7 @@ namespace Services.Rbac;
 
 public interface IOperationService
 {
-    Task<IReadOnlyList<OperationDto>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<OperationDto>> GetByModuleIdAsync(Guid moduleId, CancellationToken cancellationToken = default);
 
     Task<OperationDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
