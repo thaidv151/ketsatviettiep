@@ -38,8 +38,10 @@ function getSnapshot(): UiState {
   return memoryState
 }
 
+const SERVER_SNAPSHOT: UiState = { isLoading: false }
+
 function getServerSnapshot(): UiState {
-  return { isLoading: false }
+  return SERVER_SNAPSHOT
 }
 
 /**

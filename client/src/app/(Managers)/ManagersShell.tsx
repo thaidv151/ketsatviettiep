@@ -36,24 +36,27 @@ export default function ManagersShell({
   return (
     <SidebarProvider defaultOpen>
       <Sidebar collapsible="icon" variant="sidebar">
-        <SidebarHeader className="border-sidebar-border gap-2 border-b px-3 py-4">
-          <div className="flex items-center gap-2 group-data-[collapsible=icon]:justify-center">
-            <span className="truncate font-semibold group-data-[collapsible=icon]:sr-only">
+        <SidebarHeader className="border-sidebar-border gap-0 border-b px-4 py-3">
+          <div className="flex items-center gap-2.5 group-data-[collapsible=icon]:justify-center">
+            <div className="bg-sidebar-primary flex size-7 shrink-0 items-center justify-center rounded-lg">
+              <span className="text-sidebar-primary-foreground text-xs font-bold">KV</span>
+            </div>
+            <span className="truncate text-sm font-semibold text-sidebar-foreground group-data-[collapsible=icon]:sr-only">
               {sidebarTitle}
             </span>
           </div>
         </SidebarHeader>
-        <SidebarContent>
+        <SidebarContent className="px-2 py-2">
           <VerticalMenuContent items={navItems} sectionLabel={sectionLabel} />
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <header className="bg-background flex h-14 shrink-0 items-center gap-2 border-b px-4">
+        <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b px-4 shadow-sm">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-6" />
-          <span className="text-muted-foreground text-sm">{sidebarTitle}</span>
+          <span className="text-muted-foreground text-sm font-medium">{sidebarTitle}</span>
         </header>
-        <div className="flex min-h-0 flex-1 flex-col overflow-auto p-4 md:p-6">
+        <div className="bg-muted/30 flex min-h-0 flex-1 flex-col overflow-auto p-4 md:p-6">
           {children}
         </div>
       </SidebarInset>

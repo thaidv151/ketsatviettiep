@@ -17,13 +17,27 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
             colorLink: '#1677ff',
             colorInfo: '#1677ff',
             colorSuccess: '#1677ff',
-            borderRadius: 6,
+            borderRadius: 8,
+            // Tăng kích thước mặc định cho toàn bộ component
+            controlHeight: 38,          // height của Button / Input / Select (default: 32)
+            controlHeightSM: 32,        // height khi size="small" (default: 24)
+            controlHeightLG: 44,        // height khi size="large" (default: 40)
+            fontSize: 14,               // font size base
+            fontSizeSM: 13,
+            fontSizeLG: 15,
+            paddingContentHorizontal: 12, // padding ngang bên trong input/select
           },
           components: {
             Button: {
               colorPrimary: '#1677ff',
               colorPrimaryHover: '#4096ff',
               colorPrimaryActive: '#0958d9',
+              paddingInline: 18,         // padding ngang của button
+              paddingInlineSM: 12,
+              paddingInlineLG: 22,
+              contentFontSize: 14,
+              contentFontSizeSM: 13,
+              contentFontSizeLG: 15,
             },
           },
         }}

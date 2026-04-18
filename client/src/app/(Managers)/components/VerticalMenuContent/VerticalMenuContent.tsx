@@ -53,7 +53,16 @@ function SubLeaves({ items, pathname }: { items: AdminNavItem[]; pathname: strin
         const subActive = pathIsUnder(pathname, child.href)
         return (
           <SidebarMenuSubItem key={child.id}>
-            <SidebarMenuSubButton asChild isActive={subActive}>
+            <SidebarMenuSubButton
+              asChild
+              isActive={subActive}
+              className={cn(
+                'rounded-lg text-sm transition-all duration-150',
+                subActive
+                  ? 'bg-sidebar-primary text-sidebar-primary-foreground font-medium shadow-sm'
+                  : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+              )}
+            >
               <Link href={child.href}>
                 <VerticalMenuIcon name={child.icon} />
                 <span>{child.name}</span>
@@ -83,19 +92,27 @@ function NavItems({ items, pathname }: { items: AdminNavItem[]; pathname: string
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={item.name}>
+                  <SidebarMenuButton
+                    tooltip={item.name}
+                    className={cn(
+                      'rounded-lg font-medium transition-all duration-150',
+                      open
+                        ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-sm hover:bg-sidebar-primary/90 hover:text-sidebar-primary-foreground'
+                        : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                    )}
+                  >
                     <VerticalMenuIcon name={item.icon} />
                     <span>{item.name}</span>
                     <ChevronRight
                       className={cn(
-                        'ml-auto size-4 shrink-0 transition-transform',
+                        'ml-auto size-4 shrink-0 transition-transform duration-200',
                         'group-data-[state=open]/collapsible:rotate-90',
                       )}
                     />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
-                  <SidebarMenuSub>
+                  <SidebarMenuSub className="border-sidebar-accent/30 ml-3 border-l pl-3">
                     <SubLeaves items={item.children!} pathname={pathname} />
                   </SidebarMenuSub>
                 </CollapsibleContent>
@@ -108,7 +125,17 @@ function NavItems({ items, pathname }: { items: AdminNavItem[]; pathname: string
           const active = pathIsUnder(pathname, item.href)
           return (
             <SidebarMenuItem key={item.id}>
-              <SidebarMenuButton asChild isActive={active} tooltip={item.name}>
+              <SidebarMenuButton
+                asChild
+                isActive={active}
+                tooltip={item.name}
+                className={cn(
+                  'rounded-lg font-medium transition-all duration-150',
+                  active
+                    ? 'bg-sidebar-primary text-sidebar-primary-foreground shadow-sm hover:bg-sidebar-primary/90 hover:text-sidebar-primary-foreground'
+                    : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                )}
+              >
                 <Link href={item.href}>
                   <VerticalMenuIcon name={item.icon} />
                   <span>{item.name}</span>
@@ -120,7 +147,7 @@ function NavItems({ items, pathname }: { items: AdminNavItem[]; pathname: string
 
         return (
           <SidebarMenuItem key={item.id}>
-            <span className="text-muted-foreground pointer-events-none px-2 py-1.5 text-xs font-semibold tracking-wide uppercase">
+            <span className="text-sidebar-foreground/40 pointer-events-none px-2 py-1.5 text-[10px] font-bold tracking-widest uppercase">
               {item.name}
             </span>
           </SidebarMenuItem>
