@@ -8,8 +8,8 @@ import {
 } from '@ant-design/icons'
 import CouponSearch, { type CouponSearchState } from './search'
 import CouponCreateOrUpdate from './createOrUpdate'
-import type { CouponDto } from '@/services/couponApi'
-import { couponApi } from '@/services/couponApi'
+import type { CouponDto } from '@/services/coupon.service'
+import { couponApi } from '@/services/coupon.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 

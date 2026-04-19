@@ -21,7 +21,7 @@ public sealed class Cart : EntityBase
     public DateTimeOffset? ExpiredAt { get; set; }
 
     // Navigation
-    public ICollection<CartItem> Items { get; set; } = new List<CartItem>();
+
 }
 
 /// <summary>

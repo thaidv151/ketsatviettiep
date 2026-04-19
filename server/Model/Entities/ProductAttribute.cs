@@ -23,5 +23,5 @@ public sealed class ProductAttribute : EntityBase
     public int SortOrder { get; set; }
 
     // Navigation
-    public ICollection<ProductAttributeValue> Values { get; set; } = new List<ProductAttributeValue>();
+
 }

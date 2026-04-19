@@ -1,7 +1,7 @@
 'use client'
 import { Drawer, Descriptions, Tag, Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
-import type { CategoryDto } from '@/services/categoryApi'
+import type { CategoryDto } from '@/services/category.service'
 
 type Props = {
   open: boolean

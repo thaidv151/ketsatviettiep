@@ -22,10 +22,10 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/products" className="text-foreground hover:text-accent transition">
+            <Link href="/san-pham" className="text-foreground hover:text-accent transition">
               Products
             </Link>
-            <Link href="/products" className="text-foreground hover:text-accent transition">
+            <Link href="/san-pham" className="text-foreground hover:text-accent transition">
               Categories
             </Link>
             <Link href="/" className="text-foreground hover:text-accent transition">
@@ -41,11 +41,11 @@ export default function Header() {
             <button className="p-2 hover:bg-muted rounded-md transition">
               <Search className="w-5 h-5 text-foreground" />
             </button>
-            <Link href="/wishlist" className="p-2 hover:bg-muted rounded-md transition relative">
+            <Link href="/san-pham-yeu-thich" className="p-2 hover:bg-muted rounded-md transition relative">
               <Heart className="w-5 h-5 text-foreground" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full"></span>
             </Link>
-            <Link href="/cart" className="p-2 hover:bg-muted rounded-md transition relative">
+            <Link href="/gio-hang" className="p-2 hover:bg-muted rounded-md transition relative">
               <ShoppingCart className="w-5 h-5 text-foreground" />
               <span className="absolute top-1 right-1 bg-accent text-accent-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
             </Link>
@@ -67,10 +67,10 @@ export default function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border pt-4 space-y-3">
-            <Link href="/products" className="block text-foreground hover:text-accent transition py-2">
+            <Link href="/san-pham" className="block text-foreground hover:text-accent transition py-2">
               Products
             </Link>
-            <Link href="/products" className="block text-foreground hover:text-accent transition py-2">
+            <Link href="/san-pham" className="block text-foreground hover:text-accent transition py-2">
               Categories
             </Link>
             <Link href="/" className="block text-foreground hover:text-accent transition py-2">

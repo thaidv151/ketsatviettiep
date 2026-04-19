@@ -5,50 +5,43 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Heart, ShoppingCart, Trash2 } from 'lucide-react'
+import { ShoppingCartOutlined, DeleteOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 
-const SAMPLE_WISHLIST_ITEMS = [
-  {
-    id: 1,
-    name: 'Executive Safe Pro',
-    price: 2499,
-    originalPrice: 2999,
-    rating: 4.9,
-    reviews: 248,
-    image: '🔒',
-    category: 'Office',
-  },
-  {
-    id: 3,
-    name: 'Fireproof Elite',
-    price: 3499,
-    originalPrice: 3999,
-    rating: 4.9,
-    reviews: 156,
-    image: '🔥',
-    category: 'Fireproof',
-  },
-  {
-    id: 8,
-    name: 'Smart Vault Pro',
-    price: 2799,
-    originalPrice: 3199,
-    rating: 4.9,
-    reviews: 201,
-    image: '📱',
-    category: 'Digital',
-  },
-]
+type WishlistItem = {
+  id: string
+  name: string
+  price: number
+  originalPrice: number | null
+  image: string | null
+  category: string | null
+}
 
 export default function WishlistPage() {
-  const [wishlistItems, setWishlistItems] = useState(SAMPLE_WISHLIST_ITEMS)
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([])
+  const [mounted, setMounted] = useState(false)
 
-  const removeFromWishlist = (id: number) => {
-    setWishlistItems(wishlistItems.filter(item => item.id !== id))
+  import('react').then(React => {
+    React.useEffect(() => {
+      setMounted(true)
+      const saved = localStorage.getItem('ketsat_wishlist')
+      if (saved) {
+        try {
+          setWishlistItems(JSON.parse(saved))
+        } catch (e) {
+          console.error('Invalid wishlist JSON in localStorage')
+        }
+      }
+    }, [])
+  })
+
+  const removeFromWishlist = (id: string) => {
+    const updated = wishlistItems.filter(item => item.id !== id)
+    setWishlistItems(updated)
+    localStorage.setItem('ketsat_wishlist', JSON.stringify(updated))
   }
 
-  const addToCart = (id: number) => {
+  const addToCart = (id: string) => {
     // In a real app, this would add to cart
     console.log(`Added item ${id} to cart`)
   }
@@ -59,20 +52,22 @@ export default function WishlistPage() {
 
       <div className="bg-muted border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-4xl font-bold text-foreground">My Wishlist</h1>
-          <p className="text-muted-foreground mt-2">{wishlistItems.length} items saved</p>
+          <h1 className="text-4xl font-bold text-foreground">Sản Phẩm Yêu Thích</h1>
+          <p className="text-muted-foreground mt-2">Đã lưu {wishlistItems.length} sản phẩm</p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {wishlistItems.length === 0 ? (
+        {!mounted ? (
+          <div className="text-center py-20 text-muted-foreground">Đang tải...</div>
+        ) : wishlistItems.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-6xl mb-6">❤️</div>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Your wishlist is empty</h2>
-            <p className="text-muted-foreground mb-8">Start adding your favorite safes to save them for later.</p>
-            <Link href="/products">
+            <h2 className="text-2xl font-bold text-foreground mb-4">Danh sách yêu thích trống</h2>
+            <p className="text-muted-foreground mb-8">Hãy thêm các két sắt bạn yêu thích để lưu lại cho lần sau.</p>
+            <Link href="/san-pham">
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg h-auto rounded-lg">
-                Browse Products
+                Xem Sản Phẩm
               </Button>
             </Link>
           </div>
@@ -86,8 +81,12 @@ export default function WishlistPage() {
               >
                 <div className="p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
                   {/* Product Image */}
-                  <div className="h-32 w-32 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <div className="text-6xl">{item.image}</div>
+                  <div className="h-32 w-32 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-2">
+                    {item.image ? (
+                      <img src={item.image} alt={item.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <div className="text-6xl">🔒</div>
+                    )}
                   </div>
 
                   {/* Product Details */}
@@ -99,24 +98,23 @@ export default function WishlistPage() {
                       </h3>
                     </Link>
 
-                    {/* Rating */}
+                    {/* Rating placeholder */}
                     <div className="flex items-center gap-2">
-                      <div className="flex gap-0.5">
-                        {[...Array(5)].map((_, i) => (
-                          <span key={i} className="text-accent">★</span>
-                        ))}
+                      <div className="flex gap-0.5 text-accent">
+                        ★★★★★
                       </div>
-                      <span className="text-sm text-muted-foreground">({item.reviews})</span>
                     </div>
 
                     {/* Price */}
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-bold text-foreground">
-                        ${item.price.toLocaleString()}
+                        {item.price.toLocaleString('vi-VN')}đ
                       </span>
-                      <span className="text-sm text-muted-foreground line-through">
-                        ${item.originalPrice.toLocaleString()}
-                      </span>
+                      {item.originalPrice && (
+                        <span className="text-sm text-muted-foreground line-through">
+                          {item.originalPrice.toLocaleString('vi-VN')}đ
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -126,15 +124,15 @@ export default function WishlistPage() {
                       onClick={() => addToCart(item.id)}
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2"
                     >
-                      <ShoppingCart className="w-4 h-4" />
-                      Add to Cart
+                      <ShoppingCartOutlined className="text-base" />
+                      Thêm vào giỏ
                     </button>
                     <button
                       onClick={() => removeFromWishlist(item.id)}
                       className="w-full bg-background border border-border hover:border-destructive hover:text-destructive text-foreground font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2"
                     >
-                      <Trash2 className="w-4 h-4" />
-                      Remove
+                      <DeleteOutlined className="text-base" />
+                      Xóa
                     </button>
                   </div>
                 </div>
@@ -145,17 +143,17 @@ export default function WishlistPage() {
             <div className="mt-12 border-t border-border pt-8">
               <div className="max-w-sm">
                 <h3 className="text-lg font-semibold text-foreground mb-4">
-                  Total Wishlist Value
+                  Tổng giá trị yêu thích
                 </h3>
                 <div className="bg-muted rounded-lg p-4 mb-4">
-                  <p className="text-sm text-muted-foreground mb-1">If all items purchased:</p>
+                  <p className="text-sm text-muted-foreground mb-1">Nếu mua tất cả sản phẩm:</p>
                   <p className="text-3xl font-bold text-foreground">
-                    ${wishlistItems.reduce((sum, item) => sum + item.price, 0).toLocaleString()}
+                    {wishlistItems.reduce((sum, item) => sum + item.price, 0).toLocaleString('vi-VN')}đ
                   </p>
                 </div>
-                <Link href="/products">
+                <Link href="/san-pham">
                   <Button variant="outline" className="border-border hover:bg-muted w-full">
-                    Continue Shopping
+                    Tiếp tục mua sắm
                   </Button>
                 </Link>
               </div>

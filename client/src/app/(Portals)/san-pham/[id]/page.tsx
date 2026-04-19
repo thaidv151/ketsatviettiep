@@ -48,7 +48,7 @@ export default function ProductDetail() {
             <div className="text-center">
               <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
               <p className="text-muted-foreground mb-8">The product you&apos;re looking for doesn&apos;t exist.</p>
-              <Link href="/products">
+              <Link href="/san-pham">
                 <Button>Back to Products</Button>
               </Link>
             </div>
@@ -68,7 +68,7 @@ export default function ProductDetail() {
           <div className="flex items-center gap-2 mb-8 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground transition">Home</Link>
             <span>/</span>
-            <Link href="/products" className="hover:text-foreground transition">Products</Link>
+            <Link href="/san-pham" className="hover:text-foreground transition">Products</Link>
             <span>/</span>
             <span className="text-foreground">{product.name}</span>
           </div>
@@ -111,10 +111,10 @@ export default function ProductDetail() {
               {/* Price */}
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-3xl font-bold text-primary">${product.price.toLocaleString()}</span>
-                  <span className="text-lg text-muted-foreground line-through">${product.originalPrice.toLocaleString()}</span>
+                  <span className="text-3xl font-bold text-primary">${product.price.toLocaleString('vi-VN')}</span>
+                  <span className="text-lg text-muted-foreground line-through">${product.originalPrice.toLocaleString('vi-VN')}</span>
                   <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                    Save ${(product.originalPrice - product.price).toLocaleString()}
+                    Save ${(product.originalPrice - product.price).toLocaleString('vi-VN')}
                   </span>
                 </div>
               </div>

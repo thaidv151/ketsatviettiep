@@ -23,7 +23,7 @@ public sealed class ProductService : IProductService
             p.Id, p.Name, p.Slug,
             p.Category?.Name, p.Brand?.Name, p.ThumbnailUrl,
             p.BasePrice, p.SalePrice,
-            p.Variants.Sum(v => v.StockQuantity),
+            0,
             (int)p.Status, StatusLabel(p.Status),
             p.IsFeatured, p.CreatedAt)).ToList();
     }
@@ -66,20 +66,18 @@ public sealed class ProductService : IProductService
                 Id = Guid.NewGuid(), CreatedAt = DateTimeOffset.UtcNow,
                 ProductId = product.Id,
                 Name = a.Name, IsVariantOption = a.IsVariantOption, SortOrder = a.SortOrder,
-                Values = a.Values.Select(v => new ProductAttributeValue
-                {
-                    Id = Guid.NewGuid(), CreatedAt = DateTimeOffset.UtcNow,
-                    Value = v.Value, ColorHex = v.ColorHex, SortOrder = v.SortOrder,
-                }).ToList()
             };
+            var vals = a.Values.Select(v => new ProductAttributeValue
+            {
+                Id = Guid.NewGuid(), CreatedAt = DateTimeOffset.UtcNow,
+                Value = v.Value, ColorHex = v.ColorHex, SortOrder = v.SortOrder,
+                AttributeId = attr.Id
+            }).ToList();
+            _db.ProductAttributeValues.AddRange(vals);
             return attr;
         }).ToList();
 
-        // Build lookup: temp-index → actual AttributeValue GUID
-        var attrValueMap = new Dictionary<Guid, Guid>();
-        foreach (var attr in attrEntities)
-            foreach (var val in attr.Values)
-                attrValueMap[val.Id] = val.Id;
+        // Attributes + Values lookup removed
 
         // Variants
         var variantEntities = req.Variants.Select(v =>
@@ -170,17 +168,8 @@ public sealed class ProductService : IProductService
         p.MetaTitle, p.MetaDescription, p.MetaKeywords,
         p.Specifications,
         p.CreatedAt,
-        p.Images.Select(i => new ProductImageDto(i.Id, i.ImageUrl, i.AltText, i.IsPrimary, i.SortOrder)).ToList(),
-        p.Attributes.Select(a => new ProductAttributeDto(
-            a.Id, a.Name, a.IsVariantOption, a.SortOrder,
-            a.Values.Select(v => new ProductAttributeValueDto(v.Id, v.Value, v.ColorHex, v.SortOrder)).ToList()
-        )).ToList(),
-        p.Variants.Select(v => new ProductVariantDto(
-            v.Id, v.Sku, v.Name,
-            v.Price, v.OriginalPrice,
-            v.StockQuantity, v.LowStockThreshold, v.WeightGram,
-            v.ImageUrl, v.IsActive,
-            v.VariantAttributeValues.Select(vav => vav.AttributeValueId).ToList()
-        )).ToList()
+        new List<ProductImageDto>(),
+        new List<ProductAttributeDto>(),
+        new List<ProductVariantDto>()
     );
 }

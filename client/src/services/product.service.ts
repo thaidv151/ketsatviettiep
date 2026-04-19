@@ -1,4 +1,4 @@
-import { http } from './http'
+import axiosBase from './axios/AxiosBase'
 
 // ── DTOs ──────────────────────────────────────────────────────────────────────
 
@@ -138,10 +138,24 @@ export type UpdateProductRequest = Omit<CreateProductRequest, 'attributes' | 'va
 // ── API ───────────────────────────────────────────────────────────────────────
 
 export const productApi = {
-  list: () => http.get<ProductListDto[]>('/api/admin/products'),
-  getDetail: (id: string) => http.get<ProductDetailDto>(`/api/admin/products/${id}`),
-  create: (body: CreateProductRequest) => http.post<ProductDetailDto>('/api/admin/products', body),
-  update: (id: string, body: UpdateProductRequest) =>
-    http.post<ProductDetailDto>(`/api/admin/products/${id}/update`, body),
-  remove: (id: string) => http.post<void>(`/api/admin/products/${id}/delete`),
+  async list(): Promise<ProductListDto[]> {
+    const response = await axiosBase.get<ProductListDto[]>('/api/admin/products')
+    return response.data
+  },
+  async getDetail(id: string): Promise<ProductDetailDto> {
+    const response = await axiosBase.get<ProductDetailDto>(`/api/admin/products/${id}`)
+    return response.data
+  },
+  async create(body: CreateProductRequest): Promise<ProductDetailDto> {
+    const response = await axiosBase.post<ProductDetailDto>('/api/admin/products', body)
+    return response.data
+  },
+  async update(id: string, body: UpdateProductRequest): Promise<ProductDetailDto> {
+    const response = await axiosBase.post<ProductDetailDto>(`/api/admin/products/${id}/update`, body)
+    return response.data
+  },
+  async remove(id: string): Promise<void> {
+    const response = await axiosBase.post<void>(`/api/admin/products/${id}/delete`)
+    return response.data
+  },
 }

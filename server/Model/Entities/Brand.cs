@@ -27,5 +27,5 @@ public sealed class Brand : EntityBase
     public bool IsActive { get; set; } = true;
 
     // Navigation
-    public ICollection<Product> Products { get; set; } = new List<Product>();
+
 }

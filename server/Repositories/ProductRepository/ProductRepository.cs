@@ -13,7 +13,6 @@ public sealed class ProductRepository : RepositoryBase<Product>, IProductReposit
         => await Db.Products.AsNoTracking()
             .Include(p => p.Category)
             .Include(p => p.Brand)
-            .Include(p => p.Variants)
             .OrderByDescending(p => p.CreatedAt)
             .ToListAsync(ct);
 
@@ -21,11 +20,5 @@ public sealed class ProductRepository : RepositoryBase<Product>, IProductReposit
         => await Db.Products.AsNoTracking()
             .Include(p => p.Category)
             .Include(p => p.Brand)
-            .Include(p => p.Images)
-            .Include(p => p.Attributes)
-                .ThenInclude(a => a.Values)
-            .Include(p => p.Variants)
-                .ThenInclude(v => v.VariantAttributeValues)
-                    .ThenInclude(vav => vav.AttributeValue)
             .FirstOrDefaultAsync(p => p.Id == id, ct);
 }

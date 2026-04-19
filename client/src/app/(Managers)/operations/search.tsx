@@ -2,7 +2,7 @@
 
 import { Search, ChevronDown, FileText, Tag, Layers, RefreshCcwIcon, SearchIcon } from 'lucide-react'
 import { Input, Select, Button } from 'antd'
-import type { ModuleDto } from '@/services/rbacAdminApi'
+import type { ModuleDto } from '@/services/rbacAdmin.service'
 
 export type OperationSearchState = {
   keyword: string

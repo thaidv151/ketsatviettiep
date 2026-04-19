@@ -51,5 +51,5 @@ public sealed class Coupon : EntityBase
     public bool IsActive { get; set; } = true;
 
     // Navigation
-    public ICollection<Order> Orders { get; set; } = new List<Order>();
+
 }

@@ -16,7 +16,7 @@ public sealed class Tag : EntityBase
     public string Slug { get; set; } = string.Empty;
 
     // Navigation
-    public ICollection<ProductTag> ProductTags { get; set; } = new List<ProductTag>();
+
 }
 
 /// <summary>

@@ -6,124 +6,46 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Model.Migrations
 {
     /// <inheritdoc />
-    public partial class Intit : Migration
+    public partial class INIT : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "DisplayName",
-                table: "AppUsers");
-
-            migrationBuilder.AddColumn<int>(
-                name: "AccessFailedCount",
-                table: "AppUsers",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<string>(
-                name: "AddressDetail",
-                table: "AppUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Avatar",
-                table: "AppUsers",
-                type: "nvarchar(500)",
-                maxLength: 500,
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "District",
-                table: "AppUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "EmailConfirmed",
-                table: "AppUsers",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<string>(
-                name: "FullName",
-                table: "AppUsers",
-                type: "nvarchar(256)",
-                maxLength: 256,
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "Gender",
-                table: "AppUsers",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "IsFirstLogin",
-                table: "AppUsers",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "IsLocked",
-                table: "AppUsers",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "LastLogin",
-                table: "AppUsers",
-                type: "datetime2",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "LockoutEnd",
-                table: "AppUsers",
-                type: "datetime2",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "NgaySinh",
-                table: "AppUsers",
-                type: "datetime2",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "PasswordHash",
-                table: "AppUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "PhoneNumber",
-                table: "AppUsers",
-                type: "nvarchar(20)",
-                maxLength: 20,
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Province",
-                table: "AppUsers",
-                type: "nvarchar(max)",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Username",
-                table: "AppUsers",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Ward",
-                table: "AppUsers",
-                type: "nvarchar(max)",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "AppUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Province = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    District = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ward = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddressDetail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
+                    LockoutEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsLocked = table.Column<bool>(type: "bit", nullable: false),
+                    IsFirstLogin = table.Column<bool>(type: "bit", nullable: false),
+                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUsers", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Brands",
@@ -147,32 +69,6 @@ namespace Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Brands", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Carts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    SessionId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ExpiredAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Carts_AppUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -233,37 +129,6 @@ namespace Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Coupons", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerAddresses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecipientName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Province = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    District = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Ward = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    AddressDetail = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UpdatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerAddresses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerAddresses_AppUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -401,6 +266,63 @@ namespace Model.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SessionId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ExpiredAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerAddresses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecipientName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Province = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    District = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Ward = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    AddressDetail = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerAddresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerAddresses_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -880,6 +802,12 @@ namespace Model.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppUsers_Email",
+                table: "AppUsers",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_Username",
                 table: "AppUsers",
                 column: "Username",
@@ -1193,6 +1121,9 @@ namespace Model.Migrations
                 name: "ProductAttributes");
 
             migrationBuilder.DropTable(
+                name: "AppUsers");
+
+            migrationBuilder.DropTable(
                 name: "Coupons");
 
             migrationBuilder.DropTable(
@@ -1203,86 +1134,6 @@ namespace Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropIndex(
-                name: "IX_AppUsers_Username",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "AccessFailedCount",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "AddressDetail",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Avatar",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "District",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "EmailConfirmed",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "FullName",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Gender",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "IsFirstLogin",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "IsLocked",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "LastLogin",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "LockoutEnd",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "NgaySinh",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "PasswordHash",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "PhoneNumber",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Province",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Username",
-                table: "AppUsers");
-
-            migrationBuilder.DropColumn(
-                name: "Ward",
-                table: "AppUsers");
-
-            migrationBuilder.AddColumn<string>(
-                name: "DisplayName",
-                table: "AppUsers",
-                type: "nvarchar(256)",
-                maxLength: 256,
-                nullable: false,
-                defaultValue: "");
         }
     }
 }

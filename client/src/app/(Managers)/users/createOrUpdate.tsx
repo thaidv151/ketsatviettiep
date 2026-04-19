@@ -18,8 +18,8 @@ import type {
   AppUserDetailDto,
   CreateAppUserRequest,
   UpdateAppUserRequest,
-} from '@/services/appUserApi'
-import { appUserApi } from '@/services/appUserApi'
+} from '@/services/appUser.service'
+import { appUserApi } from '@/services/appUser.service'
 
 const primaryBtn =
   'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff]'

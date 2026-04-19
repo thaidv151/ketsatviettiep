@@ -9,8 +9,8 @@ import {
 import ProductSearch, { type ProductSearchState } from './search'
 import ProductCreateOrUpdate from './createOrUpdate'
 import ProductDetailDrawer from './detail'
-import type { ProductListDto } from '@/services/productApi'
-import { productApi } from '@/services/productApi'
+import type { ProductListDto } from '@/services/product.service'
+import { productApi } from '@/services/product.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 

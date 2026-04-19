@@ -65,6 +65,6 @@ public sealed class CategoryService : ICategoryService
         c.ImageUrl,
         c.SortOrder,
         c.IsActive,
-        c.Children?.Count ?? 0,
+        0,
         c.CreatedAt);
 }

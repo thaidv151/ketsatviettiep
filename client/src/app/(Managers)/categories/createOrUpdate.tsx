@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Modal, Form, Input, Select, Switch, Row, Col, Spin } from 'antd'
-import type { CategoryDto, CreateCategoryRequest, UpdateCategoryRequest } from '@/services/categoryApi'
-import { categoryApi } from '@/services/categoryApi'
+import type { CategoryDto, CreateCategoryRequest, UpdateCategoryRequest } from '@/services/category.service'
+import { categoryApi } from '@/services/category.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff]'
 

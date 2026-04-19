@@ -125,7 +125,5 @@ public sealed class Order : EntityBase
     public DateTimeOffset? CancelledAt { get; set; }
 
     // Navigation
-    public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
-    public ICollection<OrderStatusHistory> StatusHistories { get; set; } = new List<OrderStatusHistory>();
-    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
 }

@@ -24,7 +24,7 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/products">
+              <Link href="/san-pham">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg h-auto rounded-lg">
                   Shop Now
                 </Button>

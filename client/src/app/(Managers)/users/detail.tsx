@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { Drawer, Descriptions, Spin, Button, Tag, Space } from 'antd'
-import type { AppUserDetailDto } from '@/services/appUserApi'
-import { appUserApi } from '@/services/appUserApi'
+import type { AppUserDetailDto } from '@/services/appUser.service'
+import { appUserApi } from '@/services/appUser.service'
 
 const primaryOutline =
   'border-[#1677ff] text-[#1677ff] hover:text-[#0958d9] hover:border-[#0958d9]'

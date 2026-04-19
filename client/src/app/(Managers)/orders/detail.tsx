@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { Drawer, Descriptions, Tag, Button, Table, Spin, Select, Input, Divider, Timeline, message } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { EditOutlined, InboxOutlined, ClockCircleOutlined } from '@ant-design/icons'
-import type { OrderDetailDto, OrderItemDto, UpdateOrderStatusRequest } from '@/services/orderApi'
-import { orderApi } from '@/services/orderApi'
+import type { OrderDetailDto, OrderItemDto, UpdateOrderStatusRequest } from '@/services/order.service'
+import { orderApi } from '@/services/order.service'
 
 const STATUS_COLORS: Record<number, string> = {
   0: 'gold', 1: 'blue', 2: 'cyan', 3: 'geekblue', 4: 'green', 5: 'red', 6: 'orange', 7: 'purple', 8: 'default',

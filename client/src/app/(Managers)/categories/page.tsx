@@ -8,8 +8,8 @@ import {
 } from '@ant-design/icons'
 import CategorySearch, { type CategorySearchState } from './search'
 import CategoryCreateOrUpdate from './createOrUpdate'
-import type { CategoryDto } from '@/services/categoryApi'
-import { categoryApi } from '@/services/categoryApi'
+import type { CategoryDto } from '@/services/category.service'
+import { categoryApi } from '@/services/category.service'
 
 const primaryBtn =
   'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'

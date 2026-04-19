@@ -26,7 +26,7 @@ public sealed class OrderService : IOrderService
             (int)o.Status, OrderStatusLabel(o.Status),
             (int)o.PaymentStatus, PaymentStatusLabel(o.PaymentStatus),
             (int)o.PaymentMethod, PaymentMethodLabel(o.PaymentMethod),
-            o.Items.Count,
+            0,
             o.CreatedAt)).ToList();
     }
 
@@ -132,17 +132,8 @@ public sealed class OrderService : IOrderService
         o.ShippedAt, o.DeliveredAt,
         o.CustomerNote, o.InternalNote, o.CancelReason,
         o.CreatedAt,
-        o.Items.Select(i => new OrderItemDto(
-            i.Id, i.ProductId, i.VariantId,
-            i.ProductName, i.VariantName, i.Sku, i.ThumbnailUrl,
-            i.UnitPrice, i.DiscountAmount, i.Quantity, i.SubTotal)).ToList(),
-        o.Payments.Select(p => new PaymentDto(
-            p.Id, (int)p.Method, PaymentMethodLabel(p.Method),
-            p.Amount, (int)p.Status, p.Status.ToString(),
-            p.TransactionId, p.PaidAt)).ToList(),
-        o.StatusHistories.Select(h => new OrderStatusHistoryDto(
-            h.Id, (int)h.FromStatus, (int)h.ToStatus,
-            OrderStatusLabel(h.ToStatus),
-            h.Note, h.ChangedById, h.CreatedAt)).ToList()
+        new List<OrderItemDto>(),
+        new List<PaymentDto>(),
+        new List<OrderStatusHistoryDto>()
     );
 }

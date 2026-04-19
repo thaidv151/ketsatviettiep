@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react'
 import { Modal, Form, Input, Select, Switch, InputNumber, DatePicker, Row, Col, Spin } from 'antd'
 import dayjs from 'dayjs'
-import type { CouponDto, CreateCouponRequest } from '@/services/couponApi'
-import { couponApi } from '@/services/couponApi'
+import type { CouponDto, CreateCouponRequest } from '@/services/coupon.service'
+import { couponApi } from '@/services/coupon.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff]'
 

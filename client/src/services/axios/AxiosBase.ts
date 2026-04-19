@@ -7,7 +7,6 @@ import AxiosResponseIntrceptorErrorCallback from './AxiosResponseIntrceptorError
 const AxiosBase = axios.create({
   timeout: 30_000,
   baseURL: appConfig.apiPrefix,
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -15,15 +14,6 @@ const AxiosBase = axios.create({
 
 AxiosBase.interceptors.request.use(
   async (config) => {
-    if (typeof document !== 'undefined') {
-      const getCookie = (name: string) => {
-        const value = `; ${document.cookie}`
-        const parts = value.split(`; ${name}=`)
-        if (parts.length === 2) return parts.pop()?.split(';').shift()
-      }
-      const locale = getCookie('locale') ?? appConfig.locale
-      config.headers.set('Language', locale)
-    }
     return AxiosRequestIntrceptorConfigCallback(config)
   },
   (error) => Promise.reject(error),

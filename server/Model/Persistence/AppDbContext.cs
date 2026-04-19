@@ -110,7 +110,7 @@ public sealed class AppDbContext : DbContext
         {
             e.HasQueryFilter(x => !x.IsDeleted);
             e.HasIndex(x => x.Slug).IsUnique().HasFilter("[IsDeleted] = 0");
-            e.HasOne(x => x.Parent).WithMany(x => x.Children)
+            e.HasOne(x => x.Parent).WithMany()
                 .HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.Restrict);
         });
 

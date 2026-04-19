@@ -6,7 +6,7 @@ import {
   rbacAdminApi,
   type ModuleDto,
   type OperationDto,
-} from '@/services/rbacAdminApi'
+} from '@/services/rbacAdmin.service'
 
 export type OperationModalMode = 'create' | 'edit'
 

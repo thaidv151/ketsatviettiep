@@ -23,22 +23,22 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Products</h3>
             <ul className="space-y-2 text-sm opacity-80">
               <li>
-                <Link href="/products" className="hover:opacity-100 transition">
+                <Link href="/san-pham" className="hover:opacity-100 transition">
                   Home Safes
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:opacity-100 transition">
+                <Link href="/san-pham" className="hover:opacity-100 transition">
                   Office Safes
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:opacity-100 transition">
+                <Link href="/san-pham" className="hover:opacity-100 transition">
                   Fireproof Safes
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="hover:opacity-100 transition">
+                <Link href="/san-pham" className="hover:opacity-100 transition">
                   Digital Safes
                 </Link>
               </li>

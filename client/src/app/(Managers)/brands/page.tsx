@@ -8,8 +8,8 @@ import {
 } from '@ant-design/icons'
 import BrandSearch, { type BrandSearchState } from './search'
 import BrandCreateOrUpdate from './createOrUpdate'
-import type { BrandDto } from '@/services/brandApi'
-import { brandApi } from '@/services/brandApi'
+import type { BrandDto } from '@/services/brand.service'
+import { brandApi } from '@/services/brand.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 

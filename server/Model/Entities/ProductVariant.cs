@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities;
@@ -44,9 +44,7 @@ public sealed class ProductVariant : EntityBase
     public bool IsActive { get; set; } = true;
 
     // Navigation — các thuộc tính tạo nên biến thể này
-    public ICollection<ProductVariantAttributeValue> VariantAttributeValues { get; set; }
-        = new List<ProductVariantAttributeValue>();
 
-    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-    public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+
 }

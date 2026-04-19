@@ -8,8 +8,8 @@ import {
 } from '@ant-design/icons'
 import OrderSearch, { type OrderSearchState } from './search'
 import OrderDetail from './detail'
-import type { OrderListDto } from '@/services/orderApi'
-import { orderApi } from '@/services/orderApi'
+import type { OrderListDto } from '@/services/order.service'
+import { orderApi } from '@/services/order.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 

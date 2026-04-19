@@ -12,8 +12,8 @@ using Model.Persistence;
 namespace Model.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260419083047_Intit")]
-    partial class Intit
+    [Migration("20260419100220_INIT")]
+    partial class INIT
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1619,7 +1619,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.CartItem", b =>
                 {
                     b.HasOne("Model.Entities.Cart", "Cart")
-                        .WithMany("Items")
+                        .WithMany()
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1631,7 +1631,7 @@ namespace Model.Migrations
                         .IsRequired();
 
                     b.HasOne("Model.Entities.ProductVariant", "Variant")
-                        .WithMany("CartItems")
+                        .WithMany()
                         .HasForeignKey("VariantId")
                         .OnDelete(DeleteBehavior.NoAction);
 
@@ -1645,7 +1645,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.Category", b =>
                 {
                     b.HasOne("Model.Entities.Category", "Parent")
-                        .WithMany("Children")
+                        .WithMany()
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
 
@@ -1666,7 +1666,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.Order", b =>
                 {
                     b.HasOne("Model.Entities.Coupon", "Coupon")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("CouponId")
                         .OnDelete(DeleteBehavior.NoAction);
 
@@ -1683,7 +1683,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.OrderItem", b =>
                 {
                     b.HasOne("Model.Entities.Order", "Order")
-                        .WithMany("Items")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1695,7 +1695,7 @@ namespace Model.Migrations
                         .IsRequired();
 
                     b.HasOne("Model.Entities.ProductVariant", "Variant")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("VariantId")
                         .OnDelete(DeleteBehavior.NoAction);
 
@@ -1709,7 +1709,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.OrderStatusHistory", b =>
                 {
                     b.HasOne("Model.Entities.Order", "Order")
-                        .WithMany("StatusHistories")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1720,7 +1720,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.Payment", b =>
                 {
                     b.HasOne("Model.Entities.Order", "Order")
-                        .WithMany("Payments")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1731,12 +1731,12 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.Product", b =>
                 {
                     b.HasOne("Model.Entities.Brand", "Brand")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Model.Entities.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1749,7 +1749,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.ProductAttribute", b =>
                 {
                     b.HasOne("Model.Entities.Product", "Product")
-                        .WithMany("Attributes")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1760,7 +1760,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.ProductAttributeValue", b =>
                 {
                     b.HasOne("Model.Entities.ProductAttribute", "Attribute")
-                        .WithMany("Values")
+                        .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1771,7 +1771,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.ProductImage", b =>
                 {
                     b.HasOne("Model.Entities.Product", "Product")
-                        .WithMany("Images")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1789,13 +1789,13 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.ProductTag", b =>
                 {
                     b.HasOne("Model.Entities.Product", "Product")
-                        .WithMany("ProductTags")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Model.Entities.Tag", "Tag")
-                        .WithMany("ProductTags")
+                        .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1808,7 +1808,7 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.ProductVariant", b =>
                 {
                     b.HasOne("Model.Entities.Product", "Product")
-                        .WithMany("Variants")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1825,7 +1825,7 @@ namespace Model.Migrations
                         .IsRequired();
 
                     b.HasOne("Model.Entities.ProductVariant", "Variant")
-                        .WithMany("VariantAttributeValues")
+                        .WithMany()
                         .HasForeignKey("VariantId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1843,7 +1843,7 @@ namespace Model.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Model.Entities.Product", "Product")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -1878,69 +1878,6 @@ namespace Model.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Model.Entities.Brand", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Model.Entities.Cart", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("Model.Entities.Category", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Model.Entities.Coupon", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Model.Entities.Order", b =>
-                {
-                    b.Navigation("Items");
-
-                    b.Navigation("Payments");
-
-                    b.Navigation("StatusHistories");
-                });
-
-            modelBuilder.Entity("Model.Entities.Product", b =>
-                {
-                    b.Navigation("Attributes");
-
-                    b.Navigation("Images");
-
-                    b.Navigation("ProductTags");
-
-                    b.Navigation("Reviews");
-
-                    b.Navigation("Variants");
-                });
-
-            modelBuilder.Entity("Model.Entities.ProductAttribute", b =>
-                {
-                    b.Navigation("Values");
-                });
-
-            modelBuilder.Entity("Model.Entities.ProductVariant", b =>
-                {
-                    b.Navigation("CartItems");
-
-                    b.Navigation("OrderItems");
-
-                    b.Navigation("VariantAttributeValues");
-                });
-
-            modelBuilder.Entity("Model.Entities.Tag", b =>
-                {
-                    b.Navigation("ProductTags");
                 });
 #pragma warning restore 612, 618
         }

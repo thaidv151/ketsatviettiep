@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Modal, Form, Input, Switch, Row, Col, Spin } from 'antd'
-import type { BrandDto, CreateBrandRequest } from '@/services/brandApi'
-import { brandApi } from '@/services/brandApi'
+import type { BrandDto, CreateBrandRequest } from '@/services/brand.service'
+import { brandApi } from '@/services/brand.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff]'
 

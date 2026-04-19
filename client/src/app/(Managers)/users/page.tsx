@@ -8,8 +8,8 @@ import { Home, ChevronRight } from 'lucide-react'
 import UserSearchPanel, { type UserSearchFormState } from './search'
 import UserCreateOrUpdate from './createOrUpdate'
 import UserDetailDrawer from './detail'
-import type { AppUserDto } from '@/services/appUserApi'
-import { appUserApi } from '@/services/appUserApi'
+import type { AppUserDto } from '@/services/appUser.service'
+import { appUserApi } from '@/services/appUser.service'
 
 const primaryBtn =
   'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'

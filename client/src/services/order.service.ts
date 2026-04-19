@@ -1,4 +1,4 @@
-import { http } from './http'
+import axiosBase from './axios/AxiosBase'
 
 // ── DTOs ──────────────────────────────────────────────────────────────────────
 
@@ -102,11 +102,24 @@ export type UpdateOrderNoteRequest = {
 // ── API ───────────────────────────────────────────────────────────────────────
 
 export const orderApi = {
-  list: () => http.get<OrderListDto[]>('/api/admin/orders'),
-  getDetail: (id: string) => http.get<OrderDetailDto>(`/api/admin/orders/${id}`),
-  updateStatus: (id: string, body: UpdateOrderStatusRequest) =>
-    http.post<OrderDetailDto>(`/api/admin/orders/${id}/status`, body),
-  updateNote: (id: string, body: UpdateOrderNoteRequest) =>
-    http.post<OrderDetailDto>(`/api/admin/orders/${id}/note`, body),
-  remove: (id: string) => http.post<void>(`/api/admin/orders/${id}/delete`),
+  async list(): Promise<OrderListDto[]> {
+    const response = await axiosBase.get<OrderListDto[]>('/api/admin/orders')
+    return response.data
+  },
+  async getDetail(id: string): Promise<OrderDetailDto> {
+    const response = await axiosBase.get<OrderDetailDto>(`/api/admin/orders/${id}`)
+    return response.data
+  },
+  async updateStatus(id: string, body: UpdateOrderStatusRequest): Promise<OrderDetailDto> {
+    const response = await axiosBase.post<OrderDetailDto>(`/api/admin/orders/${id}/status`, body)
+    return response.data
+  },
+  async updateNote(id: string, body: UpdateOrderNoteRequest): Promise<OrderDetailDto> {
+    const response = await axiosBase.post<OrderDetailDto>(`/api/admin/orders/${id}/note`, body)
+    return response.data
+  },
+  async remove(id: string): Promise<void> {
+    const response = await axiosBase.post<void>(`/api/admin/orders/${id}/delete`)
+    return response.data
+  },
 }

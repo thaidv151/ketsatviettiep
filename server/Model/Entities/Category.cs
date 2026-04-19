@@ -34,6 +34,5 @@ public sealed class Category : EntityBase
     public bool IsActive { get; set; } = true;
 
     // Navigation
-    public ICollection<Category> Children { get; set; } = new List<Category>();
-    public ICollection<Product> Products { get; set; } = new List<Product>();
+
 }

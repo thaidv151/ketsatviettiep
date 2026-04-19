@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Modal, Form, Input, Switch } from 'antd'
-import { rbacAdminApi, type RoleDto } from '@/services/rbacAdminApi'
+import { rbacAdminApi, type RoleDto } from '@/services/rbacAdmin.service'
 
 export type RoleModalMode = 'create' | 'edit'
 

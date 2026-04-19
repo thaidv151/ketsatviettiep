@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react'
 import { Drawer, Descriptions, Tag, Button, Table, Spin, Divider, Badge } from 'antd'
 import { EditOutlined, InboxOutlined } from '@ant-design/icons'
-import type { ProductDetailDto, ProductVariantDto, ProductListDto } from '@/services/productApi'
-import { productApi } from '@/services/productApi'
+import type { ProductDetailDto, ProductVariantDto, ProductListDto } from '@/services/product.service'
+import { productApi } from '@/services/product.service'
 
 const STATUS_COLORS: Record<number, string> = { 0: 'default', 1: 'green', 2: 'orange', 3: 'red' }
 

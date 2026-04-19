@@ -1,4 +1,4 @@
-import { http } from './http'
+import axiosBase from './axios/AxiosBase'
 
 export type AppUserDto = {
   id: string
@@ -72,13 +72,28 @@ export type UpdateAppUserRequest = {
 }
 
 export const appUserApi = {
-  list: () => http.get<AppUserDto[]>('/api/AppUsers'),
-  getById: (id: string) => http.get<AppUserDto>(`/api/AppUsers/${id}`),
-  getDetail: (id: string) =>
-    http.get<AppUserDetailDto>(`/api/AppUsers/${id}/detail`),
-  create: (body: CreateAppUserRequest) =>
-    http.post<AppUserDto>('/api/AppUsers', body),
-  update: (id: string, body: UpdateAppUserRequest) =>
-    http.post<AppUserDetailDto>(`/api/AppUsers/${id}/update`, body),
-  remove: (id: string) => http.post<void>(`/api/AppUsers/${id}/delete`),
+  async list(): Promise<AppUserDto[]> {
+    const response = await axiosBase.get<AppUserDto[]>('/api/AppUsers')
+    return response.data
+  },
+  async getById(id: string): Promise<AppUserDto> {
+    const response = await axiosBase.get<AppUserDto>(`/api/AppUsers/${id}`)
+    return response.data
+  },
+  async getDetail(id: string): Promise<AppUserDetailDto> {
+    const response = await axiosBase.get<AppUserDetailDto>(`/api/AppUsers/${id}/detail`)
+    return response.data
+  },
+  async create(body: CreateAppUserRequest): Promise<AppUserDto> {
+    const response = await axiosBase.post<AppUserDto>('/api/AppUsers', body)
+    return response.data
+  },
+  async update(id: string, body: UpdateAppUserRequest): Promise<AppUserDetailDto> {
+    const response = await axiosBase.post<AppUserDetailDto>(`/api/AppUsers/${id}/update`, body)
+    return response.data
+  },
+  async remove(id: string): Promise<void> {
+    const response = await axiosBase.post<void>(`/api/AppUsers/${id}/delete`)
+    return response.data
+  },
 }

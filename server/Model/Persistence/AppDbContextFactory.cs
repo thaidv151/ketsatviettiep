@@ -12,7 +12,7 @@ public sealed class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbConte
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
         optionsBuilder.UseSqlServer(
-            "Server=(localdb)\\mssqllocaldb;Database=KetsatVietTiep;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
+            "Server=DESKTOP-R3J37R7\\SQLEXPRESS01;Database=KetsatVietTiep_V2;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true");
         return new AppDbContext(optionsBuilder.Options);
     }
 }

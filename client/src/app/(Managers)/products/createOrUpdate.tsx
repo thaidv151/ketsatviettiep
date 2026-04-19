@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react'
 import { Modal, Form, Input, Select, Switch, Tabs, InputNumber, Row, Col, Spin, Button, Space, Divider, message } from 'antd'
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'
-import type { ProductListDto, CreateProductRequest, UpdateProductRequest, CreateProductAttributeRequest, CreateProductVariantRequest } from '@/services/productApi'
-import { productApi } from '@/services/productApi'
-import { categoryApi, type CategoryDto } from '@/services/categoryApi'
-import { brandApi, type BrandDto } from '@/services/brandApi'
+import type { ProductListDto, CreateProductRequest, UpdateProductRequest, CreateProductAttributeRequest, CreateProductVariantRequest } from '@/services/product.service'
+import { productApi } from '@/services/product.service'
+import { categoryApi, type CategoryDto } from '@/services/category.service'
+import { brandApi, type BrandDto } from '@/services/brand.service'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff]'
 
@@ -25,8 +25,8 @@ export default function ProductCreateOrUpdate({ open, mode, item, onClose, onSuc
   const [imageUrls, setImageUrls] = useState<string[]>([''])
 
   useEffect(() => {
-    void categoryApi.list().then(setCategories).catch(() => {})
-    void brandApi.list().then(setBrands).catch(() => {})
+    void categoryApi.list().then(setCategories).catch(() => { })
+    void brandApi.list().then(setBrands).catch(() => { })
   }, [])
 
   useEffect(() => {

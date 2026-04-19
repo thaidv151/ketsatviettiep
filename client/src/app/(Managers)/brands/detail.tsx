@@ -1,7 +1,7 @@
 'use client'
 import { Drawer, Descriptions, Tag, Button, Avatar } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
-import type { BrandDto } from '@/services/brandApi'
+import type { BrandDto } from '@/services/brand.service'
 
 type Props = { open: boolean; item: BrandDto | null; onClose: () => void; onEdit: () => void }
 
