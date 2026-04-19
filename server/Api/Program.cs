@@ -45,8 +45,9 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.FromMinutes(1),
     };
 });
-
-builder.Services.AddAuthorization();
+    Console.WriteLine(
+    builder.Configuration.GetConnectionString("DefaultConnection"));
+    builder.Services.AddAuthorization();
 
 builder.Services.AddControllers().AddJsonOptions(o =>
 {
@@ -91,7 +92,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(allowedOrigins.Length > 0 ? allowedOrigins : ["http://localhost:3000"])
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -104,8 +106,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSerilogRequestLogging();
-app.UseHttpsRedirection();
 app.UseCors();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

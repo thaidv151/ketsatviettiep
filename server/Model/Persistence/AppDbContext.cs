@@ -190,5 +190,11 @@ public sealed class AppDbContext : DbContext
             e.HasQueryFilter(x => !x.IsDeleted);
             e.HasIndex(x => new { x.UserId, x.ProductId }).IsUnique().HasFilter("[IsDeleted] = 0");
         });
+
+        // Tắt cascade delete cho tất cả các mối quan hệ (tránh lỗi multiple cascade paths)
+        foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+        {
+            relationship.DeleteBehavior = DeleteBehavior.NoAction;
+        }
     }
 }
