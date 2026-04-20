@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Modal, Form, Input, Select, Switch, Tabs, InputNumber, Row, Col, Spin, Button, Space, Divider, message } from 'antd'
+import ImageUpload from '@/components/common/ImageUpload'
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 import type { ProductListDto, CreateProductRequest, UpdateProductRequest, CreateProductAttributeRequest, CreateProductVariantRequest } from '@/services/product.service'
 import { productApi } from '@/services/product.service'
@@ -153,8 +154,8 @@ export default function ProductCreateOrUpdate({ open, mode, item, onClose, onSuc
               </Form.Item>
             </Col>
             <Col xs={24}>
-              <Form.Item name="thumbnailUrl" label="Ảnh thumbnail (URL)">
-                <Input className="rounded-sm" placeholder="https://…" />
+              <Form.Item name="thumbnailUrl" label="Ảnh đại diện (Thumbnail)">
+                <ImageUpload placeholder="Tải ảnh Thumbnail" />
               </Form.Item>
             </Col>
             <Col xs={24}>
@@ -250,9 +251,20 @@ export default function ProductCreateOrUpdate({ open, mode, item, onClose, onSuc
           <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Thư viện ảnh</div>
           <div className="space-y-2">
             {imageUrls.map((url, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <Input value={url} onChange={e => setImageUrls(prev => prev.map((u, idx) => idx === i ? e.target.value : u))} placeholder={`URL ảnh ${i + 1}…`} className="rounded-sm" />
-                {i < imageUrls.length - 1 && <Button size="small" type="text" danger icon={<DeleteOutlined />} onClick={() => setImageUrls(prev => prev.filter((_, idx) => idx !== i))} />}
+              <div key={i} className="flex items-center gap-2 mb-2">
+                <ImageUpload 
+                  value={url} 
+                  onChange={newUrl => setImageUrls(prev => prev.map((u, idx) => idx === i ? newUrl : u))} 
+                />
+                {i < imageUrls.length - 1 && (
+                  <Button 
+                    size="small" 
+                    type="text" 
+                    danger 
+                    icon={<DeleteOutlined />} 
+                    onClick={() => setImageUrls(prev => prev.filter((_, idx) => idx !== i))} 
+                  />
+                )}
               </div>
             ))}
             <Button type="dashed" icon={<PlusOutlined />} className="w-full" size="small"

@@ -5,17 +5,9 @@ using Services.Common;
 
 namespace Services.AppUserModule;
 
-public interface IAppUserService : IServiceBase<AppUser>
+public interface IAppUserService : IServiceBase<AppUser, AppUserDto, CreateAppUserRequest, UpdateAppUserRequest>
 {
-    Task<AppUserDto> CreateUserAsync(CreateAppUserRequest request, CancellationToken cancellationToken = default);
-
-    Task<IReadOnlyList<AppUserDto>> GetAllUsersAsync(CancellationToken cancellationToken = default);
-
-    Task<AppUserDto?> GetUserDtoByIdAsync(Guid id, CancellationToken cancellationToken = default);
-
     Task<AppUserDetailDto?> GetUserDetailByIdAsync(Guid id, CancellationToken cancellationToken = default);
-
-    Task<AppUserDetailDto> UpdateUserAsync(Guid id, UpdateAppUserRequest request, CancellationToken cancellationToken = default);
 
     Task<AppUser?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 

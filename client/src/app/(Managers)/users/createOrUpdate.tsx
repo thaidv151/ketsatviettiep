@@ -12,6 +12,7 @@ import {
   Row,
   Col,
 } from 'antd'
+import ImageUpload from '@/components/common/ImageUpload'
 import dayjs, { type Dayjs } from 'dayjs'
 import type {
   AppUserDto,
@@ -221,8 +222,8 @@ export default function UserCreateOrUpdate({
               </Form.Item>
             </Col>
             <Col xs={24} md={12}>
-              <Form.Item name="avatar" label="Avatar (URL)">
-                <Input className="rounded-sm" />
+              <Form.Item name="avatar" label="Ảnh đại diện">
+                <ImageUpload placeholder="Tải ảnh đại diện" />
               </Form.Item>
             </Col>
             <Col xs={24} md={12}>

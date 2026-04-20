@@ -107,6 +107,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 app.UseCors();
+app.UseStaticFiles(); // Thêm dòng này để truy cập được file trong wwwroot
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
