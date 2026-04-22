@@ -17,9 +17,9 @@ const AxiosResponseIntrceptorErrorCallback = (error: AxiosError) => {
       }
     }
   }
-  if (process.env.NODE_ENV === 'development') {
-    console.error('[Axios]', error.response?.data ?? error.message)
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   console.error('Axios', error.response?.data ?? error.message)
+  // }
 }
 
 export default AxiosResponseIntrceptorErrorCallback

@@ -18,16 +18,16 @@ public sealed class OrderService : IOrderService
 
     public async Task<IReadOnlyList<OrderListDto>> GetListAsync(CancellationToken ct = default)
     {
-        var list = await _repo.GetListAsync(ct);
-        return list.Select(o => new OrderListDto(
-            o.Id, o.OrderCode,
-            o.RecipientName, o.RecipientPhone,
-            o.TotalAmount,
-            (int)o.Status, OrderStatusLabel(o.Status),
-            (int)o.PaymentStatus, PaymentStatusLabel(o.PaymentStatus),
-            (int)o.PaymentMethod, PaymentMethodLabel(o.PaymentMethod),
-            0,
-            o.CreatedAt)).ToList();
+      var list = await _repo.GetListAsync(ct);
+      return list.Select(o => new OrderListDto(
+          o.Id, o.OrderCode, o.UserId,
+          o.RecipientName, o.RecipientPhone,
+          o.TotalAmount,
+          (int)o.Status, OrderStatusLabel(o.Status),
+          (int)o.PaymentStatus, PaymentStatusLabel(o.PaymentStatus),
+          (int)o.PaymentMethod, PaymentMethodLabel(o.PaymentMethod),
+          0,
+          o.CreatedAt)).ToList();
     }
 
     public async Task<OrderDetailDto?> GetDetailAsync(Guid id, CancellationToken ct = default)

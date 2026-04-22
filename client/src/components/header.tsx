@@ -2,11 +2,39 @@
 
 import Link from 'next/link'
 import { ShoppingCart, Heart, Search, Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
+
+  const updateCartCount = () => {
+    const saved = localStorage.getItem('ketsat_cart')
+    if (saved) {
+      try {
+        const cart = JSON.parse(saved)
+        const total = cart.reduce((sum: number, item: any) => sum + item.quantity, 0)
+        setCartCount(total)
+      } catch (e) {
+        setCartCount(0)
+      }
+    } else {
+      setCartCount(0)
+    }
+  }
+
+  useEffect(() => {
+    updateCartCount()
+    window.addEventListener('cart-updated', updateCartCount)
+    // Also listen to storage events (for multiple tabs)
+    window.addEventListener('storage', updateCartCount)
+    
+    return () => {
+      window.removeEventListener('cart-updated', updateCartCount)
+      window.removeEventListener('storage', updateCartCount)
+    }
+  }, [])
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
@@ -23,16 +51,16 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <Link href="/san-pham" className="text-foreground hover:text-accent transition">
-              Products
+              Sản phẩm
             </Link>
             <Link href="/san-pham" className="text-foreground hover:text-accent transition">
-              Categories
+              Danh mục
             </Link>
             <Link href="/" className="text-foreground hover:text-accent transition">
-              About
+              Giới thiệu
             </Link>
             <Link href="/" className="text-foreground hover:text-accent transition">
-              Contact
+              Liên hệ
             </Link>
           </div>
 
@@ -47,7 +75,11 @@ export default function Header() {
             </Link>
             <Link href="/gio-hang" className="p-2 hover:bg-muted rounded-md transition relative">
               <ShoppingCart className="w-5 h-5 text-foreground" />
-              <span className="absolute top-1 right-1 bg-accent text-accent-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">0</span>
+              {cartCount > 0 && (
+                <span className="absolute top-1 right-1 bg-accent text-accent-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold animate-in zoom-in duration-300">
+                  {cartCount}
+                </span>
+              )}
             </Link>
 
             {/* Mobile Menu Toggle */}
@@ -68,16 +100,16 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border pt-4 space-y-3">
             <Link href="/san-pham" className="block text-foreground hover:text-accent transition py-2">
-              Products
+              Sản phẩm
             </Link>
             <Link href="/san-pham" className="block text-foreground hover:text-accent transition py-2">
-              Categories
+              Danh mục
             </Link>
             <Link href="/" className="block text-foreground hover:text-accent transition py-2">
-              About
+              Giới thiệu
             </Link>
             <Link href="/" className="block text-foreground hover:text-accent transition py-2">
-              Contact
+              Liên hệ
             </Link>
           </div>
         )}

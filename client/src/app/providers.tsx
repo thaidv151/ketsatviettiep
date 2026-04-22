@@ -4,6 +4,7 @@ import '@ant-design/v5-patch-for-react-19'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { AuthHydrate, GlobalLoadingBar } from '@/stores'
 import { ConfigProvider } from 'antd'
+import { Toaster } from '@/components/ui/toaster'
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -44,6 +45,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       >
         <AuthHydrate />
         <GlobalLoadingBar />
+        <Toaster />
         {children}
       </ConfigProvider>
     </AntdRegistry>

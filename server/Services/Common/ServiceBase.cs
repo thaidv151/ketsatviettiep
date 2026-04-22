@@ -81,6 +81,19 @@ public abstract class ServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest>
         }
     }
 
+    public virtual async Task UpdateAsync(TEntity entity, CancellationToken ct = default)
+    {
+        try
+        {
+            await Repository.UpdateAsync(entity, ct);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Lỗi khi cập nhật thực thể {EntityName} id: {Id}", typeof(TEntity).Name, entity.Id);
+            throw;
+        }
+    }
+
     public virtual async Task DeleteAsync(Guid id, Guid? deletedById = null, CancellationToken ct = default)
     {
         try

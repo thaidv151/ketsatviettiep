@@ -89,7 +89,7 @@ public class AuthController : ControllerBase
 
         try
         {
-            var created = await _appUserService.CreateUserAsync(create, cancellationToken);
+            var created = await _appUserService.CreateAsync(create);
             return Ok(new { id = created.Id, email = created.Email, username = created.Username });
         }
         catch (InvalidOperationException ex) when (ex.Message.Contains("đã tồn tại", StringComparison.Ordinal))
@@ -107,7 +107,7 @@ public class AuthController : ControllerBase
         if (string.IsNullOrEmpty(sub) || !Guid.TryParse(sub, out var userId))
             return Unauthorized();
 
-        var dto = await _appUserService.GetUserDtoByIdAsync(userId, cancellationToken);
+        var dto = await _appUserService.GetByIdAsync(userId, cancellationToken);
         return dto is null ? NotFound() : Ok(dto);
     }
 }

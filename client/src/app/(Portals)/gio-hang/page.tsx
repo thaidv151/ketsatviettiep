@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
+import { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Trash2, Plus, Minus } from 'lucide-react'
@@ -21,23 +19,22 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [mounted, setMounted] = useState(false)
 
-  import('react').then(React => {
-    React.useEffect(() => {
-      setMounted(true)
-      const saved = localStorage.getItem('ketsat_cart')
-      if (saved) {
-        try {
-          setCartItems(JSON.parse(saved))
-        } catch (e) {
-          console.error('Invalid cart JSON in localStorage')
-        }
+  useEffect(() => {
+    setMounted(true)
+    const saved = localStorage.getItem('ketsat_cart')
+    if (saved) {
+      try {
+        setCartItems(JSON.parse(saved))
+      } catch (e) {
+        console.error('Invalid cart JSON in localStorage')
       }
-    }, [])
-  })
+    }
+  }, [])
 
   const saveCart = (items: CartItem[]) => {
     setCartItems(items)
     localStorage.setItem('ketsat_cart', JSON.stringify(items))
+    window.dispatchEvent(new Event('cart-updated'))
   }
 
   const updateQuantity = (id: string, newQuantity: number) => {
@@ -45,7 +42,7 @@ export default function CartPage() {
       removeItem(id)
       return
     }
-    const updated = cartItems.map(item => 
+    const updated = cartItems.map(item =>
       item.id === id ? { ...item, quantity: newQuantity } : item
     )
     saveCart(updated)
@@ -62,7 +59,6 @@ export default function CartPage() {
 
   return (
     <main>
-      <Header />
 
       <div className="bg-muted border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -213,7 +209,6 @@ export default function CartPage() {
         )}
       </div>
 
-      <Footer />
     </main>
   )
 }

@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
+import { useState, useEffect } from 'react'
+import { useAuth } from '@/stores/authStore'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ChevronRight, Check, Truck, Clock } from 'lucide-react'
@@ -36,17 +35,28 @@ export default function OrdersPage() {
   const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'shipped' | 'delivered'>('all')
 
 
-  React.useEffect(() => {
-    portalApi.getOrders()
-      .then(data => {
-        setOrders(data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error(err)
-        setLoading(false)
-      })
-  }, [])
+  const { UserInfo } = useAuth()
+
+  const fetchOrders = async () => {
+    try {
+      setLoading(true)
+      const data = await portalApi.getOrders()
+      // Lọc theo userId của người dùng hiện tại
+      if (UserInfo?.id) {
+        setOrders(data.filter(order => order.userId === UserInfo.id))
+      } else {
+        setOrders([])
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchOrders()
+  }, [UserInfo?.id])
 
 
   const filteredOrders = activeTab === 'all'
@@ -60,7 +70,6 @@ export default function OrdersPage() {
 
   return (
     <main>
-      <Header />
 
       <div className="bg-muted border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -255,7 +264,6 @@ export default function OrdersPage() {
         )}
       </div>
 
-      <Footer />
     </main>
   )
 }

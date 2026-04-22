@@ -9,7 +9,7 @@ import axios from 'axios'
 import { Lock, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useMemo } from 'react'
+import { Suspense, useMemo } from 'react'
 import { Button, Form, Input, message } from 'antd'
 
 type LoginFormValues = {
@@ -17,7 +17,7 @@ type LoginFormValues = {
   password: string
 }
 
-export default function DangNhapPage() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [form] = Form.useForm<LoginFormValues>()
@@ -160,5 +160,13 @@ export default function DangNhapPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function DangNhapPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   )
 }

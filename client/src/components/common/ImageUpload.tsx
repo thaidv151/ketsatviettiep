@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Upload, message, Modal, Spin } from 'antd';
+import { Upload, Modal, Spin } from 'antd';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd';
 import { uploadFile } from '@/services/upload.service';
+import { getFullImagePath } from '@/lib/path-utils';
+import { useToast } from '@/hooks/use-toast';
 
 interface ImageUploadProps {
   /** Đường dẫn ảnh hiện tại (được truyền từ Form.Item) */
@@ -24,16 +26,17 @@ interface ImageUploadProps {
  * - Hiển thị preview ảnh sau khi upload.
  * - Tự động cập nhật giá trị vào Form qua props value/onChange.
  */
-const ImageUpload: React.FC<ImageUploadProps> = ({ 
-  value, 
-  onChange, 
-  placeholder = 'Tải ảnh', 
-  maxSize = 2 
+const ImageUpload: React.FC<ImageUploadProps> = ({
+  value,
+  onChange,
+  placeholder = 'Tải ảnh',
+  maxSize = 2
 }) => {
   const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const { toast } = useToast();
 
   // Đồng bộ fileList khi value (đường dẫn từ form) thay đổi
   useEffect(() => {
@@ -43,7 +46,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           uid: '-1',
           name: 'image.png',
           status: 'done',
-          url: value,
+          url: getFullImagePath(value),
         },
       ]);
     } else {
@@ -52,7 +55,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   }, [value]);
 
   const handlePreview = async (file: UploadFile) => {
-    setPreviewImage(file.url || (file.preview as string));
+    setPreviewImage(getFullImagePath(file.url || (file.preview as string)));
     setPreviewOpen(true);
   };
 
@@ -67,11 +70,19 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const beforeUpload = (file: File) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
     if (!isJpgOrPng) {
-      message.error('Bạn chỉ có thể tải lên định dạng JPG/PNG/WebP!');
+      toast({
+        variant: 'destructive',
+        title: 'Lỗi định dạng',
+        description: 'Bạn chỉ có thể tải lên định dạng JPG/PNG/WebP!',
+      });
     }
     const isLtSize = file.size / 1024 / 1024 < maxSize;
     if (!isLtSize) {
-      message.error(`Ảnh phải nhỏ hơn ${maxSize}MB!`);
+      toast({
+        variant: 'destructive',
+        title: 'Lỗi kích thước',
+        description: `Ảnh phải nhỏ hơn ${maxSize}MB!`,
+      });
     }
     return isJpgOrPng && isLtSize;
   };
@@ -82,15 +93,23 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     try {
       // Gọi API upload lên server
       const url = await uploadFile(file as File);
-      
+
       onSuccess(url);
       // Cập nhật đường dẫn trả về vào Form
       onChange?.(url);
-      message.success('Tải ảnh lên thành công');
+      toast({
+        variant: 'success',
+        title: 'Thành công',
+        description: 'Tải ảnh lên thành công',
+      });
     } catch (error: any) {
       console.error('Upload error:', error);
       onError(error);
-      message.error('Tải ảnh lên thất bại!');
+      toast({
+        variant: 'destructive',
+        title: 'Lỗi upload',
+        description: 'Tải ảnh lên thất bại!',
+      });
     } finally {
       setLoading(false);
     }
@@ -119,11 +138,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       >
         {fileList.length >= 1 ? null : uploadButton}
       </Upload>
-      
-      <Modal 
-        open={previewOpen} 
-        title="Xem trước ảnh" 
-        footer={null} 
+
+      <Modal
+        open={previewOpen}
+        title="Xem trước ảnh"
+        footer={null}
         onCancel={() => setPreviewOpen(false)}
         centered
       >

@@ -11,6 +11,7 @@ import ProductCreateOrUpdate from './createOrUpdate'
 import ProductDetailDrawer from './detail'
 import type { ProductListDto } from '@/services/product.service'
 import { productApi } from '@/services/product.service'
+import { getFullImagePath } from '@/lib/path-utils'
 
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 
@@ -63,7 +64,7 @@ export default function ProductManagementPage() {
       render: (_, row) => (
         <div className="flex items-center gap-3">
           {row.thumbnailUrl
-            ? <img src={row.thumbnailUrl} alt={row.name} className="h-10 w-10 rounded object-cover border border-slate-200 flex-shrink-0" />
+            ? <img src={getFullImagePath(row.thumbnailUrl)} alt={row.name} className="h-10 w-10 rounded object-cover border border-slate-200 flex-shrink-0" />
             : <div className="h-10 w-10 rounded bg-slate-100 flex items-center justify-center flex-shrink-0"><InboxOutlined style={{ fontSize: 18 }} className="text-slate-400" /></div>}
           <div className="min-w-0">
             <div className="font-semibold text-slate-800 truncate">{row.name}</div>

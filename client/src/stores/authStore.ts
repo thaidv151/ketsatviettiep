@@ -24,7 +24,8 @@ function reducer(state: AuthState, action: AuthAction): AuthState {
   }
 }
 
-let memoryState: AuthState = { userInfo: null }
+const INITIAL_STATE: AuthState = { userInfo: null }
+let memoryState: AuthState = INITIAL_STATE
 const listeners = new Set<() => void>()
 
 function emit() {
@@ -49,7 +50,7 @@ function getSnapshot(): AuthState {
 }
 
 function getServerSnapshot(): AuthState {
-  return { userInfo: null }
+  return INITIAL_STATE
 }
 
 async function fetchUserInfo() {

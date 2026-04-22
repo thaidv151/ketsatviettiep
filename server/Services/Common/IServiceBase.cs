@@ -9,5 +9,6 @@ public interface IServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest>
     Task<TDto?> GetByIdAsync(Guid id, CancellationToken ct = default);
     Task<TDto> CreateAsync(TCreateRequest request, CancellationToken ct = default);
     Task<TDto?> UpdateAsync(Guid id, TUpdateRequest request, CancellationToken ct = default);
+    Task UpdateAsync(TEntity entity, CancellationToken ct = default);
     Task DeleteAsync(Guid id, Guid? deletedById = null, CancellationToken ct = default);
 }

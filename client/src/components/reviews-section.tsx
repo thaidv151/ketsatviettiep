@@ -4,32 +4,32 @@ const REVIEWS = [
   {
     id: 1,
     author: 'John Mitchell',
-    role: 'Home Owner',
-    content: 'Excellent build quality and design. The Executive Safe Pro has exceeded all my expectations. Highly secure and professionally installed.',
+    role: 'Chủ nhà',
+    content: 'Chất lượng hoàn thiện và thiết kế tuyệt vời. Dòng Executive Safe Pro đã vượt xa mong đợi của tôi. Rất an toàn và được lắp đặt chuyên nghiệp.',
     rating: 5,
     image: '👤',
   },
   {
     id: 2,
     author: 'Sarah Anderson',
-    role: 'Business Owner',
-    content: 'SafeVault provided the perfect solution for our office. The fireproof Elite safe arrived on time and their team installed it flawlessly.',
+    role: 'Chủ doanh nghiệp',
+    content: 'SafeVault đã cung cấp giải pháp hoàn hảo cho văn phòng của chúng tôi. Két sắt Elite chống cháy đã được giao đúng hẹn và đội ngũ của họ lắp đặt rất chuẩn xác.',
     rating: 5,
     image: '👩',
   },
   {
     id: 3,
     author: 'Robert Davis',
-    role: 'Insurance Agent',
-    content: 'I recommend SafeVault to all my clients. Their safes meet all insurance requirements and provide the highest security standards.',
+    role: 'Đại lý bảo hiểm',
+    content: 'Tôi luôn giới thiệu SafeVault cho tất cả khách hàng của mình. Két sắt của họ đáp ứng mọi yêu cầu bảo hiểm và đạt tiêu chuẩn an ninh cao nhất.',
     rating: 5,
     image: '👨',
   },
   {
     id: 4,
     author: 'Lisa Chen',
-    role: 'Real Estate Agent',
-    content: 'The quality and customer service from SafeVault are outstanding. Every detail is carefully considered for maximum security.',
+    role: 'Đại lý bất động sản',
+    content: 'Chất lượng và dịch vụ khách hàng từ SafeVault thật tuyệt vời. Mọi chi tiết đều được cân nhắc kỹ lưỡng để đảm bảo an ninh tối đa.',
     rating: 5,
     image: '👩‍🦱',
   },
@@ -42,10 +42,10 @@ export default function ReviewsSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Trusted by Thousands
+            Được hàng ngàn khách hàng tin tưởng
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Read what our satisfied customers have to say about SafeVault.
+            Lắng nghe những gì khách hàng hài lòng chia sẻ về SafeVault.
           </p>
         </div>
 

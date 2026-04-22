@@ -1,36 +1,98 @@
+'use client'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Heart, ShoppingCart } from 'lucide-react'
 
-type ProductListDto = {
-  id: string
-  name: string
-  slug: string
-  categoryName: string | null
-  thumbnailUrl: string | null
-  basePrice: number | null
-  salePrice: number | null
-  isFeatured: boolean
-}
+import { portalApi, PortalProductDto } from '@/services/portal.service'
+import { getFullImagePath } from '@/lib/path-utils'
+import { useEffect, useState } from 'react'
+import { useToast } from '@/hooks/use-toast'
 
-async function getFeaturedProducts(): Promise<ProductListDto[]> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/portal/products`, {
-      next: { revalidate: 60 },
-    })
-    if (!res.ok) return []
-    const products: ProductListDto[] = await res.json()
-    return products.filter((p) => p.isFeatured).slice(0, 4)
-  } catch (error) {
-    console.error('Failed to fetch featured products:', error)
-    return []
+
+
+const FeaturedProducts = () => {
+  const [products, setProduct] = useState<PortalProductDto[]>([])
+  const [wishlist, setWishlist] = useState<string[]>([])
+  const { toast } = useToast()
+
+  const getFeaturedProducts = async () => {
+    try {
+      const allProducts = await portalApi.getProducts()
+      setProduct(allProducts.filter(p => p.isFeatured).slice(0, 4));
+      
+      // Load wishlist from localStorage
+      const savedWishlist = localStorage.getItem('ketsat_wishlist')
+      if (savedWishlist) {
+        setWishlist(JSON.parse(savedWishlist))
+      }
+    } catch (error) {
+      console.error('Failed to fetch featured products:', error)
+    }
   }
-}
 
-export default async function FeaturedProducts() {
-  const products = await getFeaturedProducts()
+  const toggleWishlist = (productId: string) => {
+    let newWishlist = [...wishlist]
+    const index = newWishlist.indexOf(productId)
+    
+    if (index > -1) {
+      newWishlist.splice(index, 1)
+      toast({
+        title: 'Đã xóa khỏi yêu thích',
+        description: 'Sản phẩm đã được xóa khỏi danh sách yêu thích của bạn.',
+      })
+    } else {
+      newWishlist.push(productId)
+      toast({
+        variant: 'success',
+        title: 'Đã thêm vào yêu thích',
+        description: 'Sản phẩm đã được thêm vào danh sách yêu thích của bạn.',
+      })
+    }
+    
+    setWishlist(newWishlist)
+    localStorage.setItem('ketsat_wishlist', JSON.stringify(newWishlist))
+  }
 
+  const addToCart = (product: PortalProductDto) => {
+    const saved = localStorage.getItem('ketsat_cart')
+    let cart: any[] = []
+    if (saved) {
+      try {
+        cart = JSON.parse(saved)
+      } catch (e) {
+        cart = []
+      }
+    }
+
+    const existingIndex = cart.findIndex((item: any) => item.id === product.id)
+    if (existingIndex > -1) {
+      cart[existingIndex].quantity += 1
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.salePrice ?? product.basePrice ?? 0,
+        quantity: 1,
+        image: product.thumbnailUrl,
+        category: product.categoryName
+      })
+    }
+
+    localStorage.setItem('ketsat_cart', JSON.stringify(cart))
+    
+    // Notify other components
+    window.dispatchEvent(new Event('cart-updated'))
+    
+    toast({
+      variant: 'success',
+      title: 'Đã thêm vào giỏ hàng',
+      description: `Sản phẩm ${product.name} đã được thêm vào giỏ hàng thành công.`,
+    })
+  }
+  useEffect(() => {
+    getFeaturedProducts()
+  }, [])
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +113,7 @@ export default async function FeaturedProducts() {
               {/* Image Container */}
               <div className="relative h-64 bg-white overflow-hidden flex items-center justify-center">
                 {product.thumbnailUrl ? (
-                  <img src={product.thumbnailUrl} alt={product.name} className="w-full h-full object-contain p-4" />
+                  <img src={getFullImagePath(product.thumbnailUrl)} alt={product.name} className="w-full h-full object-contain p-4" />
                 ) : (
                   <div className="text-6xl">🔒</div>
                 )}
@@ -66,8 +128,17 @@ export default async function FeaturedProducts() {
                 )}
 
                 {/* Wishlist Button */}
-                <button className="absolute top-4 left-4 p-2 bg-background/80 hover:bg-background rounded-lg transition backdrop-blur-sm">
-                  <Heart className="w-5 h-5 text-muted-foreground hover:text-accent transition" />
+                <button 
+                  onClick={() => toggleWishlist(product.id)}
+                  className="absolute top-4 left-4 p-2 bg-background/80 hover:bg-background rounded-lg transition backdrop-blur-sm z-10"
+                >
+                  <Heart 
+                    className={`w-5 h-5 transition ${
+                      wishlist.includes(product.id) 
+                        ? 'fill-red-500 text-red-500' 
+                        : 'text-muted-foreground hover:text-red-500'
+                    }`} 
+                  />
                 </button>
               </div>
 
@@ -104,7 +175,10 @@ export default async function FeaturedProducts() {
                 </div>
 
                 {/* Button */}
-                <button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2">
+                <button 
+                  onClick={() => addToCart(product)}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2"
+                >
                   <ShoppingCart className="w-4 h-4" />
                   Add to Cart
                 </button>
@@ -125,3 +199,4 @@ export default async function FeaturedProducts() {
     </section>
   )
 }
+export default FeaturedProducts

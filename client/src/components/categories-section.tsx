@@ -31,10 +31,10 @@ export default async function CategoriesSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Browse by Category
+            Duyệt theo danh mục
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Find the perfect safe for your specific needs and requirements.
+            Tìm kiếm mẫu két sắt hoàn hảo cho nhu cầu và yêu cầu cụ thể của bạn.
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export default async function CategoriesSection() {
                   {/* Footer */}
                   <div className="pt-4 border-t border-border mt-4 flex items-center justify-between">
                     <span className="text-sm font-semibold text-accent">
-                      View details
+                      Xem chi tiết
                     </span>
                     <span className="text-accent group-hover:translate-x-1 transition-transform duration-300">
                       →

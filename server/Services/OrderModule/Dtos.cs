@@ -45,6 +45,7 @@ public sealed record OrderStatusHistoryDto(
 public sealed record OrderListDto(
     Guid Id,
     string OrderCode,
+    Guid? UserId,
     string RecipientName,
     string RecipientPhone,
     decimal TotalAmount,

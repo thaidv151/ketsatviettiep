@@ -16,22 +16,22 @@ export default function HeroSection() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-5xl md:text-6xl font-bold text-foreground text-balance leading-tight">
-                Protect What <span className="text-accent">Matters Most</span>
+                Bảo vệ những gì <span className="text-accent">quan trọng nhất</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg text-balance">
-                Premium security safes engineered for maximum protection. Certified, durable, and designed for peace of mind.
+                Các dòng két sắt bảo mật cao cấp được thiết kế để bảo vệ tối đa. Đạt chứng nhận, bền bỉ và đem lại sự an tâm tuyệt đối.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/san-pham">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg h-auto rounded-lg">
-                  Shop Now
+                  Mua ngay
                 </Button>
               </Link>
               <Link href="/">
                 <Button variant="outline" className="border-border hover:bg-muted px-8 py-6 text-lg h-auto rounded-lg">
-                  Learn More
+                  Tìm hiểu thêm
                 </Button>
               </Link>
             </div>
@@ -40,15 +40,15 @@ export default function HeroSection() {
             <div className="grid grid-cols-3 gap-4 pt-8 border-t border-border">
               <div>
                 <div className="text-2xl font-bold text-foreground">25K+</div>
-                <p className="text-sm text-muted-foreground">Happy Customers</p>
+                <p className="text-sm text-muted-foreground">Khách hàng hài lòng</p>
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">50+</div>
-                <p className="text-sm text-muted-foreground">Safe Models</p>
+                <p className="text-sm text-muted-foreground">Mẫu két sắt</p>
               </div>
               <div>
                 <div className="text-2xl font-bold text-foreground">10Y</div>
-                <p className="text-sm text-muted-foreground">Warranty</p>
+                <p className="text-sm text-muted-foreground">Bảo hành</p>
               </div>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function HeroSection() {
                         <div className="w-6 h-6 bg-primary/50 rounded-full"></div>
                       </div>
                     </div>
-                    <p className="text-muted-foreground text-sm">Premium Safe</p>
+                    <p className="text-muted-foreground text-sm">Két sắt cao cấp</p>
                   </div>
                 </div>
               </div>

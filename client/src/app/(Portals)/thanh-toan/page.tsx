@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
+import { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
@@ -21,17 +19,15 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(1)
   const [mounted, setMounted] = useState(false)
 
-  import('react').then(React => {
-    React.useEffect(() => {
-      setMounted(true)
-      const saved = localStorage.getItem('ketsat_cart')
-      if (saved) {
-        try {
-          setCartItems(JSON.parse(saved))
-        } catch (e) {}
-      }
-    }, [])
-  })
+  useEffect(() => {
+    setMounted(true)
+    const saved = localStorage.getItem('ketsat_cart')
+    if (saved) {
+      try {
+        setCartItems(JSON.parse(saved))
+      } catch (e) { }
+    }
+  }, [])
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -69,7 +65,6 @@ export default function CheckoutPage() {
 
   return (
     <main>
-      <Header />
 
       <div className="bg-muted border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -393,7 +388,6 @@ export default function CheckoutPage() {
         )}
       </div>
 
-      <Footer />
     </main>
   )
 }

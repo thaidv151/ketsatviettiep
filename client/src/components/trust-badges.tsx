@@ -5,26 +5,26 @@ const TRUST_ITEMS = [
   {
     id: 1,
     icon: Lock,
-    title: 'Security Certified',
-    description: 'All safes meet international security standards and certifications',
+    title: 'Chứng nhận an ninh',
+    description: 'Tất cả két sắt đều đạt tiêu chuẩn an ninh và chứng nhận quốc tế',
   },
   {
     id: 2,
     icon: Award,
-    title: 'Premium Quality',
-    description: 'Built with superior materials and precision engineering',
+    title: 'Chất lượng cao cấp',
+    description: 'Được chế tạo bằng vật liệu cao cấp và kỹ thuật chính xác',
   },
   {
     id: 3,
     icon: Truck,
-    title: 'Free Delivery',
-    description: 'Complimentary white-glove delivery to your location',
+    title: 'Giao hàng miễn phí',
+    description: 'Giao hàng tận nơi miễn phí tới địa chỉ của bạn',
   },
   {
     id: 4,
     icon: CheckCircle2,
-    title: '10-Year Warranty',
-    description: 'Complete peace of mind with our comprehensive coverage',
+    title: 'Bảo hành 10 năm',
+    description: 'Yên tâm tuyệt đối với gói bảo hành toàn diện của chúng tôi',
   },
 ]
 
@@ -35,10 +35,10 @@ export default function TrustBadges() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Why Choose SafeVault
+            Tại sao chọn SafeVault
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We&apos;re committed to providing the highest quality security solutions with exceptional service.
+            Chúng tôi cam kết mang đến những giải pháp an ninh chất lượng cao nhất cùng dịch vụ vượt trội.
           </p>
         </div>
 

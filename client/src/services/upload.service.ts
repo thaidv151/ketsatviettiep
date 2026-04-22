@@ -10,7 +10,7 @@ export const uploadFile = async (file: File): Promise<string> => {
   const formData = new FormData();
   formData.append('file', file);
 
-  const response = await AxiosBase.post<UploadResponse>('/admin/upload', formData, {
+  const response = await AxiosBase.post<UploadResponse>('/api/admin/upload', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

@@ -14,32 +14,32 @@ export default function Footer() {
               <span className="font-semibold text-lg">SafeVault</span>
             </div>
             <p className="text-sm opacity-80">
-              Premium security safes for homes and businesses.
+              Két sắt bảo mật cao cấp cho gia đình và doanh nghiệp.
             </p>
           </div>
 
           {/* Products */}
           <div className="space-y-4">
-            <h3 className="font-semibold mb-4">Products</h3>
+            <h3 className="font-semibold mb-4">Sản phẩm</h3>
             <ul className="space-y-2 text-sm opacity-80">
               <li>
                 <Link href="/san-pham" className="hover:opacity-100 transition">
-                  Home Safes
+                  Két sắt gia đình
                 </Link>
               </li>
               <li>
                 <Link href="/san-pham" className="hover:opacity-100 transition">
-                  Office Safes
+                  Két sắt văn phòng
                 </Link>
               </li>
               <li>
                 <Link href="/san-pham" className="hover:opacity-100 transition">
-                  Fireproof Safes
+                  Két sắt chống cháy
                 </Link>
               </li>
               <li>
                 <Link href="/san-pham" className="hover:opacity-100 transition">
-                  Digital Safes
+                  Két sắt điện tử
                 </Link>
               </li>
             </ul>
@@ -47,26 +47,26 @@ export default function Footer() {
 
           {/* Company */}
           <div className="space-y-4">
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h3 className="font-semibold mb-4">Công ty</h3>
             <ul className="space-y-2 text-sm opacity-80">
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  About Us
+                  Giới thiệu
                 </Link>
               </li>
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  Blog
+                  Tin tức
                 </Link>
               </li>
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  Careers
+                  Tuyển dụng
                 </Link>
               </li>
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  Contact
+                  Liên hệ
                 </Link>
               </li>
             </ul>
@@ -74,26 +74,26 @@ export default function Footer() {
 
           {/* Legal */}
           <div className="space-y-4">
-            <h3 className="font-semibold mb-4">Legal</h3>
+            <h3 className="font-semibold mb-4">Pháp lý</h3>
             <ul className="space-y-2 text-sm opacity-80">
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  Privacy Policy
+                  Chính sách bảo mật
                 </Link>
               </li>
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  Terms of Service
+                  Điều khoản dịch vụ
                 </Link>
               </li>
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  Shipping Policy
+                  Chính sách vận chuyển
                 </Link>
               </li>
               <li>
                 <Link href="/" className="hover:opacity-100 transition">
-                  Returns
+                  Đổi trả
                 </Link>
               </li>
             </ul>
@@ -103,7 +103,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-primary-foreground/20 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm opacity-80">
-            &copy; 2024 SafeVault. All rights reserved.
+            &copy; 2024 SafeVault. Mọi quyền được bảo lưu.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="text-sm opacity-80 hover:opacity-100 transition">
