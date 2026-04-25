@@ -15,4 +15,6 @@ public interface IAppUserService : IServiceBase<AppUser, AppUserDto, CreateAppUs
 
     /// <summary>Tìm user để đăng nhập: thử theo username trước, sau đó theo email.</summary>
     Task<AppUser?> GetByLoginAsync(string login, CancellationToken cancellationToken = default);
+
+    Task<UserInfoWithMenuDto?> GetUserInfoAsync(Guid userId, CancellationToken cancellationToken = default);
 }

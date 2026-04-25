@@ -1,9 +1,10 @@
 'use client'
 
 import { PlusCircleOutlined } from '@ant-design/icons'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Home, ChevronRight, ListChecks, Pencil, Trash2 } from 'lucide-react'
-import { Table, Button, Card, Popconfirm, message, Space } from 'antd'
+import { useCallback, useEffect, useMemo, useState, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { Home, ChevronRight, ListChecks, Pencil, Trash2, MoreHorizontal } from 'lucide-react'
+import { Table, Button, Card, Popconfirm, message, Space, Dropdown, type MenuProps } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import type { ModuleDto, OperationDto } from '@/services/rbacAdmin.service'
 import { rbacAdminApi } from '@/services/rbacAdmin.service'
@@ -27,7 +28,10 @@ function matchesFilter(row: OperationDto, q: OperationSearchState): boolean {
   return true
 }
 
-export default function OperationManagementPage() {
+function OperationPageContent() {
+  const searchParamsUrl = useSearchParams()
+  const moduleIdParam = searchParamsUrl.get('moduleId')
+
   const [modules, setModules] = useState<ModuleDto[]>([])
   const [raw, setRaw] = useState<OperationDto[]>([])
   const [loading, setLoading] = useState(false)
@@ -35,12 +39,12 @@ export default function OperationManagementPage() {
   const [applied, setApplied] = useState<OperationSearchState>({
     keyword: '',
     status: '',
-    moduleId: '',
+    moduleId: moduleIdParam || '',
   })
   const [draft, setDraft] = useState<OperationSearchState>({
     keyword: '',
     status: '',
-    moduleId: '',
+    moduleId: moduleIdParam || '',
   })
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
@@ -69,9 +73,9 @@ export default function OperationManagementPage() {
     void loadModules()
       .then((mods) => {
         if (cancelled) return
-        const selectedModuleId = mods[0]?.id ?? ''
-        setDraft((prev) => ({ ...prev, moduleId: prev.moduleId || selectedModuleId }))
-        setApplied((prev) => ({ ...prev, moduleId: prev.moduleId || selectedModuleId }))
+        const initialId = moduleIdParam || mods[0]?.id || ''
+        setDraft((prev) => ({ ...prev, moduleId: initialId }))
+        setApplied((prev) => ({ ...prev, moduleId: initialId }))
       })
       .catch(() => {
         if (!cancelled) message.error('Không tải được danh sách module')
@@ -79,7 +83,7 @@ export default function OperationManagementPage() {
     return () => {
       cancelled = true
     }
-  }, [loadModules])
+  }, [loadModules, moduleIdParam])
 
   useEffect(() => {
     if (!applied.moduleId) return
@@ -120,7 +124,7 @@ export default function OperationManagementPage() {
   }
 
   const handleReset = () => {
-    const keepModuleId = draft.moduleId || modules[0]?.id || ''
+    const keepModuleId = moduleIdParam || draft.moduleId || modules[0]?.id || ''
     const empty: OperationSearchState = {
       keyword: '',
       status: '',
@@ -198,34 +202,45 @@ export default function OperationManagementPage() {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 140,
+      width: 80,
       align: 'center',
       fixed: 'right',
-      render: (_, row) => (
-        <Space size="small">
-          <Button
-            type="text"
-            size="small"
-            icon={<Pencil className="h-4 w-4" />}
-            onClick={() => openEdit(row)}
-          />
-          <Popconfirm
-            title="Xóa operation?"
-            description="Thao tác không hoàn tác."
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ className: 'bg-red-600' }}
-            onConfirm={() => handleDelete(row)}
-          >
-            <Button
-              type="text"
-              size="small"
-              danger
-              icon={<Trash2 className="h-4 w-4" />}
-            />
-          </Popconfirm>
-        </Space>
-      ),
+      render: (_, row) => {
+        const items: MenuProps['items'] = [
+          {
+            key: 'edit',
+            label: 'Chỉnh sửa',
+            icon: <Pencil className="h-4 w-4" />,
+            onClick: () => openEdit(row),
+          },
+          {
+            type: 'divider',
+          },
+          {
+            key: 'delete',
+            label: (
+              <Popconfirm
+                title="Xóa operation?"
+                description="Thao tác không hoàn tác."
+                okText="Xóa"
+                cancelText="Hủy"
+                okButtonProps={{ className: 'bg-red-600' }}
+                onConfirm={() => handleDelete(row)}
+              >
+                <span className="text-red-600">Xóa</span>
+              </Popconfirm>
+            ),
+            danger: true,
+            icon: <Trash2 className="h-4 w-4 text-red-600" />,
+          },
+        ]
+
+        return (
+          <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+            <Button type="text" icon={<MoreHorizontal size={16} />} />
+          </Dropdown>
+        )
+      },
     },
   ]
 
@@ -315,5 +330,13 @@ export default function OperationManagementPage() {
         }}
       />
     </div>
+  )
+}
+
+export default function OperationManagementPage() {
+  return (
+    <Suspense fallback={<Card loading />}>
+      <OperationPageContent />
+    </Suspense>
   )
 }

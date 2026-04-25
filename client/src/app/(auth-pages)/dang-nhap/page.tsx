@@ -41,7 +41,10 @@ function LoginForm() {
       setAccessToken(res.accessToken)
       dispatch({
         type: 'SET_USER_INFO',
-        payload: res.user,
+        payload: {
+          user: res.user,
+          menuItems: res.menuItems,
+        },
       })
 
       message.success('Đăng nhập thành công')

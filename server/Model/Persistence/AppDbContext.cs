@@ -44,6 +44,9 @@ public sealed class AppDbContext : DbContext
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<WishlistItem> WishlistItems => Set<WishlistItem>();
 
+    public DbSet<DanhMuc> DanhMucs => Set<DanhMuc>();
+    public DbSet<NhomDanhMuc> NhomDanhMucs => Set<NhomDanhMuc>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AppUser>(entity =>
@@ -189,6 +192,19 @@ public sealed class AppDbContext : DbContext
         {
             e.HasQueryFilter(x => !x.IsDeleted);
             e.HasIndex(x => new { x.UserId, x.ProductId }).IsUnique().HasFilter("[IsDeleted] = 0");
+        });
+
+        // ── DanhMuc ───────────────────────────────────────────────────────────
+        modelBuilder.Entity<DanhMuc>(e =>
+        {
+            e.HasQueryFilter(x => !x.IsDeleted);
+            e.HasIndex(x => x.MaDanhMuc).IsUnique().HasFilter("[IsDeleted] = 0");
+        });
+
+        modelBuilder.Entity<NhomDanhMuc>(e =>
+        {
+            e.HasQueryFilter(x => !x.IsDeleted);
+            e.HasIndex(x => x.MaNhomDanhMuc).IsUnique().HasFilter("[IsDeleted] = 0");
         });
 
         // Tắt cascade delete cho tất cả các mối quan hệ (tránh lỗi multiple cascade paths)

@@ -20,6 +20,10 @@ public sealed class AdminUserRolesController : ControllerBase
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         => Ok(await _service.GetAllAsync(cancellationToken));
 
+    [HttpGet("user/{userId:guid}")]
+    public async Task<IActionResult> GetByUserId(Guid userId, CancellationToken cancellationToken)
+        => Ok(await _service.GetByUserIdAsync(userId, cancellationToken));
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
@@ -32,6 +36,13 @@ public sealed class AdminUserRolesController : ControllerBase
     {
         var created = await _service.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    [HttpPost("user/{userId:guid}/set-roles")]
+    public async Task<IActionResult> SetUserRoles(Guid userId, [FromBody] List<Guid> roleIds, CancellationToken cancellationToken)
+    {
+        await _service.SetUserRolesAsync(userId, roleIds, cancellationToken);
+        return Ok(ApiResponse<string>.Ok("Thiết lập vai trò thành công"));
     }
 
     [HttpPost("{id:guid}/delete")]

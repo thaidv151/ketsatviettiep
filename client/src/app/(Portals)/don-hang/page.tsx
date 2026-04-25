@@ -42,8 +42,8 @@ export default function OrdersPage() {
       setLoading(true)
       const data = await portalApi.getOrders()
       // Lọc theo userId của người dùng hiện tại
-      if (UserInfo?.id) {
-        setOrders(data.filter(order => order.userId === UserInfo.id))
+      if (UserInfo?.user?.id) {
+        setOrders(data.filter(order => order.userId === UserInfo.user?.id))
       } else {
         setOrders([])
       }
@@ -56,7 +56,7 @@ export default function OrdersPage() {
 
   useEffect(() => {
     fetchOrders()
-  }, [UserInfo?.id])
+  }, [UserInfo?.user?.id])
 
 
   const filteredOrders = activeTab === 'all'

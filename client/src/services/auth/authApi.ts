@@ -1,5 +1,6 @@
 import { http } from '@/services/http'
-import type { AppUserDto } from '@/services/appUserApi'
+import type { AppUserDto } from '@/services/appUser.service'
+import type { AdminNavItem } from '@/app/(Managers)/config/adminNav.types'
 
 export type LoginResponse = {
   accessToken: string
@@ -7,10 +8,14 @@ export type LoginResponse = {
   expiresIn: number
   /** Cùng cấu trúc `AppUserDto` — thông tin user sau đăng nhập. */
   user: AppUserDto
+  menuItems: AdminNavItem[]
 }
 
-/** `/api/auth/me` — cùng payload với `user` trong login. */
-export type MeResponse = AppUserDto
+/** `/api/auth/me` — thông tin user và menu động. */
+export type MeResponse = {
+  user: AppUserDto
+  menuItems: AdminNavItem[]
+}
 
 export type RegisterResponse = {
   id: string

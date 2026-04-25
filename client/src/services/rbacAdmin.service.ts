@@ -156,6 +156,13 @@ export const rbacAdminApi = {
       const response = await axiosBase.get<RoleOperationDto[]>('/api/admin/role-operations')
       return response.data
     },
+    async listByRoleId(roleId: string): Promise<RoleOperationDto[]> {
+      const response = await axiosBase.get<RoleOperationDto[]>(`/api/admin/role-operations/role/${roleId}`)
+      return response.data
+    },
+    async setRolePermissions(roleId: string, operationIds: string[]): Promise<void> {
+      await axiosBase.post(`/api/admin/role-operations/role/${roleId}/set-permissions`, operationIds)
+    },
     async create(body: Record<string, unknown>): Promise<RoleOperationDto> {
       const response = await axiosBase.post<RoleOperationDto>('/api/admin/role-operations', body)
       return response.data
@@ -173,6 +180,13 @@ export const rbacAdminApi = {
     async list(): Promise<UserRoleDto[]> {
       const response = await axiosBase.get<UserRoleDto[]>('/api/admin/user-roles')
       return response.data
+    },
+    async listByUserId(userId: string): Promise<UserRoleDto[]> {
+      const response = await axiosBase.get<UserRoleDto[]>(`/api/admin/user-roles/user/${userId}`)
+      return response.data
+    },
+    async setUserRoles(userId: string, roleIds: string[]): Promise<void> {
+      await axiosBase.post(`/api/admin/user-roles/user/${userId}/set-roles`, roleIds)
     },
     async create(body: Record<string, unknown>): Promise<UserRoleDto> {
       const response = await axiosBase.post<UserRoleDto>('/api/admin/user-roles', body)

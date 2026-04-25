@@ -53,4 +53,9 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         entity.DeletedById = deletedById;
         await Db.SaveChangesAsync(cancellationToken);
     }
+
+    public virtual IQueryable<TEntity> GetQueryable()
+    {
+        return Db.Set<TEntity>();
+    }
 }

@@ -20,6 +20,10 @@ public sealed class AdminRoleOperationsController : ControllerBase
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         => Ok(await _service.GetAllAsync(cancellationToken));
 
+    [HttpGet("role/{roleId:guid}")]
+    public async Task<IActionResult> GetByRoleId(Guid roleId, CancellationToken cancellationToken)
+        => Ok(await _service.GetByRoleIdAsync(roleId, cancellationToken));
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
@@ -32,6 +36,13 @@ public sealed class AdminRoleOperationsController : ControllerBase
     {
         var created = await _service.CreateAsync(request, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    [HttpPost("role/{roleId:guid}/set-permissions")]
+    public async Task<IActionResult> SetRoleOperations(Guid roleId, [FromBody] List<Guid> operationIds, CancellationToken cancellationToken)
+    {
+        await _service.SetRoleOperationsAsync(roleId, operationIds, cancellationToken);
+        return Ok(ApiResponse<string>.Ok("Thiết lập quyền thành công"));
     }
 
     [HttpPost("{id:guid}/update")]

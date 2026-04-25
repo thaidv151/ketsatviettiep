@@ -31,6 +31,12 @@ public sealed class UserRoleService : IUserRoleService
         return rows.Select(ur => ToDto(ur, userMap.GetValueOrDefault(ur.UserId), roleMap.GetValueOrDefault(ur.RoleId))).ToList();
     }
 
+    public async Task<IReadOnlyList<UserRoleDto>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        var all = await GetAllAsync(cancellationToken);
+        return all.Where(x => x.UserId == userId).ToList();
+    }
+
     public async Task<UserRoleDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var entity = await _repo.GetByIdAsync(id, cancellationToken);
@@ -56,6 +62,21 @@ public sealed class UserRoleService : IUserRoleService
         var userMap = users.ToDictionary(u => u.Id, u => u.Email);
         var roleMap = roles.ToDictionary(r => r.Id, r => r.Name);
         return ToDto(created, userMap.GetValueOrDefault(created.UserId), roleMap.GetValueOrDefault(created.RoleId));
+    }
+
+    public async Task SetUserRolesAsync(Guid userId, List<Guid> roleIds, CancellationToken cancellationToken = default)
+    {
+        var existing = _repo.GetQueryable().Where(x => x.UserId == userId);
+        foreach (var ur in existing)
+        {
+            ur.IsDeleted = true;
+            ur.DeletedAt = DateTimeOffset.UtcNow;
+        }
+
+        foreach (var roleId in roleIds)
+        {
+            await _repo.CreateAsync(new UserRole { UserId = userId, RoleId = roleId }, cancellationToken);
+        }
     }
 
     public Task DeleteAsync(Guid id, Guid? deletedById, CancellationToken cancellationToken = default)

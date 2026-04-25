@@ -16,6 +16,7 @@ import {
   adminNavItems,
 } from './config/adminNavConfig'
 import type { AdminNavItem } from './config/adminNav.types'
+import { useAuth } from '@/stores/authStore'
 
 export type ManagersShellProps = {
   children: ReactNode
@@ -29,10 +30,12 @@ export type ManagersShellProps = {
 
 export default function ManagersShell({
   children,
-  navItems = adminNavItems,
+  navItems,
   sidebarTitle = adminNavConfig.sidebarTitle,
   sectionLabel = adminNavConfig.sectionLabel,
 }: ManagersShellProps) {
+  const { UserInfo } = useAuth()
+  const finalItems = navItems || UserInfo?.menuItems || adminNavItems
   return (
     <SidebarProvider defaultOpen>
       <Sidebar collapsible="icon" variant="sidebar">
@@ -47,7 +50,7 @@ export default function ManagersShell({
           </div>
         </SidebarHeader>
         <SidebarContent className="px-2 py-2">
-          <VerticalMenuContent items={navItems} sectionLabel={sectionLabel} />
+          <VerticalMenuContent items={finalItems} sectionLabel={sectionLabel} />
         </SidebarContent>
       </Sidebar>
       <SidebarInset>

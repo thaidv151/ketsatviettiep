@@ -54,13 +54,15 @@ public class AuthController : ControllerBase
         await _appUserService.UpdateAsync(user, cancellationToken);
 
         var accessToken = _jwt.CreateAccessToken(user.Id, user.Email);
-        var userDto = AppUserDto.FromEntity(user);
+        var info = await _appUserService.GetUserInfoAsync(user.Id, cancellationToken);
+
         return Ok(new
         {
             accessToken,
             tokenType = "Bearer",
             expiresIn = _jwtOptions.ExpiresMinutes * 60,
-            user = userDto,
+            user = info?.User,
+            menuItems = info?.MenuItems
         });
     }
 
@@ -107,7 +109,7 @@ public class AuthController : ControllerBase
         if (string.IsNullOrEmpty(sub) || !Guid.TryParse(sub, out var userId))
             return Unauthorized();
 
-        var dto = await _appUserService.GetByIdAsync(userId, cancellationToken);
-        return dto is null ? NotFound() : Ok(dto);
+        var info = await _appUserService.GetUserInfoAsync(userId, cancellationToken);
+        return info is null ? NotFound() : Ok(info);
     }
 }

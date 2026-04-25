@@ -2,13 +2,14 @@
 
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Home, ChevronRight, Shield, Pencil, Trash2 } from 'lucide-react'
-import { Table, Button, Card, Popconfirm, message, Space } from 'antd'
+import { Home, ChevronRight, Shield, Pencil, Trash2, MoreHorizontal, ShieldCheck } from 'lucide-react'
+import { Table, Button, Card, Popconfirm, message, Space, Dropdown, type MenuProps } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import type { RoleDto } from '@/services/rbacAdmin.service'
 import { rbacAdminApi } from '@/services/rbacAdmin.service'
 import RoleSearchPanel, { type RoleSearchState } from './search'
 import RoleCreateOrUpdate, { type RoleModalMode } from './createOrUpdate'
+import { RolePermissionModal } from './components/RolePermissionModal'
 
 const primaryBtn =
   'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
@@ -28,6 +29,7 @@ function matchesFilter(row: RoleDto, q: RoleSearchState): boolean {
 }
 
 export default function RoleManagementPage() {
+// ...
   const [raw, setRaw] = useState<RoleDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -45,6 +47,9 @@ export default function RoleManagementPage() {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalMode, setModalMode] = useState<RoleModalMode>('create')
   const [selected, setSelected] = useState<RoleDto | null>(null)
+
+  const [permissionModalOpen, setPermissionModalOpen] = useState(false)
+  const [permissionTarget, setPermissionTarget] = useState<RoleDto | null>(null)
 
   const load = useCallback(async () => {
     try {
@@ -151,34 +156,54 @@ export default function RoleManagementPage() {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 140,
+      width: 80,
       align: 'center',
       fixed: 'right',
-      render: (_, row) => (
-        <Space size="small">
-          <Button
-            type="text"
-            size="small"
-            icon={<Pencil className="h-4 w-4" />}
-            onClick={() => openEdit(row)}
-          />
-          <Popconfirm
-            title="Xóa role?"
-            description="Thao tác không hoàn tác."
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ className: 'bg-red-600' }}
-            onConfirm={() => handleDelete(row)}
-          >
-            <Button
-              type="text"
-              size="small"
-              danger
-              icon={<Trash2 className="h-4 w-4" />}
-            />
-          </Popconfirm>
-        </Space>
-      ),
+      render: (_, row) => {
+        const items: MenuProps['items'] = [
+          {
+            key: 'permissions',
+            label: 'Thiết lập chức năng',
+            icon: <ShieldCheck className="h-4 w-4" />,
+            onClick: () => {
+              setPermissionTarget(row)
+              setPermissionModalOpen(true)
+            },
+          },
+          {
+            key: 'edit',
+            label: 'Chỉnh sửa',
+            icon: <Pencil className="h-4 w-4" />,
+            onClick: () => openEdit(row),
+          },
+          {
+            type: 'divider',
+          },
+          {
+            key: 'delete',
+            label: (
+              <Popconfirm
+                title="Xóa role?"
+                description="Thao tác không hoàn tác."
+                okText="Xóa"
+                cancelText="Hủy"
+                okButtonProps={{ className: 'bg-red-600' }}
+                onConfirm={() => handleDelete(row)}
+              >
+                <span className="text-red-600">Xóa</span>
+              </Popconfirm>
+            ),
+            danger: true,
+            icon: <Trash2 className="h-4 w-4 text-red-600" />,
+          },
+        ]
+
+        return (
+          <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+            <Button type="text" icon={<MoreHorizontal size={16} />} />
+          </Dropdown>
+        )
+      },
     },
   ]
 
@@ -261,6 +286,21 @@ export default function RoleManagementPage() {
         }}
         onSuccess={() => {
           message.success(modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật')
+          void load()
+        }}
+      />
+
+      <RolePermissionModal
+        open={permissionModalOpen}
+        roleId={permissionTarget?.id ?? null}
+        roleName={permissionTarget?.name ?? null}
+        onClose={() => {
+          setPermissionModalOpen(false)
+          setPermissionTarget(null)
+        }}
+        onSuccess={() => {
+          setPermissionModalOpen(false)
+          setPermissionTarget(null)
           void load()
         }}
       />

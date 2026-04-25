@@ -1,28 +1,12 @@
+using System.Linq;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Model.Persistence;
-using Repositories.AppInfo;
-using Repositories.AppUserRepository;
-using Repositories.BrandRepository;
-using Repositories.CategoryRepository;
-using Repositories.CouponRepository;
-using Repositories.ModuleRepository;
-using Repositories.OperationRepository;
-using Repositories.OrderRepository;
-using Repositories.ProductRepository;
-using Repositories.RoleOperationRepository;
-using Repositories.RoleRepository;
-using Repositories.UserRoleRepository;
-using Services.AppInfo;
-using Services.AppUserModule;
-using Services.BrandModule;
-using Services.CategoryModule;
-using Services.CouponModule;
+using Repositories.Common;
+using Services.Common;
 using Services.Mapping;
-using Services.OrderModule;
-using Services.ProductModule;
-using Services.Rbac;
 
 namespace Services;
 
@@ -39,38 +23,43 @@ public static class DependencyInjection
 
         services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
-        // ── Existing repositories ──────────────────────────────────────────────
-        services.AddScoped<IAppUserRepository, AppUserRepository>();
-        services.AddScoped<IAppInfoRepository, AppInfoRepository>();
-        services.AddScoped<IModuleRepository, ModuleRepository>();
-        services.AddScoped<IOperationRepository, OperationRepository>();
-        services.AddScoped<IRoleRepository, RoleRepository>();
-        services.AddScoped<IRoleOperationRepository, RoleOperationRepository>();
-        services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-
-        // ── Ecommerce repositories ─────────────────────────────────────────────
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
-        services.AddScoped<IBrandRepository, BrandRepository>();
-        services.AddScoped<IProductRepository, ProductRepository>();
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<ICouponRepository, CouponRepository>();
-
-        // ── Existing services ──────────────────────────────────────────────────
-        services.AddScoped<IAppUserService, AppUserService>();
-        services.AddScoped<IAppInfoService, AppInfoService>();
-        services.AddScoped<IModuleService, ModuleService>();
-        services.AddScoped<IOperationService, OperationService>();
-        services.AddScoped<IRoleService, RoleService>();
-        services.AddScoped<IRoleOperationService, RoleOperationService>();
-        services.AddScoped<IUserRoleService, UserRoleService>();
-
-        // ── Ecommerce services ─────────────────────────────────────────────────
-        services.AddScoped<ICategoryService, CategoryService>();
-        services.AddScoped<IBrandService, BrandService>();
-        services.AddScoped<IProductService, ProductService>();
-        services.AddScoped<IOrderService, OrderService>();
-        services.AddScoped<ICouponService, CouponService>();
+        // Tự động đăng ký DI theo quy ước
+        services.AddDependencyInjection();
 
         return services;
+    }
+
+    public static void AddDependencyInjection(this IServiceCollection services)
+    {
+        // Đăng ký các Base Generic (nếu cần dùng trực tiếp IRepositoryBase<T>)
+        services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+        services.AddScoped(typeof(IServiceBase<,,,>), typeof(ServiceBase<,,,>));
+
+        // Quét Services
+        var serviceAssembly = typeof(ServiceBase<,,,>).Assembly;
+        RegisterByConvention(services, serviceAssembly, "Service");
+
+        // Quét Repositories
+        var repositoryAssembly = typeof(RepositoryBase<>).Assembly;
+        RegisterByConvention(services, repositoryAssembly, "Repository");
+    }
+
+    private static void RegisterByConvention(IServiceCollection services, Assembly assembly, string suffix)
+    {
+        var types = assembly.GetTypes()
+            .Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith(suffix))
+            .ToList();
+
+        foreach (var implementationType in types)
+        {
+            var interfaceName = "I" + implementationType.Name;
+            var serviceInterface = implementationType.GetInterfaces()
+                .FirstOrDefault(i => i.Name == interfaceName);
+
+            if (serviceInterface != null)
+            {
+                services.AddScoped(serviceInterface, implementationType);
+            }
+        }
     }
 }

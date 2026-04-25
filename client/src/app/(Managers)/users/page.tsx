@@ -1,13 +1,13 @@
 'use client'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Users, Pencil, Eye, Trash2 } from 'lucide-react'
-import { Table, Button, Card, Popconfirm, message, Space } from 'antd'
+import { Users, Pencil, Eye, Trash2, MoreHorizontal, Shield, Home, ChevronRight } from 'lucide-react'
+import { Table, Button, Card, Popconfirm, message, Space, Dropdown, type MenuProps } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import { Home, ChevronRight } from 'lucide-react'
 import UserSearchPanel, { type UserSearchFormState } from './search'
 import UserCreateOrUpdate from './createOrUpdate'
 import UserDetailDrawer from './detail'
+import { UserRoleModal } from './components/UserRoleModal'
 import type { AppUserDto } from '@/services/appUser.service'
 import { appUserApi } from '@/services/appUser.service'
 
@@ -15,6 +15,7 @@ const primaryBtn =
   'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 
 function matchesFilter(row: AppUserDto, q: UserSearchFormState): boolean {
+// ... existing matchesFilter code ...
   const kw = q.keyword.trim().toLowerCase()
   if (kw) {
     const ok =
@@ -54,6 +55,9 @@ export default function UserManagementPage() {
 
   const [detailOpen, setDetailOpen] = useState(false)
   const [detailUserId, setDetailUserId] = useState<string | null>(null)
+
+  const [roleModalOpen, setRoleModalOpen] = useState(false)
+  const [roleTarget, setRoleTarget] = useState<AppUserDto | null>(null)
 
   const load = useCallback(async () => {
     try {
@@ -210,40 +214,60 @@ export default function UserManagementPage() {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 160,
+      width: 80,
       align: 'center',
       fixed: 'right',
-      render: (_, row) => (
-        <Space size="small">
-          <Button
-            type="text"
-            size="small"
-            icon={<Eye className="h-4 w-4" />}
-            onClick={() => openDetail(row)}
-          />
-          <Button
-            type="text"
-            size="small"
-            icon={<Pencil className="h-4 w-4" />}
-            onClick={() => openEdit(row)}
-          />
-          <Popconfirm
-            title="Xóa người dùng?"
-            description="Thao tác không hoàn tác."
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ className: 'bg-red-600' }}
-            onConfirm={() => handleDelete(row)}
-          >
-            <Button
-              type="text"
-              size="small"
-              danger
-              icon={<Trash2 className="h-4 w-4" />}
-            />
-          </Popconfirm>
-        </Space>
-      ),
+      render: (_, row) => {
+        const items: MenuProps['items'] = [
+          {
+            key: 'detail',
+            label: 'Chi tiết',
+            icon: <Eye className="h-4 w-4" />,
+            onClick: () => openDetail(row),
+          },
+          {
+            key: 'edit',
+            label: 'Chỉnh sửa',
+            icon: <Pencil className="h-4 w-4" />,
+            onClick: () => openEdit(row),
+          },
+          {
+            key: 'roles',
+            label: 'Thiết lập vai trò',
+            icon: <Shield className="h-4 w-4" />,
+            onClick: () => {
+              setRoleTarget(row)
+              setRoleModalOpen(true)
+            },
+          },
+          {
+            type: 'divider',
+          },
+          {
+            key: 'delete',
+            label: (
+              <Popconfirm
+                title="Xóa người dùng?"
+                description="Thao tác không hoàn tác."
+                okText="Xóa"
+                cancelText="Hủy"
+                okButtonProps={{ className: 'bg-red-600' }}
+                onConfirm={() => handleDelete(row)}
+              >
+                <span className="text-red-600">Xóa</span>
+              </Popconfirm>
+            ),
+            danger: true,
+            icon: <Trash2 className="h-4 w-4 text-red-600" />,
+          },
+        ]
+
+        return (
+          <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+            <Button type="text" icon={<MoreHorizontal size={16} />} />
+          </Dropdown>
+        )
+      },
     },
   ]
 
@@ -343,6 +367,21 @@ export default function UserManagementPage() {
             setModalMode('edit')
             setModalOpen(true)
           }
+        }}
+      />
+
+      <UserRoleModal
+        open={roleModalOpen}
+        userId={roleTarget?.id ?? null}
+        userEmail={roleTarget?.email ?? null}
+        onClose={() => {
+          setRoleModalOpen(false)
+          setRoleTarget(null)
+        }}
+        onSuccess={() => {
+          setRoleModalOpen(false)
+          setRoleTarget(null)
+          void load()
         }}
       />
     </div>

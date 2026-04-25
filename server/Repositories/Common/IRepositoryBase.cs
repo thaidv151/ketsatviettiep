@@ -14,4 +14,6 @@ public interface IRepositoryBase<TEntity>
     Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     Task DeleteAsync(Guid id, Guid? deletedById, CancellationToken cancellationToken = default);
+
+    IQueryable<TEntity> GetQueryable();
 }

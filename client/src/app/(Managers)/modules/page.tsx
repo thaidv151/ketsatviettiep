@@ -2,8 +2,9 @@
 
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Home, ChevronRight, Layers, Pencil, Trash2 } from 'lucide-react'
-import { Table, Button, Card, Popconfirm, message, Space } from 'antd'
+import { useRouter } from 'next/navigation'
+import { Home, ChevronRight, Layers, Pencil, Trash2, MoreHorizontal, ListChecks } from 'lucide-react'
+import { Table, Button, Card, Popconfirm, message, Space, Dropdown, type MenuProps, Tooltip } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import type { ModuleDto } from '@/services/rbacAdmin.service'
 import { rbacAdminApi } from '@/services/rbacAdmin.service'
@@ -28,6 +29,7 @@ function matchesFilter(row: ModuleDto, q: ModuleSearchState): boolean {
 }
 
 export default function ModuleManagementPage() {
+  const router = useRouter()
   const [raw, setRaw] = useState<ModuleDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -151,34 +153,51 @@ export default function ModuleManagementPage() {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 140,
+      width: 80,
       align: 'center',
       fixed: 'right',
-      render: (_, row) => (
-        <Space size="small">
-          <Button
-            type="text"
-            size="small"
-            icon={<Pencil className="h-4 w-4" />}
-            onClick={() => openEdit(row)}
-          />
-          <Popconfirm
-            title="Xóa module?"
-            description="Thao tác không hoàn tác."
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ className: 'bg-red-600' }}
-            onConfirm={() => handleDelete(row)}
-          >
-            <Button
-              type="text"
-              size="small"
-              danger
-              icon={<Trash2 className="h-4 w-4" />}
-            />
-          </Popconfirm>
-        </Space>
-      ),
+      render: (_, row) => {
+        const items: MenuProps['items'] = [
+          {
+            key: 'operations',
+            label: 'Quản lý Operation',
+            icon: <ListChecks className="h-4 w-4" />,
+            onClick: () => router.push(`/operations?moduleId=${row.id}`),
+          },
+          {
+            key: 'edit',
+            label: 'Chỉnh sửa',
+            icon: <Pencil className="h-4 w-4" />,
+            onClick: () => openEdit(row),
+          },
+          {
+            type: 'divider',
+          },
+          {
+            key: 'delete',
+            label: (
+              <Popconfirm
+                title="Xóa module?"
+                description="Thao tác không hoàn tác."
+                okText="Xóa"
+                cancelText="Hủy"
+                okButtonProps={{ className: 'bg-red-600' }}
+                onConfirm={() => handleDelete(row)}
+              >
+                <span className="text-red-600">Xóa</span>
+              </Popconfirm>
+            ),
+            danger: true,
+            icon: <Trash2 className="h-4 w-4 text-red-600" />,
+          },
+        ]
+
+        return (
+          <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight">
+            <Button type="text" icon={<MoreHorizontal size={16} />} />
+          </Dropdown>
+        )
+      },
     },
   ]
 

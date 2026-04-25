@@ -8,6 +8,9 @@ import {
   ListChecks,
   Settings,
   Users,
+  FolderTree,
+  FolderKanban,
+  Library,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -20,6 +23,9 @@ const iconByName: Record<string, LucideIcon> = {
   ListChecks,
   Settings,
   Users,
+  FolderTree,
+  FolderKanban,
+  Library,
   groupMenu: LayoutGrid,
   Circle,
 }
