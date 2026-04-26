@@ -1,0 +1,5 @@
+2026-04-25 21:31:21.259 +07:00 [INF] Now listening on: https://localhost:7251
+2026-04-25 21:31:21.292 +07:00 [INF] Now listening on: http://localhost:5255
+2026-04-25 21:31:21.338 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-25 21:31:21.339 +07:00 [INF] Hosting environment: Development
+2026-04-25 21:31:21.341 +07:00 [INF] Content root path: D:\souce\ketsat\server\Api

@@ -31,9 +31,9 @@ public static class DependencyInjection
 
     public static void AddDependencyInjection(this IServiceCollection services)
     {
-        // Đăng ký các Base Generic (nếu cần dùng trực tiếp IRepositoryBase<T>)
+        // Đăng ký các Base Generic (IRepositoryBase<T> — RepositoryBase<T> là class cụ thể)
         services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-        services.AddScoped(typeof(IServiceBase<,,,>), typeof(ServiceBase<,,,>));
+        // Không đăng ký IServiceBase<,,,> → ServiceBase<,,,>: ServiceBase là abstract; dùng INxxxService / NxxxService theo convention bên dưới.
 
         // Quét Services
         var serviceAssembly = typeof(ServiceBase<,,,>).Assembly;
