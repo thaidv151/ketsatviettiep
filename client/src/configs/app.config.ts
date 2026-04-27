@@ -28,9 +28,15 @@ const requireToken =
 const appConfig: AppConfig = {
   apiPrefix: baseURL,
   accessTokenStorageKey: 'accessToken',
-  publicApiPathPrefixes: ['/api/auth', '/api/appinfo'],
+  publicApiPathPrefixes: [
+    '/api/auth',
+    '/api/appinfo',
+    '/api/portal/products',
+    '/api/portal/categories',
+    '/api/portal/banners',
+  ],
   requireAccessTokenForProtectedApis: requireToken,
-  authenticatedEntryPath: '/home',
+  authenticatedEntryPath: '/dashboard',
   unAuthenticatedEntryPath: '/dang-nhap',
   locale: 'vi',
   activeNavTranslation: false,

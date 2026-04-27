@@ -2,8 +2,11 @@
 
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Home, ChevronRight, Shield, Pencil, Trash2, MoreHorizontal, ShieldCheck } from 'lucide-react'
-import { Table, Button, Card, Popconfirm, message, Space, Dropdown, type MenuProps } from 'antd'
+import { useRouter } from 'next/navigation'
+import { Shield, Pencil, Trash2, MoreHorizontal, ShieldCheck } from 'lucide-react'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
+import { Table, Button, Card, Popconfirm, Space, Dropdown, type MenuProps } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
 import type { RoleDto } from '@/services/rbacAdmin.service'
 import { rbacAdminApi } from '@/services/rbacAdmin.service'
@@ -29,7 +32,8 @@ function matchesFilter(row: RoleDto, q: RoleSearchState): boolean {
 }
 
 export default function RoleManagementPage() {
-// ...
+  const router = useRouter()
+  const { toast } = useToast()
   const [raw, setRaw] = useState<RoleDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -57,7 +61,7 @@ export default function RoleManagementPage() {
       const list = await rbacAdminApi.roles.list()
       setRaw(list)
     } catch {
-      message.error('Không tải được danh sách role')
+      toast({ variant: 'destructive', title: 'Không tải được danh sách role' })
     } finally {
       setLoading(false)
     }
@@ -106,10 +110,10 @@ export default function RoleManagementPage() {
   const handleDelete = async (row: RoleDto) => {
     try {
       await rbacAdminApi.roles.remove(row.id)
-      message.success('Đã xóa')
+      toast({ variant: 'success', title: 'Đã xóa' })
       void load()
     } catch {
-      message.error('Không xóa được')
+      toast({ variant: 'destructive', title: 'Không xóa được' })
     }
   }
 
@@ -209,13 +213,10 @@ export default function RoleManagementPage() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <Home size={14} className="hover:text-[#1677ff] cursor-pointer" />
-        <ChevronRight size={14} />
-        <span className="hover:text-[#1677ff] cursor-pointer">Quản lý</span>
-        <ChevronRight size={14} />
-        <span className="font-semibold text-[#0958d9]">Role</span>
-      </div>
+      <AdminBreadcrumb
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Role"
+      />
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
@@ -285,7 +286,7 @@ export default function RoleManagementPage() {
           setSelected(null)
         }}
         onSuccess={() => {
-          message.success(modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật')
+          toast({ variant: 'success', title: modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật' })
           void load()
         }}
       />

@@ -1,11 +1,14 @@
+'use client'
 import { useCallback, useEffect, useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { Table, Button, Card, Popconfirm, message, Space, Input, Select, Tag } from 'antd'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { Table, Button, Card, Popconfirm, Space, Input, Select, Tag } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
 import {
   AppstoreOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined,
-  HomeOutlined, RightOutlined, SearchOutlined, DownOutlined
+  SearchOutlined, DownOutlined
 } from '@ant-design/icons'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
 import { danhMucApi, nhomDanhMucApi } from '@/services/danhMuc.service'
 import type { DanhMucDto, DanhMucSearch, NhomDanhMucDto } from '@/types/danhMuc'
 import { DanhMucForm } from './components/DanhMucForm'
@@ -13,6 +16,8 @@ import { DanhMucForm } from './components/DanhMucForm'
 const primaryBtn = 'bg-[#007f32] hover:bg-[#006b2c] border-[#007f32] font-bold uppercase tracking-widest shadow-[0_4px_20px_rgba(0,127,50,0.25)]'
 
 function DanhMucPageContent() {
+  const router = useRouter()
+  const { toast } = useToast()
   const searchParamsUrl = useSearchParams()
   const groupParam = searchParamsUrl.get('group')
 
@@ -57,10 +62,10 @@ function DanhMucPageContent() {
         setData(res.data.items)
         setTotal(res.data.totalCount)
       } else {
-        message.error(res.message || 'Lỗi khi tải dữ liệu')
+        toast({ variant: 'destructive', title: res.message || 'Lỗi khi tải dữ liệu' })
       }
     } catch (err) {
-      message.error('Lỗi kết nối máy chủ')
+      toast({ variant: 'destructive', title: 'Lỗi kết nối máy chủ' })
     } finally {
       setLoading(false)
     }
@@ -78,13 +83,13 @@ function DanhMucPageContent() {
     try {
       const res = await danhMucApi.remove(id)
       if (res.status) {
-        message.success('Xóa thành công')
+        toast({ variant: 'success', title: 'Xóa thành công' })
         loadData()
       } else {
-        message.error(res.message || 'Không thể xóa')
+        toast({ variant: 'destructive', title: res.message || 'Không thể xóa' })
       }
     } catch (err) {
-      message.error('Lỗi kết nối')
+      toast({ variant: 'destructive', title: 'Lỗi kết nối' })
     }
   }
 
@@ -161,14 +166,11 @@ function DanhMucPageContent() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <HomeOutlined className="hover:text-[#007f32] cursor-pointer" />
-        <RightOutlined className="text-[10px]" />
-        <span className="hover:text-[#007f32] cursor-pointer">Quản lý</span>
-        <RightOutlined className="text-[10px]" />
-        <span className="font-semibold text-[#007f32]">Dữ liệu danh mục</span>
-      </div>
+      <AdminBreadcrumb
+        accent="green"
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Dữ liệu danh mục"
+      />
 
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
@@ -265,7 +267,7 @@ function DanhMucPageContent() {
         onClose={() => setModal(prev => ({ ...prev, open: false }))}
         onSuccess={() => {
           setModal(prev => ({ ...prev, open: false }))
-          message.success(modal.mode === 'create' ? 'Đã thêm thành công' : 'Đã cập nhật thay đổi')
+          toast({ variant: 'success', title: modal.mode === 'create' ? 'Đã thêm thành công' : 'Đã cập nhật thay đổi' })
           loadData()
         }}
       />

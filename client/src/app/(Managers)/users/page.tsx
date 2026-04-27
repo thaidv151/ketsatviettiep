@@ -1,8 +1,11 @@
 'use client'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Users, Pencil, Eye, Trash2, MoreHorizontal, Shield, Home, ChevronRight } from 'lucide-react'
-import { Table, Button, Card, Popconfirm, message, Space, Dropdown, type MenuProps } from 'antd'
+import { useRouter } from 'next/navigation'
+import { Users, Pencil, Eye, Trash2, MoreHorizontal, Shield } from 'lucide-react'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
+import { Table, Button, Card, Popconfirm, Dropdown, Empty, type MenuProps } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
 import UserSearchPanel, { type UserSearchFormState } from './search'
 import UserCreateOrUpdate from './createOrUpdate'
@@ -15,7 +18,6 @@ const primaryBtn =
   'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 
 function matchesFilter(row: AppUserDto, q: UserSearchFormState): boolean {
-// ... existing matchesFilter code ...
   const kw = q.keyword.trim().toLowerCase()
   if (kw) {
     const ok =
@@ -33,6 +35,8 @@ function matchesFilter(row: AppUserDto, q: UserSearchFormState): boolean {
 }
 
 export default function UserManagementPage() {
+  const router = useRouter()
+  const { toast } = useToast()
   const [raw, setRaw] = useState<AppUserDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -65,7 +69,7 @@ export default function UserManagementPage() {
       const list = await appUserApi.list()
       setRaw(list)
     } catch {
-      message.error('Không tải được danh sách người dùng')
+      toast({ variant: 'destructive', title: 'Không tải được danh sách người dùng' })
     } finally {
       setLoading(false)
     }
@@ -128,10 +132,10 @@ export default function UserManagementPage() {
   const handleDelete = async (row: AppUserDto) => {
     try {
       await appUserApi.remove(row.id)
-      message.success('Đã xóa')
+      toast({ variant: 'success', title: 'Đã xóa' })
       void load()
     } catch {
-      message.error('Không xóa được')
+      toast({ variant: 'destructive', title: 'Không xóa được' })
     }
   }
 
@@ -273,13 +277,10 @@ export default function UserManagementPage() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <Home size={14} className="hover:text-[#1677ff] cursor-pointer" />
-        <ChevronRight size={14} />
-        <span className="hover:text-[#1677ff] cursor-pointer">Quản lý</span>
-        <ChevronRight size={14} />
-        <span className="font-semibold text-[#0958d9]">Người dùng</span>
-      </div>
+      <AdminBreadcrumb
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Người dùng"
+      />
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
@@ -316,22 +317,49 @@ export default function UserManagementPage() {
       />
 
       <Card
-        className="rounded-sm border border-slate-200 shadow-sm"
+        className="overflow-hidden rounded-sm border border-slate-200/90 shadow-sm"
         styles={{ body: { padding: 0 } }}
       >
+        <div className="border-b border-slate-100 bg-slate-50/50 px-4 py-3 sm:px-5">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="text-sm font-extrabold uppercase tracking-widest text-slate-700">
+              Danh sách
+            </h2>
+            <span className="text-xs text-slate-500">
+              {filtered.length === 0
+                ? 'Không có bản ghi'
+                : `Hiển thị ${paged.length} / ${filtered.length}`}
+            </span>
+          </div>
+        </div>
         <Table<AppUserDto>
           rowKey="id"
           loading={loading}
           columns={columns}
           dataSource={paged}
-          scroll={{ x: 1280 }}
+          size="middle"
+          scroll={{ x: 1280, y: 'min(60vh, 520px)' }}
+          className="[&_.ant-table]:text-[13px] [&_thead_.ant-table-cell]:bg-slate-50/80 [&_thead_.ant-table-cell]:text-xs [&_thead_.ant-table-cell]:font-bold [&_thead_.ant-table-cell]:uppercase [&_thead_.ant-table-cell]:tracking-wide [&_tbody_.ant-table-row]:transition-colors"
+          rowClassName={() => 'hover:bg-slate-50/90'}
+          locale={{
+            emptyText: (
+              <Empty
+                className="py-10"
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="Chưa có người dùng"
+              />
+            ),
+          }}
           pagination={{
+            className: 'px-4 py-2 sm:px-5',
             current: page,
             pageSize,
             total: filtered.length,
             showSizeChanger: true,
             pageSizeOptions: [10, 20, 50],
-            showTotal: (t) => `${t} người dùng`,
+            showTotal: (t) => (
+              <span className="text-slate-500 tabular-nums">{t} người dùng</span>
+            ),
             onChange: (p, ps) => {
               setPage(p)
               setPageSize(ps ?? 10)
@@ -349,7 +377,7 @@ export default function UserManagementPage() {
           setSelected(null)
         }}
         onSuccess={() => {
-          message.success(modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật')
+          toast({ variant: 'success', title: modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật' })
           void load()
         }}
       />

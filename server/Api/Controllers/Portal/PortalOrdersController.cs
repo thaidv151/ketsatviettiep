@@ -1,11 +1,11 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.OrderModule;
 
-
 namespace Api.Controllers.Portal;
 
-[AllowAnonymous]
+[Authorize]
 [ApiController]
 [Route("api/portal/orders")]
 public sealed class PortalOrdersController : ControllerBase
@@ -17,41 +17,45 @@ public sealed class PortalOrdersController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetMyOrders(CancellationToken ct)
     {
-        // For demonstration without auth, we'll just return the first few orders
-        var list = await _service.GetListAsync(ct);
-        return Ok(list.Take(5).ToList());
+        var userId = GetUserIdOrProblem();
+        if (userId is null) return Unauthorized();
+        var list = await _service.GetListForUserAsync(userId.Value, ct);
+        return Ok(list);
     }
-    
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetDetail(Guid id, CancellationToken ct)
     {
+        var userId = GetUserIdOrProblem();
+        if (userId is null) return Unauthorized();
         var item = await _service.GetDetailAsync(id, ct);
         if (item is null) return NotFound();
+        if (item.UserId != userId) return Forbid();
         return Ok(item);
     }
-    
+
     [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request, CancellationToken ct)
+    public async Task<IActionResult> CreateOrder([FromBody] CreatePortalOrderRequest request, CancellationToken ct)
     {
-        // Dummy create method for portal
-        return Ok(new { success = true, orderId = Guid.NewGuid() });
+        var userId = GetUserIdOrProblem();
+        if (userId is null) return Unauthorized();
+        try
+        {
+            var result = await _service.CreatePortalOrderAsync(userId.Value, request, ct);
+            return Ok(new { orderId = result.OrderId, orderCode = result.OrderCode });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
-}
 
-public class CreateOrderRequest
-{
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string Phone { get; set; } = string.Empty;
-    public string Address { get; set; } = string.Empty;
-    public string PaymentMethod { get; set; } = string.Empty;
-    public List<CartItemDto> Items { get; set; } = new();
-}
-
-public class CartItemDto
-{
-    public Guid ProductId { get; set; }
-    public int Quantity { get; set; }
-    public decimal Price { get; set; }
+    private Guid? GetUserIdOrProblem()
+    {
+        var sub = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue("sub");
+        if (string.IsNullOrEmpty(sub) || !Guid.TryParse(sub, out var id))
+            return null;
+        return id;
+    }
 }

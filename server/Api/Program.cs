@@ -45,14 +45,12 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.FromMinutes(1),
     };
 });
-    Console.WriteLine(
-    builder.Configuration.GetConnectionString("DefaultConnection"));
-    builder.Services.AddAuthorization();
-
 builder.Services.AddControllers().AddJsonOptions(o =>
 {
     o.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     o.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+    o.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    o.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString;
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -99,11 +97,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseSerilogRequestLogging();
 app.UseCors();

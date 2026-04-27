@@ -20,6 +20,14 @@ public sealed class PortalProductsController : ControllerBase
         return Ok(list.Where(p => p.Status == 1).ToList()); // Only active products
     }
 
+    [HttpGet("by-slug/{slug}")]
+    public async Task<IActionResult> GetDetailBySlug(string slug, CancellationToken ct)
+    {
+        var item = await _service.GetDetailBySlugAsync(slug, ct);
+        if (item is null || item.Status != 1) return NotFound();
+        return Ok(item);
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetDetail(Guid id, CancellationToken ct)
     {

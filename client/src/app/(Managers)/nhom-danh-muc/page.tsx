@@ -1,12 +1,14 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Table, Button, Card, Popconfirm, message, Space, Input, Badge, Tooltip } from 'antd'
+import { Table, Button, Card, Popconfirm, Space, Input, Badge, Tooltip } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
 import {
   FolderOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined,
-  HomeOutlined, RightOutlined, SearchOutlined, DownOutlined, AppstoreOutlined
+  SearchOutlined, DownOutlined, AppstoreOutlined
 } from '@ant-design/icons'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
 import { nhomDanhMucApi } from '@/services/danhMuc.service'
 import type { NhomDanhMucDto, NhomDanhMucSearch } from '@/types/danhMuc'
 import { NhomDanhMucForm } from './components/NhomDanhMucForm'
@@ -15,6 +17,7 @@ const primaryBtn = 'bg-[#007f32] hover:bg-[#006b2c] border-[#007f32] font-bold u
 
 export default function NhomDanhMucPage() {
   const router = useRouter()
+  const { toast } = useToast()
   const [data, setData] = useState<NhomDanhMucDto[]>([])
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState(0)
@@ -40,10 +43,10 @@ export default function NhomDanhMucPage() {
         setData(res.data.items)
         setTotal(res.data.totalCount)
       } else {
-        message.error(res.message || 'Lỗi khi tải dữ liệu')
+        toast({ variant: 'destructive', title: res.message || 'Lỗi khi tải dữ liệu' })
       }
     } catch (err) {
-      message.error('Lỗi kết nối máy chủ')
+      toast({ variant: 'destructive', title: 'Lỗi kết nối máy chủ' })
     } finally {
       setLoading(false)
     }
@@ -57,13 +60,13 @@ export default function NhomDanhMucPage() {
     try {
       const res = await nhomDanhMucApi.remove(id)
       if (res.status) {
-        message.success('Xóa thành công')
+        toast({ variant: 'success', title: 'Xóa thành công' })
         loadData()
       } else {
-        message.error(res.message || 'Không thể xóa')
+        toast({ variant: 'destructive', title: res.message || 'Không thể xóa' })
       }
     } catch (err) {
-      message.error('Lỗi kết nối')
+      toast({ variant: 'destructive', title: 'Lỗi kết nối' })
     }
   }
 
@@ -132,14 +135,11 @@ export default function NhomDanhMucPage() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <HomeOutlined className="hover:text-[#007f32] cursor-pointer" />
-        <RightOutlined className="text-[10px]" />
-        <span className="hover:text-[#007f32] cursor-pointer">Quản lý</span>
-        <RightOutlined className="text-[10px]" />
-        <span className="font-semibold text-[#007f32]">Nhóm danh mục</span>
-      </div>
+      <AdminBreadcrumb
+        accent="green"
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Nhóm danh mục"
+      />
 
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
@@ -221,7 +221,7 @@ export default function NhomDanhMucPage() {
         onClose={() => setModal(prev => ({ ...prev, open: false }))}
         onSuccess={() => {
           setModal(prev => ({ ...prev, open: false }))
-          message.success(modal.mode === 'create' ? 'Đã thêm nhóm mới' : 'Đã cập nhật thay đổi')
+          toast({ variant: 'success', title: modal.mode === 'create' ? 'Đã thêm nhóm mới' : 'Đã cập nhật thay đổi' })
           loadData()
         }}
       />

@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Drawer, Descriptions, Tag, Button, Table, Spin, Select, Input, Divider, Timeline, message } from 'antd'
+import { Drawer, Descriptions, Tag, Button, Table, Spin, Select, Input, Divider, Timeline } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
 import { EditOutlined, InboxOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import type { OrderDetailDto, OrderItemDto, UpdateOrderStatusRequest } from '@/services/order.service'
@@ -20,6 +21,7 @@ const STATUS_OPTIONS = [
 type Props = { open: boolean; orderId: string | null; onClose: () => void; onStatusChanged: () => void }
 
 export default function OrderDetail({ open, orderId, onClose, onStatusChanged }: Props) {
+  const { toast } = useToast()
   const [data, setData] = useState<OrderDetailDto | null>(null)
   const [loading, setLoading] = useState(false)
   const [newStatus, setNewStatus] = useState<number | undefined>()
@@ -44,8 +46,8 @@ export default function OrderDetail({ open, orderId, onClose, onStatusChanged }:
       setNewStatus(undefined)
       setStatusNote('')
       onStatusChanged()
-      message.success('Đã cập nhật trạng thái')
-    } catch { message.error('Không cập nhật được') } finally { setUpdating(false) }
+      toast({ variant: 'success', title: 'Đã cập nhật trạng thái' })
+    } catch { toast({ variant: 'destructive', title: 'Không cập nhật được' }) } finally { setUpdating(false) }
   }
 
   const itemColumns: ColumnsType<OrderItemDto> = [
@@ -57,7 +59,7 @@ export default function OrderDetail({ open, orderId, onClose, onStatusChanged }:
 
   return (
     <Drawer title={<span className="font-extrabold text-slate-800">Chi tiết đơn hàng</span>}
-      open={open} onClose={onClose} width={720} bodyStyle={{ padding: '16px 24px' }}>
+      open={open} onClose={onClose} width={720} styles={{ body: { padding: '16px 24px' } }}>
       {loading ? (
         <div className="flex justify-center py-16"><Spin size="large" /></div>
       ) : data ? (
@@ -76,7 +78,7 @@ export default function OrderDetail({ open, orderId, onClose, onStatusChanged }:
             column={2} bordered size="small" labelStyle={{ fontWeight: 600 }}>
             <Descriptions.Item label="Người nhận" span={2}>{data.recipientName}</Descriptions.Item>
             <Descriptions.Item label="Điện thoại">{data.recipientPhone}</Descriptions.Item>
-            <Descriptions.Item label="Địa chỉ" span={2}>{[data.addressDetail, data.ward, data.district, data.province].filter(Boolean).join(', ')}</Descriptions.Item>
+            <Descriptions.Item label="Địa chỉ" span={2}>{[data.addressDetail, data.ward, data.province].filter(Boolean).join(', ')}</Descriptions.Item>
             {data.shippingProvider && <Descriptions.Item label="Vận chuyển">{data.shippingProvider}</Descriptions.Item>}
             {data.trackingNumber && <Descriptions.Item label="Mã vận đơn"><code className="text-xs">{data.trackingNumber}</code></Descriptions.Item>}
           </Descriptions>

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services.CategoryModule;
+using Services.Common;
 
 namespace Api.Controllers.Admin;
 
@@ -19,17 +20,38 @@ public sealed class AdminCategoriesController : ControllerBase
         _logger = logger;
     }
 
+    /// <summary>Danh sách có lọc + phân trang. Query: Query, ParentId, IsActive, RootOnly, PageIndex, PageSize, …</summary>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAll(CancellationToken ct)
+    public async Task<ActionResult<PagedList<CategoryDto>>> GetList(
+        [FromQuery] CategorySearch? search,
+        CancellationToken ct)
     {
         try
         {
-            var result = await _service.GetAllAsync(ct);
+            var result = await _service.GetDataAsync(search ?? new CategorySearch(), ct);
             return Ok(result);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Lỗi khi lấy danh sách danh mục");
+            return StatusCode(500, new { message = "Lỗi hệ thống: " + ex.Message });
+        }
+    }
+
+    /// <summary>Giống <see cref="GetList"/> nhưng nhận body (tiện cho bộ lọc phức tạp), cùng mẫu với <c>DanhMuc/GetData</c>.</summary>
+    [HttpPost("GetData")]
+    public async Task<ActionResult<PagedList<CategoryDto>>> GetData(
+        [FromBody] CategorySearch? search,
+        CancellationToken ct)
+    {
+        try
+        {
+            var result = await _service.GetDataAsync(search ?? new CategorySearch(), ct);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Lỗi khi lấy danh sách danh mục (GetData)");
             return StatusCode(500, new { message = "Lỗi hệ thống: " + ex.Message });
         }
     }

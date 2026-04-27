@@ -43,6 +43,8 @@ export type ProductVariantDto = {
   lowStockThreshold: number
   weightGram: number | null
   imageUrl: string | null
+  /** Ảnh mô tả thêm theo biến thể (lưu ProductImage.VariantId). */
+  galleryImageUrls: string[]
   isActive: boolean
   attributeValueIds: string[]
 }
@@ -94,6 +96,8 @@ export type CreateProductVariantRequest = {
   lowStockThreshold?: number
   weightGram?: number | null
   imageUrl?: string | null
+  /** Ảnh mô tả thêm (theo từng biến thể). */
+  galleryImageUrls?: string[]
   isActive?: boolean
   attributeValueIds?: string[]
 }
@@ -133,7 +137,8 @@ export type CreateProductRequest = {
   imageUrls?: string[]
 }
 
-export type UpdateProductRequest = Omit<CreateProductRequest, 'attributes' | 'variants' | 'imageUrls'>
+/** Giống create: cập nhật kèm thuộc tính, biến thể, ảnh. */
+export type UpdateProductRequest = CreateProductRequest
 
 // ── API ───────────────────────────────────────────────────────────────────────
 

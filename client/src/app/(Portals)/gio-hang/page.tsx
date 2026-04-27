@@ -5,18 +5,11 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Trash2, Plus, Minus } from 'lucide-react'
 import Link from 'next/link'
-
-type CartItem = {
-  id: string
-  name: string
-  price: number
-  quantity: number
-  image: string | null
-  category: string | null
-}
+import type { CartLine } from '@/types/cart'
+import { cartLineKey } from '@/types/cart'
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useState<CartLine[]>([])
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -24,38 +17,45 @@ export default function CartPage() {
     const saved = localStorage.getItem('ketsat_cart')
     if (saved) {
       try {
-        setCartItems(JSON.parse(saved))
+        const raw = JSON.parse(saved) as CartLine[]
+        setCartItems(
+          raw.map((c) => ({
+            ...c,
+            slug: c.slug || c.id,
+            variantId: c.variantId ?? null,
+            variantLabel: c.variantLabel ?? null,
+            variantSku: c.variantSku ?? null,
+          })),
+        )
       } catch (e) {
         console.error('Invalid cart JSON in localStorage')
       }
     }
   }, [])
 
-  const saveCart = (items: CartItem[]) => {
+  const saveCart = (items: CartLine[]) => {
     setCartItems(items)
     localStorage.setItem('ketsat_cart', JSON.stringify(items))
     window.dispatchEvent(new Event('cart-updated'))
   }
 
-  const updateQuantity = (id: string, newQuantity: number) => {
+  const updateQuantity = (key: string, newQuantity: number) => {
     if (newQuantity <= 0) {
-      removeItem(id)
+      removeItem(key)
       return
     }
-    const updated = cartItems.map(item =>
-      item.id === id ? { ...item, quantity: newQuantity } : item
+    const updated = cartItems.map((item) =>
+      cartLineKey(item) === key ? { ...item, quantity: newQuantity } : item
     )
     saveCart(updated)
   }
 
-  const removeItem = (id: string) => {
-    saveCart(cartItems.filter(item => item.id !== id))
+  const removeItem = (key: string) => {
+    saveCart(cartItems.filter((item) => cartLineKey(item) !== key))
   }
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-  const shipping = cartItems.length > 0 ? 0 : 0
-  const tax = Math.round(subtotal * 0.08)
-  const total = subtotal + shipping + tax
+  const total = subtotal
 
   return (
     <main>
@@ -87,7 +87,7 @@ export default function CartPage() {
               <Card className="bg-card border-border">
                 {cartItems.map((item) => (
                   <div
-                    key={item.id}
+                    key={cartLineKey(item)}
                     className="p-6 border-b border-border last:border-b-0 flex flex-col md:flex-row gap-6 items-start md:items-center"
                   >
                     {/* Product Image */}
@@ -100,13 +100,37 @@ export default function CartPage() {
                     </div>
 
                     {/* Product Details */}
-                    <div className="flex-grow">
-                      <Link href={`/products/${item.id}`}>
+                    <div className="flex-grow min-w-0">
+                      <Link href={`/san-pham/${encodeURIComponent(item.slug || item.id)}`}>
                         <h3 className="font-semibold text-lg text-foreground hover:text-accent transition cursor-pointer">
                           {item.name}
                         </h3>
                       </Link>
-                      <p className="text-sm text-muted-foreground">{item.category}</p>
+                      {item.variantId ? (
+                        <div className="mt-1.5 space-y-0.5">
+                          <p className="text-[11px] font-semibold uppercase tracking-wide text-primary">
+                            Mã phân loại
+                          </p>
+                          <p className="text-sm font-medium text-foreground">
+                            {item.variantLabel ||
+                              (item.variantSku ? `Mã: ${item.variantSku}` : '—')}
+                          </p>
+                          {item.variantSku &&
+                            item.variantLabel &&
+                            item.variantSku.trim() !== item.variantLabel.trim() && (
+                            <p className="text-xs text-muted-foreground">
+                              <span className="font-mono">SKU: {item.variantSku}</span>
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <p className="text-xs text-muted-foreground mt-1.5">
+                          Sản phẩm mặc định — không theo mã phân loại
+                        </p>
+                      )}
+                      {item.category != null && item.category !== '' && (
+                        <p className="text-sm text-muted-foreground mt-0.5">{item.category}</p>
+                      )}
                       <p className="text-lg font-bold text-foreground mt-2">
                         {item.price.toLocaleString()}đ
                       </p>
@@ -116,14 +140,14 @@ export default function CartPage() {
                     <div className="flex items-center gap-4">
                       <div className="flex items-center border border-border rounded-lg">
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => updateQuantity(cartLineKey(item), item.quantity - 1)}
                           className="p-2 hover:bg-muted transition"
                         >
                           <Minus className="w-4 h-4 text-foreground" />
                         </button>
                         <span className="w-8 text-center text-foreground font-semibold">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => updateQuantity(cartLineKey(item), item.quantity + 1)}
                           className="p-2 hover:bg-muted transition"
                         >
                           <Plus className="w-4 h-4 text-foreground" />
@@ -135,7 +159,7 @@ export default function CartPage() {
                       </p>
 
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(cartLineKey(item))}
                         className="p-2 hover:bg-destructive/10 rounded-lg transition text-destructive"
                       >
                         <Trash2 className="w-5 h-5" />
@@ -165,14 +189,6 @@ export default function CartPage() {
                     <span>Tạm tính</span>
                     <span>{subtotal.toLocaleString('vi-VN')}đ</span>
                   </div>
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Phí vận chuyển</span>
-                    <span className="text-blue-600 dark:text-blue-400 font-semibold">Miễn phí</span>
-                  </div>
-                  <div className="flex justify-between text-muted-foreground">
-                    <span>Thuế (ước tính)</span>
-                    <span>{tax.toLocaleString('vi-VN')}đ</span>
-                  </div>
                 </div>
 
                 <div className="flex justify-between items-center pt-6 border-t border-border">
@@ -189,7 +205,7 @@ export default function CartPage() {
                 </Link>
 
                 {/* Trust Badges */}
-                <div className="space-y-3 pt-6 border-t border-border text-sm">
+                {/* <div className="space-y-3 pt-6 border-t border-border text-sm">
                   <div className="flex gap-2">
                     <span>🔒</span>
                     <span className="text-muted-foreground">Thanh toán bảo mật</span>
@@ -202,7 +218,7 @@ export default function CartPage() {
                     <span>✓</span>
                     <span className="text-muted-foreground">Cam kết hoàn tiền</span>
                   </div>
-                </div>
+                </div> */}
               </Card>
             </div>
           </div>

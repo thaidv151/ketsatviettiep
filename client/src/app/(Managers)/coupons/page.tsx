@@ -1,11 +1,11 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Table, Button, Card, Popconfirm, message, Space, Tag } from 'antd'
+import { useRouter } from 'next/navigation'
+import { Table, Button, Card, Popconfirm, Space, Tag } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
-import {
-  TagOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined,
-  HomeOutlined, RightOutlined,
-} from '@ant-design/icons'
+import { TagOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
 import CouponSearch, { type CouponSearchState } from './search'
 import CouponCreateOrUpdate from './createOrUpdate'
 import type { CouponDto } from '@/services/coupon.service'
@@ -14,6 +14,8 @@ import { couponApi } from '@/services/coupon.service'
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 
 export default function CouponManagementPage() {
+  const router = useRouter()
+  const { toast } = useToast()
   const [raw, setRaw] = useState<CouponDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -27,7 +29,7 @@ export default function CouponManagementPage() {
 
   const load = useCallback(async () => {
     try { setLoading(true); setRaw(await couponApi.list()) }
-    catch { message.error('Không tải được mã giảm giá') }
+    catch { toast({ variant: 'destructive', title: 'Không tải được mã giảm giá' }) }
     finally { setLoading(false) }
   }, [])
 
@@ -48,8 +50,8 @@ export default function CouponManagementPage() {
   useEffect(() => { setPage(1) }, [applied, pageSize])
 
   const handleDelete = async (row: CouponDto) => {
-    try { await couponApi.remove(row.id); message.success('Đã xóa'); void load() }
-    catch { message.error('Không xóa được') }
+    try { await couponApi.remove(row.id); toast({ variant: 'success', title: 'Đã xóa' }); void load() }
+    catch { toast({ variant: 'destructive', title: 'Không xóa được' }) }
   }
 
   const isExpired = (r: CouponDto) => r.expiredAt ? new Date(r.expiredAt) < new Date() : false
@@ -94,13 +96,10 @@ export default function CouponManagementPage() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <HomeOutlined className="hover:text-[#1677ff] cursor-pointer" />
-        <RightOutlined />
-        <span className="hover:text-[#1677ff] cursor-pointer">Quản lý</span>
-        <RightOutlined />
-        <span className="font-semibold text-[#0958d9]">Mã giảm giá</span>
-      </div>
+      <AdminBreadcrumb
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Mã giảm giá"
+      />
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-3 bg-blue-50 text-[#1677ff] rounded-sm text-2xl"><TagOutlined /></div>
@@ -124,7 +123,7 @@ export default function CouponManagementPage() {
       </Card>
       <CouponCreateOrUpdate open={modalOpen} mode={modalMode} item={selected}
         onClose={() => { setModalOpen(false); setSelected(null) }}
-        onSuccess={() => { message.success(modalMode === 'create' ? 'Đã tạo mã' : 'Đã cập nhật'); void load() }} />
+        onSuccess={() => { toast({ variant: 'success', title: modalMode === 'create' ? 'Đã tạo mã' : 'Đã cập nhật' }); void load() }} />
     </div>
   )
 }

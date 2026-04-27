@@ -5,6 +5,7 @@ using Repositories.AppUserRepository;
 using Repositories.ModuleRepository;
 using Repositories.OperationRepository;
 using Repositories.RoleOperationRepository;
+using Repositories.RoleRepository;
 using Repositories.UserRoleRepository;
 using Services.AppUserModule.Dtos;
 using Services.AppUserModule.Requests;
@@ -20,6 +21,7 @@ public sealed class AppUserService
     private readonly IRoleOperationRepository _roleOpRepo;
     private readonly IOperationRepository _opRepo;
     private readonly IModuleRepository _moduleRepo;
+    private readonly IRoleRepository _roleRepo;
 
     public AppUserService(
         IAppUserRepository repository, 
@@ -28,7 +30,8 @@ public sealed class AppUserService
         IUserRoleRepository userRoleRepo,
         IRoleOperationRepository roleOpRepo,
         IOperationRepository opRepo,
-        IModuleRepository moduleRepo)
+        IModuleRepository moduleRepo,
+        IRoleRepository roleRepo)
         : base(repository, mapper, logger)
     {
         _appUserRepo = repository;
@@ -36,6 +39,7 @@ public sealed class AppUserService
         _roleOpRepo = roleOpRepo;
         _opRepo = opRepo;
         _moduleRepo = moduleRepo;
+        _roleRepo = roleRepo;
     }
 
     public override async Task<AppUserDto> CreateAsync(CreateAppUserRequest request, CancellationToken ct = default)
@@ -149,6 +153,13 @@ public sealed class AppUserService
             .Select(ur => ur.RoleId)
             .ToList();
 
+        var allRoles = await _roleRepo.GetAllAsync(ct);
+        var roleCodes = allRoles
+            .Where(r => roleIds.Contains(r.Id) && r.IsActive && r.IsDeleted == false)
+            .Select(r => r.Code)
+            .Distinct()
+            .ToList();
+
         // 2. Lấy danh sách OperationId từ các Role đó
         var roleOps = await _roleOpRepo.GetAllAsync(ct);
         var opIds = roleOps
@@ -199,6 +210,6 @@ public sealed class AppUserService
             }
         }
 
-        return new UserInfoWithMenuDto(user, menuItems);
+        return new UserInfoWithMenuDto(user, menuItems, roleCodes);
     }
 }

@@ -73,7 +73,6 @@ export default function UserCreateOrUpdate({
           gender: d.gender,
           avatar: d.avatar ?? '',
           province: d.province ?? '',
-          district: d.district ?? '',
           ward: d.ward ?? '',
           addressDetail: d.addressDetail ?? '',
           emailConfirmed: d.emailConfirmed,
@@ -103,7 +102,7 @@ export default function UserCreateOrUpdate({
           gender: v.gender ?? null,
           avatar: v.avatar?.trim() || null,
           province: v.province?.trim() || null,
-          district: v.district?.trim() || null,
+          district: null,
           ward: v.ward?.trim() || null,
           addressDetail: v.addressDetail?.trim() || null,
           password: v.password,
@@ -120,7 +119,7 @@ export default function UserCreateOrUpdate({
           gender: v.gender ?? null,
           avatar: v.avatar?.trim() || null,
           province: v.province?.trim() || null,
-          district: v.district?.trim() || null,
+          district: null,
           ward: v.ward?.trim() || null,
           addressDetail: v.addressDetail?.trim() || null,
           newPassword: v.newPassword?.trim() || null,
@@ -252,11 +251,6 @@ export default function UserCreateOrUpdate({
           <Row gutter={16}>
             <Col xs={24} md={12}>
               <Form.Item name="province" label="Tỉnh/Thành phố">
-                <Input className="rounded-sm" />
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={12}>
-              <Form.Item name="district" label="Quận/Huyện">
                 <Input className="rounded-sm" />
               </Form.Item>
             </Col>

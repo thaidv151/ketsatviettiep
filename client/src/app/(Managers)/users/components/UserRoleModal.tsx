@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Modal, Select, Form, message } from 'antd'
+import { Modal, Select, Form } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import { rbacAdminApi, type RoleDto } from '@/services/rbacAdmin.service'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 
 export const UserRoleModal: React.FC<Props> = ({ open, userId, userEmail, onClose, onSuccess }) => {
   const [form] = Form.useForm()
+  const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [roles, setRoles] = useState<RoleDto[]>([])
 
@@ -34,7 +36,7 @@ export const UserRoleModal: React.FC<Props> = ({ open, userId, userEmail, onClos
         roleIds: userRoles.map(ur => ur.roleId)
       })
     } catch (err) {
-      message.error('Không thể tải dữ liệu vai trò')
+      toast({ variant: 'destructive', title: 'Không thể tải dữ liệu vai trò' })
     } finally {
       setLoading(false)
     }
@@ -46,10 +48,10 @@ export const UserRoleModal: React.FC<Props> = ({ open, userId, userEmail, onClos
       setLoading(true)
       const values = await form.validateFields()
       await rbacAdminApi.userRoles.setUserRoles(userId, values.roleIds)
-      message.success('Thiết lập vai trò thành công')
+      toast({ variant: 'success', title: 'Thiết lập vai trò thành công' })
       onSuccess()
     } catch (err) {
-      message.error('Lỗi khi thiết lập vai trò')
+      toast({ variant: 'destructive', title: 'Lỗi khi thiết lập vai trò' })
     } finally {
       setLoading(false)
     }

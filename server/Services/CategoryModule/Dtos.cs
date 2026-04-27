@@ -1,4 +1,21 @@
+using Services.Common;
+
 namespace Services.CategoryModule;
+
+// ── Tìm kiếm & phân trang ───────────────────────────────────────────────────
+
+public class CategorySearch : SearchBase
+{
+    /// <summary>Tìm theo tên, slug, mô tả (contains).</summary>
+    public string? Query { get; set; }
+
+    public Guid? ParentId { get; set; }
+
+    public bool? IsActive { get; set; }
+
+    /// <summary>Chỉ danh mục gốc (cha null).</summary>
+    public bool? RootOnly { get; set; }
+}
 
 // ── DTOs ─────────────────────────────────────────────────────────────────────
 

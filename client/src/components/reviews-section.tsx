@@ -13,7 +13,7 @@ const REVIEWS = [
     id: 2,
     author: 'Sarah Anderson',
     role: 'Chủ doanh nghiệp',
-    content: 'SafeVault đã cung cấp giải pháp hoàn hảo cho văn phòng của chúng tôi. Két sắt Elite chống cháy đã được giao đúng hẹn và đội ngũ của họ lắp đặt rất chuẩn xác.',
+    content: 'Két sắt việt tiệp đã cung cấp giải pháp hoàn hảo cho văn phòng của chúng tôi. Két sắt Elite chống cháy đã được giao đúng hẹn và đội ngũ của họ lắp đặt rất chuẩn xác.',
     rating: 5,
     image: '👩',
   },
@@ -21,7 +21,7 @@ const REVIEWS = [
     id: 3,
     author: 'Robert Davis',
     role: 'Đại lý bảo hiểm',
-    content: 'Tôi luôn giới thiệu SafeVault cho tất cả khách hàng của mình. Két sắt của họ đáp ứng mọi yêu cầu bảo hiểm và đạt tiêu chuẩn an ninh cao nhất.',
+    content: 'Tôi luôn giới thiệu Két sắt việt tiệp cho tất cả khách hàng của mình. Két sắt của họ đáp ứng mọi yêu cầu bảo hiểm và đạt tiêu chuẩn an ninh cao nhất.',
     rating: 5,
     image: '👨',
   },
@@ -29,7 +29,7 @@ const REVIEWS = [
     id: 4,
     author: 'Lisa Chen',
     role: 'Đại lý bất động sản',
-    content: 'Chất lượng và dịch vụ khách hàng từ SafeVault thật tuyệt vời. Mọi chi tiết đều được cân nhắc kỹ lưỡng để đảm bảo an ninh tối đa.',
+    content: 'Chất lượng và dịch vụ khách hàng từ Két sắt việt tiệp thật tuyệt vời. Mọi chi tiết đều được cân nhắc kỹ lưỡng để đảm bảo an ninh tối đa.',
     rating: 5,
     image: '👩‍🦱',
   },
@@ -45,7 +45,7 @@ export default function ReviewsSection() {
             Được hàng ngàn khách hàng tin tưởng
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Lắng nghe những gì khách hàng hài lòng chia sẻ về SafeVault.
+            Lắng nghe những gì khách hàng hài lòng chia sẻ về Két sắt việt tiệp.
           </p>
         </div>
 

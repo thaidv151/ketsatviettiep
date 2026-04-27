@@ -1,269 +1,213 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type ComponentType } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useAuth } from '@/stores/authStore'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ChevronRight, Check, Truck, Clock } from 'lucide-react'
-import Link from 'next/link'
-import { portalApi, PortalOrderDto } from '@/services/portal.service'
-import React from 'react'
+import { portalApi, type PortalOrderDto } from '@/services/portal.service'
+import { getAccessToken } from '@/services/auth/tokenStorage'
+import { cn } from '@/lib/utils'
+import { ChevronRight, Check, Clock, Package, Truck } from 'lucide-react'
 
-const getStatusColor = (status: number) => {
-  switch (status) {
-    case 4: // Delivered
-      return 'text-blue-600 dark:text-blue-400'
-    case 3: // Shipped
-      return 'text-blue-600 dark:text-blue-400'
-    case 0: // Pending
-    case 1:
-    case 2:
-      return 'text-yellow-600 dark:text-yellow-400'
-    default:
-      return 'text-muted-foreground'
-  }
+const LOGIN_DON_HANG = '/dang-nhap?redirect=' + encodeURIComponent('/don-hang')
+
+const statusTextClass = (status: number) => {
+  if (status === 4) return 'text-sky-600 dark:text-sky-400'
+  if (status === 3) return 'text-sky-600 dark:text-sky-400'
+  if (status >= 0 && status < 3) return 'text-amber-600 dark:text-amber-500'
+  return 'text-muted-foreground'
 }
 
-const getStatusLabel = (status: string) => {
-  return status.charAt(0).toUpperCase() + status.slice(1)
+const tabs: {
+  id: 'all' | 'pending' | 'shipped' | 'delivered'
+  label: string
+  icon?: ComponentType<{ className?: string }>
+  filter: (o: PortalOrderDto) => boolean
+}[] = [
+  { id: 'all', label: 'Tất cả', filter: () => true },
+  { id: 'pending', label: 'Chờ xử lý', icon: Clock, filter: (o) => o.status < 3 },
+  { id: 'shipped', label: 'Đang giao', icon: Truck, filter: (o) => o.status === 3 },
+  { id: 'delivered', label: 'Đã giao', icon: Check, filter: (o) => o.status === 4 },
+]
+
+function countInTab(orders: PortalOrderDto[], id: (typeof tabs)[number]['id']) {
+  const t = tabs.find((x) => x.id === id)
+  if (!t) return 0
+  if (id === 'all') return orders.length
+  return orders.filter(t.filter).length
 }
 
 export default function OrdersPage() {
+  const router = useRouter()
   const [orders, setOrders] = useState<PortalOrderDto[]>([])
   const [loading, setLoading] = useState(true)
-  const [expandedOrder, setExpandedOrder] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'shipped' | 'delivered'>('all')
-
-
-  const { UserInfo } = useAuth()
-
-  const fetchOrders = async () => {
-    try {
-      setLoading(true)
-      const data = await portalApi.getOrders()
-      // Lọc theo userId của người dùng hiện tại
-      if (UserInfo?.user?.id) {
-        setOrders(data.filter(order => order.userId === UserInfo.user?.id))
-      } else {
-        setOrders([])
-      }
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const [authReady, setAuthReady] = useState(false)
+  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]['id']>('all')
+  const { fetchUserInfo } = useAuth()
 
   useEffect(() => {
-    fetchOrders()
-  }, [UserInfo?.user?.id])
+    if (typeof window === 'undefined') return
+    if (!getAccessToken()) {
+      router.replace(LOGIN_DON_HANG)
+      return
+    }
+    setAuthReady(true)
+  }, [router])
 
+  useEffect(() => {
+    if (!authReady) return
+    void fetchUserInfo()
+    setLoading(true)
+    portalApi
+      .getOrders()
+      .then((data) => {
+        setOrders(data)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [authReady, fetchUserInfo])
 
-  const filteredOrders = activeTab === 'all'
-    ? orders
-    : orders.filter(order => {
-      if (activeTab === 'pending') return order.status < 3
-      if (activeTab === 'shipped') return order.status === 3
-      if (activeTab === 'delivered') return order.status === 4
-      return true
-    })
+  const filteredOrders = orders.filter(
+    (o) => tabs.find((t) => t.id === activeTab)?.filter(o) ?? true,
+  )
+
+  if (!authReady) {
+    return (
+      <main>
+        <div className="mx-auto max-w-7xl px-4 py-20 text-center text-muted-foreground">Đang tải...</div>
+      </main>
+    )
+  }
 
   return (
     <main>
-
-      <div className="bg-muted border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-4xl font-bold text-foreground">Đơn Hàng Của Tôi</h1>
-          <p className="text-muted-foreground mt-2">{filteredOrders.length} đơn hàng</p>
+      <div className="border-b border-border bg-muted/80">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">Đơn hàng của tôi</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Theo dõi trạng thái — bấm vào đơn để xem chi tiết
+          </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Status Tabs */}
-        <div className="flex gap-4 mb-8 overflow-x-auto pb-4 border-b border-border">
-          <button
-            onClick={() => setActiveTab('all')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${activeTab === 'all'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-card hover:bg-muted text-foreground'
-              }`}
-          >
-            <span>Tất cả</span>
-            <span className="text-sm opacity-75">({orders.length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('pending')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${activeTab === 'pending'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-card hover:bg-muted text-foreground'
-              }`}
-          >
-            <Clock size={18} />
-            <span>Chờ xử lý</span>
-            <span className="text-sm opacity-75">({orders.filter(o => o.status < 3).length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('shipped')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${activeTab === 'shipped'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-card hover:bg-muted text-foreground'
-              }`}
-          >
-            <Truck size={18} />
-            <span>Đang giao</span>
-            <span className="text-sm opacity-75">({orders.filter(o => o.status === 3).length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('delivered')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${activeTab === 'delivered'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-card hover:bg-muted text-foreground'
-              }`}
-          >
-            <Check size={18} />
-            <span>Đã giao</span>
-            <span className="text-sm opacity-75">({orders.filter(o => o.status === 4).length})</span>
-          </button>
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <div
+          className="mb-8 flex flex-wrap gap-2"
+          role="tablist"
+          aria-label="Lọc theo trạng thái"
+        >
+          {tabs.map((t) => {
+            const count = countInTab(orders, t.id)
+            const Icon = t.icon
+            const isActive = activeTab === t.id
+            return (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveTab(t.id)}
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition',
+                  isActive
+                    ? 'border-primary/40 bg-primary/10 text-foreground shadow-sm'
+                    : 'border-border bg-card text-muted-foreground hover:border-border hover:bg-muted/50',
+                )}
+              >
+                {Icon ? <Icon className="h-4 w-4" aria-hidden /> : null}
+                {t.label}
+                <span className="tabular-nums text-xs opacity-80">({count})</span>
+              </button>
+            )
+          })}
         </div>
 
         {loading ? (
-          <div className="text-center py-20 text-muted-foreground">Đang tải...</div>
+          <div className="py-20 text-center text-muted-foreground">Đang tải...</div>
         ) : filteredOrders.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="text-6xl mb-6">📦</div>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Chưa có đơn hàng nào</h2>
-            <p className="text-muted-foreground mb-8">Bắt đầu mua sắm để thấy đơn hàng của bạn ở đây.</p>
-            <Link href="/san-pham">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg h-auto rounded-lg">
-                Mua sắm ngay
-              </Button>
-            </Link>
+          <div className="py-16 text-center">
+            <div
+              className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-muted/50 text-muted-foreground"
+              aria-hidden
+            >
+              <Package className="h-8 w-8" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground sm:text-2xl">Chưa có đơn hàng</h2>
+            <p className="mx-auto mt-2 max-w-md text-pretty text-muted-foreground">
+              Khi bạn mua sắm, đơn sẽ hiển thị tại đây. Bạn có thể theo từng bước từ &quot;Chờ xử lý&quot;
+              tới &quot;Đang giao&quot; và &quot;Đã giao&quot;.
+            </p>
+            <Button asChild className="mt-8" size="lg">
+              <Link href="/san-pham">Mua sắm ngay</Link>
+            </Button>
           </div>
         ) : (
-          <div className="space-y-4">
+          <ul className="space-y-3" aria-label="Danh sách đơn hàng">
             {filteredOrders.map((order) => (
-              <Card
-                key={order.id}
-                className="bg-card border-border overflow-hidden hover:shadow-lg transition-shadow duration-300"
-              >
-                {/* Order Header */}
-                <button
-                  onClick={() =>
-                    setExpandedOrder(expandedOrder === order.id ? null : order.id)
-                  }
-                  className="w-full p-6 flex items-center justify-between hover:bg-muted/50 transition"
-                >
-                  <div className="text-left flex-1">
-                    <div className="flex items-center gap-4 mb-2">
-                      <h3 className="font-semibold text-lg text-foreground">
-                        {order.orderCode}
-                      </h3>
-                      <span className={`text-sm font-semibold ${getStatusColor(order.status)}`}>
-                        {order.statusLabel}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Đặt ngày {new Date(order.createdAt).toLocaleDateString('vi-VN')}
-                    </p>
-                  </div>
-
-                  <div className="text-right mr-4">
-                    <p className="font-bold text-foreground">
-                      {order.totalAmount.toLocaleString()}đ
-                    </p>
-                  </div>
-
-                  <ChevronRight
-                    className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${expandedOrder === order.id ? 'rotate-90' : ''
-                      }`}
-                  />
-                </button>
-
-                {/* Order Details */}
-                {expandedOrder === order.id && (
-                  <div className="border-t border-border p-6 space-y-6 bg-muted/30">
-                    {/* Order Items */}
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-4">Sản phẩm</h4>
-                      <div className="space-y-3">
-                        <p className="text-muted-foreground text-sm">Chi tiết sản phẩm sẽ được lấy từ API get detail. Ở đây chỉ hiển thị tóm tắt {order.itemCount} sản phẩm.</p>
-                      </div>
-                    </div>
-
-                    {/* Delivery Information */}
-                    <div className="border-t border-border pt-6">
-                      <h4 className="font-semibold text-foreground mb-4">Thông tin giao hàng</h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-background p-4 rounded-lg">
-                          <p className="text-sm text-muted-foreground mb-1">
-                            Ngày nhận dự kiến
-                          </p>
-                          <p className="font-semibold text-foreground">
-                            N/A
-                          </p>
+              <li key={order.id}>
+                <Link href={`/don-hang/${order.id}`} className="block group">
+                  <Card
+                    className={cn(
+                      'overflow-hidden border-border bg-card transition',
+                      'hover:border-primary/35 hover:shadow-md',
+                    )}
+                  >
+                    <div className="flex items-stretch gap-0">
+                      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 p-4 sm:p-5">
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                          <span className="font-mono text-sm font-bold tabular-nums text-foreground sm:text-base">
+                            {order.orderCode}
+                          </span>
+                          <span
+                            className={cn(
+                              'text-xs font-semibold uppercase tracking-wide',
+                              statusTextClass(order.status),
+                            )}
+                          >
+                            {order.statusLabel}
+                          </span>
                         </div>
-                        <div className="bg-background p-4 rounded-lg">
-                          <p className="text-sm text-muted-foreground mb-1">
-                            Mã vận đơn
+                        <p className="text-xs text-muted-foreground sm:text-sm">
+                          {new Date(order.createdAt).toLocaleString('vi-VN', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </p>
+                        <p className="text-xs text-muted-foreground sm:text-sm">
+                          {order.itemCount} sản phẩm
+                        </p>
+                      </div>
+                      <div className="flex shrink-0 items-center border-l border-border bg-muted/30 px-4 sm:px-5">
+                        <div className="text-right">
+                          <p className="text-sm font-bold tabular-nums text-foreground sm:text-base">
+                            {order.totalAmount.toLocaleString('vi-VN', {
+                              style: 'currency',
+                              currency: 'VND',
+                            })}
                           </p>
-                          <p className="font-semibold text-foreground font-mono">
-                            N/A
+                          <p className="mt-0.5 flex items-center justify-end gap-0.5 text-xs font-medium text-primary sm:text-sm">
+                            Xem chi tiết
+                            <ChevronRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                           </p>
                         </div>
                       </div>
                     </div>
-
-                    {/* Order Summary */}
-                    <div className="border-t border-border pt-6">
-                      <h4 className="font-semibold text-foreground mb-4">Tổng quan đơn hàng</h4>
-                      <div className="space-y-2 bg-background p-4 rounded-lg">
-                        <div className="flex justify-between text-sm text-muted-foreground">
-                          <span>Tạm tính</span>
-                          <span>
-                            {Math.round(order.totalAmount / 1.08).toLocaleString()}đ
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm text-muted-foreground">
-                          <span>Phí vận chuyển</span>
-                          <span className="text-blue-600 dark:text-blue-400 font-semibold">
-                            Miễn phí
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm text-muted-foreground">
-                          <span>Thuế</span>
-                          <span>
-                            {Math.round(order.totalAmount * 0.08).toLocaleString()}đ
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-foreground font-bold border-t border-border pt-2 mt-2">
-                          <span>Tổng cộng</span>
-                          <span>{order.totalAmount.toLocaleString()}đ</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="border-t border-border pt-6 flex gap-4">
-                      <Link href="/san-pham" className="flex-1">
-                        <Button variant="outline" className="w-full border-border hover:bg-muted">
-                          Tiếp tục mua sắm
-                        </Button>
-                      </Link>
-                      <Button className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground">
-                        Theo dõi đơn hàng
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </Card>
+                  </Card>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
-
     </main>
   )
 }

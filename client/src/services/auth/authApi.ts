@@ -1,5 +1,5 @@
 import { http } from '@/services/http'
-import type { AppUserDto } from '@/services/appUser.service'
+import type { AppUserDetailDto, AppUserDto } from '@/services/appUser.service'
 import type { AdminNavItem } from '@/app/(Managers)/config/adminNav.types'
 
 export type LoginResponse = {
@@ -9,12 +9,15 @@ export type LoginResponse = {
   /** Cùng cấu trúc `AppUserDto` — thông tin user sau đăng nhập. */
   user: AppUserDto
   menuItems: AdminNavItem[]
+  /** Mã vai trò (Code) gán cho user — dùng để chuyển hướng sau đăng nhập. */
+  roleCodes: string[]
 }
 
 /** `/api/auth/me` — thông tin user và menu động. */
 export type MeResponse = {
   user: AppUserDto
   menuItems: AdminNavItem[]
+  roleCodes: string[]
 }
 
 export type RegisterResponse = {
@@ -46,4 +49,30 @@ export async function registerRequest(body: {
 
 export async function meRequest() {
   return http.get<MeResponse>('/api/auth/me')
+}
+
+/** Chi tiết hồ sơ (Portals) — cần đăng nhập. */
+export async function getProfileRequest() {
+  return http.get<AppUserDetailDto>('/api/auth/profile')
+}
+
+export type UpdateProfilePayload = {
+  email: string
+  fullName?: string | null
+  phoneNumber?: string | null
+  ngaySinh?: string | null
+  gender?: number | null
+  avatar?: string | null
+  province?: string | null
+  ward?: string | null
+  addressDetail?: string | null
+  /** Bắt buộc khi đặt mật khẩu mới. */
+  currentPassword?: string | null
+  newPassword?: string | null
+  confirmNewPassword?: string | null
+}
+
+/** Cập nhật hồ sơ bản thân (Portals). */
+export async function updateProfileRequest(body: UpdateProfilePayload) {
+  return http.put<AppUserDetailDto>('/api/auth/profile', body)
 }

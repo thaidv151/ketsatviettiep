@@ -25,5 +25,11 @@ export {
   setAccessToken,
   clearAccessToken,
 } from './auth/tokenStorage'
-export { loginRequest, registerRequest, meRequest } from './auth/authApi'
-export type { LoginResponse, RegisterResponse, MeResponse } from './auth/authApi'
+export {
+  loginRequest,
+  registerRequest,
+  meRequest,
+  getProfileRequest,
+  updateProfileRequest,
+} from './auth/authApi'
+export type { LoginResponse, RegisterResponse, MeResponse, UpdateProfilePayload } from './auth/authApi'

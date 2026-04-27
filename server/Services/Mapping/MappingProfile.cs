@@ -14,10 +14,21 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        // Category
+        // Category — DTO là record positional; AutoMapper cần ConstructUsing/ConvertUsing.
         CreateMap<Category, CategoryDto>()
-            .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Name : null));
-            
+            .ConvertUsing(src => new CategoryDto(
+                src.Id,
+                src.ParentId,
+                src.Parent != null ? src.Parent.Name : null,
+                src.Name,
+                src.Slug,
+                src.Description,
+                src.ImageUrl,
+                src.SortOrder,
+                src.IsActive,
+                0,
+                src.CreatedAt));
+
         CreateMap<CreateCategoryRequest, Category>();
         CreateMap<UpdateCategoryRequest, Category>();
 

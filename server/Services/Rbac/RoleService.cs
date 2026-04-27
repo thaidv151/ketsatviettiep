@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Repositories.RoleRepository;
 
@@ -21,6 +22,20 @@ public sealed class RoleService : IRoleService
     public async Task<RoleDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var entity = await _repository.GetByIdAsync(id, cancellationToken);
+        return entity is null ? null : ToDto(entity);
+    }
+
+    public async Task<RoleDto?> GetByCodeAsync(string code, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(code))
+            return null;
+        var c = code.Trim();
+        var entity = await _repository
+            .GetQueryable()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(
+                r => r.Code == c && r.IsActive && !r.IsDeleted,
+                cancellationToken);
         return entity is null ? null : ToDto(entity);
     }
 

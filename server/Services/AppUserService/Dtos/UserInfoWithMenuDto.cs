@@ -11,4 +11,5 @@ public sealed record UserMenuItemDto(
 
 public sealed record UserInfoWithMenuDto(
     AppUserDto User,
-    List<UserMenuItemDto> MenuItems);
+    List<UserMenuItemDto> MenuItems,
+    IReadOnlyList<string> RoleCodes);

@@ -19,7 +19,14 @@ public static class DependencyInjection
             throw new InvalidOperationException("Thiếu ConnectionStrings:DefaultConnection trong cấu hình.");
 
         services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(connectionString, sql =>
+            {
+                sql.CommandTimeout(120);
+                sql.EnableRetryOnFailure(
+                    maxRetryCount: 3,
+                    maxRetryDelay: TimeSpan.FromSeconds(5),
+                    errorNumbersToAdd: null);
+            }));
 
         services.AddAutoMapper(typeof(MappingProfile).Assembly);
 

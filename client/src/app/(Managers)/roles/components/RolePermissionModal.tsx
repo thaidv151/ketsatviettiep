@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Modal, Checkbox, Form, message, Spin, Collapse, Divider } from 'antd'
+import { Modal, Checkbox, Form, Spin, Collapse, Divider } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import { rbacAdminApi, type ModuleDto, type OperationDto } from '@/services/rbacAdmin.service'
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const RolePermissionModal: React.FC<Props> = ({ open, roleId, roleName, onClose, onSuccess }) => {
+  const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [modules, setModules] = useState<ModuleDto[]>([])
   const [operations, setOperations] = useState<Record<string, OperationDto[]>>({})
@@ -41,7 +43,7 @@ export const RolePermissionModal: React.FC<Props> = ({ open, roleId, roleName, o
       setOperations(opsMap)
       setSelectedIds(roleOps.map(ro => ro.operationId))
     } catch (err) {
-      message.error('Không thể tải dữ liệu phân quyền')
+      toast({ variant: 'destructive', title: 'Không thể tải dữ liệu phân quyền' })
     } finally {
       setLoading(false)
     }
@@ -52,10 +54,10 @@ export const RolePermissionModal: React.FC<Props> = ({ open, roleId, roleName, o
     try {
       setLoading(true)
       await rbacAdminApi.roleOperations.setRolePermissions(roleId, selectedIds)
-      message.success('Phân quyền thành công')
+      toast({ variant: 'success', title: 'Phân quyền thành công' })
       onSuccess()
     } catch (err) {
-      message.error('Lỗi khi lưu phân quyền')
+      toast({ variant: 'destructive', title: 'Lỗi khi lưu phân quyền' })
     } finally {
       setLoading(false)
     }

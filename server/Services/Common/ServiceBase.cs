@@ -25,7 +25,8 @@ public abstract class ServiceBase<TEntity, TDto, TCreateRequest, TUpdateRequest>
         try
         {
             var entities = await Repository.GetAllAsync(ct);
-            return Mapper.Map<IReadOnlyList<TDto>>(entities);
+            // Map tới List<T> rồi trả IReadOnlyList: AutoMapper không map ổn định List<TEntity> -> IReadOnlyList<TDto>.
+            return Mapper.Map<List<TDto>>(entities);
         }
         catch (Exception ex)
         {

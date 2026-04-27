@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto, Roboto_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { AppProviders } from './providers'
 import './globals.css'
 
@@ -19,8 +20,8 @@ const robotoMono = Roboto_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'SafeVault - Premium Security Safes',
-  description: 'Premium security safes for homes and businesses. Certified, durable, and trustworthy protection for your valuables.',
+  title: 'Két sắt việt tiệp - Két sắt gia dụng & công nghiệp chính hãng',
+  description: 'Két sắt gia dụng & công nghiệp chính hãng - Cửa hàng trực tuyến Két sắt việt tiệp',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -51,7 +52,9 @@ export default function RootLayout({
       <body
         className={`${robotoSans.className} antialiased bg-background text-foreground`}
       >
-        <AppProviders>{children}</AppProviders>
+        <AntdRegistry>
+          <AppProviders>{children}</AppProviders>
+        </AntdRegistry>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

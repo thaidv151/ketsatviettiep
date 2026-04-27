@@ -1,11 +1,11 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Table, Button, Card, Popconfirm, message, Space, Tag } from 'antd'
+import { useRouter } from 'next/navigation'
+import { Table, Button, Card, Popconfirm, Space, Tag } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
-import {
-  ShoppingCartOutlined, EyeOutlined, DeleteOutlined,
-  HomeOutlined, RightOutlined,
-} from '@ant-design/icons'
+import { ShoppingCartOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
 import OrderSearch, { type OrderSearchState } from './search'
 import OrderDetail from './detail'
 import type { OrderListDto } from '@/services/order.service'
@@ -23,6 +23,8 @@ const PAYMENT_COLORS: Record<number, string> = {
 }
 
 export default function OrderManagementPage() {
+  const router = useRouter()
+  const { toast } = useToast()
   const [raw, setRaw] = useState<OrderListDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -35,7 +37,7 @@ export default function OrderManagementPage() {
 
   const load = useCallback(async () => {
     try { setLoading(true); setRaw(await orderApi.list()) }
-    catch { message.error('Không tải được đơn hàng') }
+    catch { toast({ variant: 'destructive', title: 'Không tải được đơn hàng' }) }
     finally { setLoading(false) }
   }, [])
 
@@ -57,8 +59,8 @@ export default function OrderManagementPage() {
   useEffect(() => { setPage(1) }, [applied, pageSize])
 
   const handleDelete = async (row: OrderListDto) => {
-    try { await orderApi.remove(row.id); message.success('Đã xóa'); void load() }
-    catch { message.error('Không xóa được') }
+    try { await orderApi.remove(row.id); toast({ variant: 'success', title: 'Đã xóa' }); void load() }
+    catch { toast({ variant: 'destructive', title: 'Không xóa được' }) }
   }
 
   const columns: ColumnsType<OrderListDto> = [
@@ -105,13 +107,10 @@ export default function OrderManagementPage() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <HomeOutlined className="hover:text-[#1677ff] cursor-pointer" />
-        <RightOutlined />
-        <span className="hover:text-[#1677ff] cursor-pointer">Quản lý</span>
-        <RightOutlined />
-        <span className="font-semibold text-[#0958d9]">Đơn hàng</span>
-      </div>
+      <AdminBreadcrumb
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Đơn hàng"
+      />
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-3 bg-blue-50 text-[#1677ff] rounded-sm text-2xl"><ShoppingCartOutlined /></div>

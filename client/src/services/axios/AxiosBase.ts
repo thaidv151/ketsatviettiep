@@ -5,7 +5,7 @@ import AxiosRequestIntrceptorConfigCallback from './AxiosRequestIntrceptorConfig
 import AxiosResponseIntrceptorErrorCallback from './AxiosResponseIntrceptorErrorCallback'
 
 const AxiosBase = axios.create({
-  timeout: 30_000,
+  timeout: 90_000,
   baseURL: appConfig.apiPrefix,
   headers: {
     'Content-Type': 'application/json',

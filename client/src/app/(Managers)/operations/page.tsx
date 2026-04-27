@@ -2,9 +2,11 @@
 
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { useCallback, useEffect, useMemo, useState, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { Home, ChevronRight, ListChecks, Pencil, Trash2, MoreHorizontal } from 'lucide-react'
-import { Table, Button, Card, Popconfirm, message, Space, Dropdown, type MenuProps } from 'antd'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { ListChecks, Pencil, Trash2, MoreHorizontal } from 'lucide-react'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
+import { Table, Button, Card, Popconfirm, Space, Dropdown, type MenuProps } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
 import type { ModuleDto, OperationDto } from '@/services/rbacAdmin.service'
 import { rbacAdminApi } from '@/services/rbacAdmin.service'
@@ -29,6 +31,8 @@ function matchesFilter(row: OperationDto, q: OperationSearchState): boolean {
 }
 
 function OperationPageContent() {
+  const router = useRouter()
+  const { toast } = useToast()
   const searchParamsUrl = useSearchParams()
   const moduleIdParam = searchParamsUrl.get('moduleId')
 
@@ -78,7 +82,7 @@ function OperationPageContent() {
         setApplied((prev) => ({ ...prev, moduleId: initialId }))
       })
       .catch(() => {
-        if (!cancelled) message.error('Không tải được danh sách module')
+        if (!cancelled) toast({ variant: 'destructive', title: 'Không tải được danh sách module' })
       })
     return () => {
       cancelled = true
@@ -91,7 +95,7 @@ function OperationPageContent() {
     setLoading(true)
     void loadOperations(applied.moduleId)
       .catch(() => {
-        if (!cancelled) message.error('Không tải được danh sách operation')
+        if (!cancelled) toast({ variant: 'destructive', title: 'Không tải được danh sách operation' })
       })
       .finally(() => {
         if (!cancelled) setLoading(false)
@@ -117,7 +121,7 @@ function OperationPageContent() {
 
   const handleSearch = () => {
     if (!draft.moduleId) {
-      message.warning('Vui lòng chọn module')
+      toast({ title: 'Vui lòng chọn module' })
       return
     }
     setApplied({ ...draft })
@@ -136,7 +140,7 @@ function OperationPageContent() {
 
   const openCreate = () => {
     if (!draft.moduleId) {
-      message.warning('Vui lòng chọn module trước khi thêm operation')
+      toast({ title: 'Vui lòng chọn module trước khi thêm operation' })
       return
     }
     setSelected(null)
@@ -153,10 +157,10 @@ function OperationPageContent() {
   const handleDelete = async (row: OperationDto) => {
     try {
       await rbacAdminApi.operations.remove(row.id)
-      message.success('Đã xóa')
+      toast({ variant: 'success', title: 'Đã xóa' })
       void loadOperations(applied.moduleId)
     } catch {
-      message.error('Không xóa được')
+      toast({ variant: 'destructive', title: 'Không xóa được' })
     }
   }
 
@@ -246,13 +250,10 @@ function OperationPageContent() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <Home size={14} className="hover:text-[#1677ff] cursor-pointer" />
-        <ChevronRight size={14} />
-        <span className="hover:text-[#1677ff] cursor-pointer">Quản lý</span>
-        <ChevronRight size={14} />
-        <span className="font-semibold text-[#0958d9]">Operation</span>
-      </div>
+      <AdminBreadcrumb
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Operation"
+      />
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
@@ -325,7 +326,7 @@ function OperationPageContent() {
           setSelected(null)
         }}
         onSuccess={() => {
-          message.success(modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật')
+          toast({ variant: 'success', title: modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật' })
           void loadOperations(applied.moduleId)
         }}
       />

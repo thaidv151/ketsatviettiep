@@ -1,0 +1,1262 @@
+2026-04-27 20:45:06.795 +07:00 [INF] Now listening on: https://localhost:7251
+2026-04-27 20:45:06.838 +07:00 [INF] Now listening on: http://localhost:5255
+2026-04-27 20:45:06.895 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-27 20:45:06.896 +07:00 [INF] Hosting environment: Development
+2026-04-27 20:45:06.898 +07:00 [INF] Content root path: D:\souce\ketsat\server\Api
+2026-04-27 20:45:31.921 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 3.7417 ms
+2026-04-27 20:45:31.921 +07:00 [INF] HTTP OPTIONS /api/portal/categories responded 204 in 3.7874 ms
+2026-04-27 20:45:31.921 +07:00 [INF] HTTP OPTIONS /api/portal/products responded 204 in 3.7209 ms
+2026-04-27 20:45:31.921 +07:00 [INF] HTTP OPTIONS /api/portal/banners responded 204 in 3.7101 ms
+2026-04-27 20:45:33.420 +07:00 [INF] HTTP GET /api/auth/me responded 401 in 1483.7122 ms
+2026-04-27 20:45:34.760 +07:00 [WRN] Entity 'Product' has a global query filter defined and is the required end of a relationship with the entity 'ProductTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-27 20:45:34.763 +07:00 [WRN] Entity 'ProductAttributeValue' has a global query filter defined and is the required end of a relationship with the entity 'ProductVariantAttributeValue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-27 20:45:35.580 +07:00 [ERR] HTTP GET /api/portal/banners responded 500 in 3644.1382 ms
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Repositories.Common.RepositoryBase`1.GetAllAsync(CancellationToken cancellationToken) in D:\souce\ketsat\server\Repositories\Common\RepositoryBase.cs:line 24
+   at Services.BannerModule.BannerService.GetActiveForPortalAsync(CancellationToken ct) in D:\souce\ketsat\server\Services\BannerModule\BannerService.cs:line 21
+   at Api.Controllers.Portal.PortalBannersController.GetList(CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Portal\PortalBannersController.cs:line 18
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-27 20:45:35.580 +07:00 [ERR] HTTP GET /api/portal/categories responded 500 in 3644.1405 ms
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Services.CategoryModule.CategoryService.GetAllAsync(CancellationToken ct) in D:\souce\ketsat\server\Services\CategoryModule\CategoryService.cs:line 37
+   at Api.Controllers.Portal.PortalCategoriesController.GetList(CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Portal\PortalCategoriesController.cs:line 18
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-27 20:45:35.580 +07:00 [ERR] HTTP GET /api/portal/products responded 500 in 3644.1417 ms
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.CancellationToken.ThrowOperationCanceledException()
+   at System.Threading.CancellationToken.ThrowIfCancellationRequested()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Repositories.ProductRepository.ProductRepository.GetListAsync(CancellationToken ct) in D:\souce\ketsat\server\Repositories\ProductRepository\ProductRepository.cs:line 13
+   at Services.ProductModule.ProductService.GetListAsync(CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 21
+   at Api.Controllers.Portal.PortalProductsController.GetList(CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Portal\PortalProductsController.cs:line 19
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-27 20:45:35.914 +07:00 [INF] HTTP OPTIONS /api/auth/login responded 204 in 0.1125 ms
+2026-04-27 20:45:37.292 +07:00 [INF] HTTP POST /api/auth/login responded 200 in 1374.3977 ms
+2026-04-27 20:45:43.097 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0563 ms
+2026-04-27 20:45:43.097 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0564 ms
+2026-04-27 20:45:43.254 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 151.4311 ms
+2026-04-27 20:45:43.268 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 14.9727 ms
+2026-04-27 20:45:43.554 +07:00 [INF] HTTP GET /uploads/69ae8471-cffe-4693-8f6e-50bd72957b86.png responded 200 in 35.9088 ms
+2026-04-27 20:47:18.177 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.3010 ms
+2026-04-27 20:47:18.204 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.1047 ms
+2026-04-27 20:47:18.208 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 26.5035 ms
+2026-04-27 20:47:18.253 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 44.8123 ms
+2026-04-27 20:47:32.460 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0861 ms
+2026-04-27 20:47:32.473 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 7.9245 ms
+2026-04-27 20:47:32.491 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0608 ms
+2026-04-27 20:47:32.514 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 18.8456 ms
+2026-04-27 20:50:44.828 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.2593 ms
+2026-04-27 20:50:44.828 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.2593 ms
+2026-04-27 20:50:44.857 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 22.4559 ms
+2026-04-27 20:50:44.909 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 73.1288 ms
+2026-04-27 20:50:45.003 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0521 ms
+2026-04-27 20:50:45.074 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 67.9654 ms
+2026-04-27 20:52:32.107 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 2.5435 ms
+2026-04-27 20:52:32.107 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 2.5472 ms
+2026-04-27 20:52:32.128 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 14.4271 ms
+2026-04-27 20:52:32.144 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 30.0984 ms
+2026-04-27 20:52:32.242 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0495 ms
+2026-04-27 20:52:32.268 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 20.7715 ms
+2026-04-27 20:54:06.657 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.0769 ms
+2026-04-27 20:54:06.714 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 50.2929 ms
+2026-04-27 20:54:06.933 +07:00 [INF] HTTP GET /uploads/c7f3fa58-28da-451d-ae54-9a9e9729a275.png responded 200 in 18.1676 ms
+2026-04-27 20:54:09.945 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.1726 ms
+2026-04-27 20:54:10.120 +07:00 [ERR] Failed executing DbCommand (38ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p2='?' (DbType = Guid), @p3='?' (DbType = Guid), @p4='?' (DbType = DateTimeOffset), @p5='?' (DbType = Guid), @p6='?' (DbType = DateTimeOffset), @p7='?' (DbType = Guid), @p8='?' (Size = -1), @p9='?' (DbType = Boolean), @p10='?' (DbType = Boolean), @p11='?' (Size = 500), @p12='?' (Size = 500), @p13='?' (Size = 300), @p14='?' (Size = 300), @p15='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p16='?' (Size = 1000), @p17='?' (Size = 100), @p18='?' (Size = 350), @p19='?' (Size = 4000), @p20='?' (DbType = Int32), @p21='?' (Size = 500), @p22='?' (DbType = DateTimeOffset), @p23='?' (DbType = Guid), @p24='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='120']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Products] ([Id], [BasePrice], [BrandId], [CategoryId], [CreatedAt], [CreatedById], [DeletedAt], [DeletedById], [Description], [IsDeleted], [IsFeatured], [MetaDescription], [MetaKeywords], [MetaTitle], [Name], [SalePrice], [ShortDescription], [Sku], [Slug], [Specifications], [Status], [ThumbnailUrl], [UpdatedAt], [UpdatedById], [ViewCount])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24);
+2026-04-27 20:54:10.136 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'Model.Persistence.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Products' with unique index 'IX_Products_Sku'. The duplicate key value is (234234).
+The statement has been terminated.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:0f28c7c4-0ef8-4ce8-a194-cac4950a48b2
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Products' with unique index 'IX_Products_Sku'. The duplicate key value is (234234).
+The statement has been terminated.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:0f28c7c4-0ef8-4ce8-a194-cac4950a48b2
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-27 20:54:10.247 +07:00 [ERR] HTTP POST /api/admin/products responded 500 in 298.0290 ms
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Products' with unique index 'IX_Products_Sku'. The duplicate key value is (234234).
+The statement has been terminated.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:0f28c7c4-0ef8-4ce8-a194-cac4950a48b2
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.CreateAsync(CreateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 183
+   at Api.Controllers.Admin.AdminProductsController.Create(CreateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 32
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-27 20:54:10.257 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Products' with unique index 'IX_Products_Sku'. The duplicate key value is (234234).
+The statement has been terminated.
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:0f28c7c4-0ef8-4ce8-a194-cac4950a48b2
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.CreateAsync(CreateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 183
+   at Api.Controllers.Admin.AdminProductsController.Create(CreateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 32
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-27 20:55:50.720 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0670 ms
+2026-04-27 20:55:50.886 +07:00 [INF] HTTP POST /api/admin/products responded 201 in 160.6558 ms
+2026-04-27 20:55:52.060 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 29.0114 ms
+2026-04-27 20:55:52.071 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 9.3907 ms
+2026-04-27 20:55:56.012 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0471 ms
+2026-04-27 20:55:56.012 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0595 ms
+2026-04-27 20:55:56.036 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 18.6788 ms
+2026-04-27 20:55:56.056 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 18.2634 ms
+2026-04-27 20:57:39.932 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0387 ms
+2026-04-27 20:57:39.963 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 27.3028 ms
+2026-04-27 20:58:01.230 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.1335 ms
+2026-04-27 20:58:01.231 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0282 ms
+2026-04-27 20:58:01.268 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 24.1588 ms
+2026-04-27 20:58:01.284 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 13.8398 ms
+2026-04-27 20:58:03.543 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.0429 ms
+2026-04-27 20:58:03.548 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 2.7364 ms
+2026-04-27 20:58:03.550 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0401 ms
+2026-04-27 20:58:03.543 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0298 ms
+2026-04-27 20:58:03.543 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.0281 ms
+2026-04-27 20:58:03.545 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.0364 ms
+2026-04-27 20:58:03.583 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 12.8929 ms
+2026-04-27 20:58:03.594 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 30.7505 ms
+2026-04-27 20:58:03.608 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 8.4512 ms
+2026-04-27 20:58:03.615 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 28.4732 ms
+2026-04-27 20:58:03.618 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 42.8300 ms
+2026-04-27 20:58:03.629 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 9.2703 ms
+2026-04-27 20:58:13.180 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.0315 ms
+2026-04-27 20:58:13.206 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 22.5870 ms
+2026-04-27 20:58:24.191 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.0285 ms
+2026-04-27 20:58:24.202 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 6.5750 ms
+2026-04-27 21:00:19.778 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.0971 ms
+2026-04-27 21:00:19.778 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.0622 ms
+2026-04-27 21:00:19.779 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0347 ms
+2026-04-27 21:00:19.798 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 7.1935 ms
+2026-04-27 21:00:19.820 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 31.0130 ms
+2026-04-27 21:00:19.836 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 43.5426 ms
+2026-04-27 21:00:19.882 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0563 ms
+2026-04-27 21:00:19.903 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 17.0281 ms
+2026-04-27 21:00:20.412 +07:00 [INF] HTTP GET /uploads/c7f3fa58-28da-451d-ae54-9a9e9729a275.png responded 304 in 1.1650 ms
+2026-04-27 21:03:26.297 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.0476 ms
+2026-04-27 21:03:26.317 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 15.7365 ms
+2026-04-27 21:03:33.769 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.0272 ms
+2026-04-27 21:03:33.779 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 6.1695 ms
+2026-04-27 21:03:37.185 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 204 in 0.0229 ms
+2026-04-27 21:03:37.240 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'Model.Persistence.AppDbContext'.
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-27 21:03:37.354 +07:00 [ERR] HTTP POST /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 500 in 165.1182 ms
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 218
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 232
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 44
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-27 21:03:37.360 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 218
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 232
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 44
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-27 21:07:21.935 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.0623 ms
+2026-04-27 21:07:21.937 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0220 ms
+2026-04-27 21:07:21.936 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.0340 ms
+2026-04-27 21:07:21.976 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0388 ms
+2026-04-27 21:07:21.995 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 36.2645 ms
+2026-04-27 21:07:22.029 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 80.4224 ms
+2026-04-27 21:07:22.043 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 90.1753 ms
+2026-04-27 21:07:22.053 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 38.9881 ms
+2026-04-27 21:07:22.400 +07:00 [INF] HTTP GET /uploads/c7f3fa58-28da-451d-ae54-9a9e9729a275.png responded 304 in 0.2404 ms
+2026-04-27 21:07:37.770 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.1159 ms
+2026-04-27 21:07:37.779 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 4.5295 ms
+2026-04-27 21:07:38.367 +07:00 [INF] HTTP GET /uploads/71352814-50ef-40f7-92de-cc234dfdab4e.png responded 200 in 2.8937 ms
+2026-04-27 21:07:40.511 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 204 in 0.0670 ms
+2026-04-27 21:07:40.525 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'Model.Persistence.AppDbContext'.
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2026-04-27 21:07:40.641 +07:00 [ERR] HTTP POST /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 500 in 125.6924 ms
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 218
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 232
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 44
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-27 21:07:40.646 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user-initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.OnFirstExecution()
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 218
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 232
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 44
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-27 21:07:56.776 +07:00 [INF] Now listening on: https://localhost:7251
+2026-04-27 21:07:56.806 +07:00 [INF] Now listening on: http://localhost:5255
+2026-04-27 21:07:56.847 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-27 21:07:56.847 +07:00 [INF] Hosting environment: Development
+2026-04-27 21:07:56.848 +07:00 [INF] Content root path: D:\souce\ketsat\server\Api
+2026-04-27 21:08:04.581 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 6.9305 ms
+2026-04-27 21:08:04.581 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 4.6616 ms
+2026-04-27 21:08:04.581 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 6.9050 ms
+2026-04-27 21:08:04.595 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.5755 ms
+2026-04-27 21:08:05.492 +07:00 [WRN] Entity 'Product' has a global query filter defined and is the required end of a relationship with the entity 'ProductTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-27 21:08:05.494 +07:00 [WRN] Entity 'ProductAttributeValue' has a global query filter defined and is the required end of a relationship with the entity 'ProductVariantAttributeValue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-27 21:08:06.283 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 1686.3808 ms
+2026-04-27 21:08:06.302 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 1705.0926 ms
+2026-04-27 21:08:06.357 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 1715.5817 ms
+2026-04-27 21:08:06.378 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 1780.9575 ms
+2026-04-27 21:08:10.727 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.1671 ms
+2026-04-27 21:08:10.780 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 49.2593 ms
+2026-04-27 21:08:11.369 +07:00 [INF] HTTP GET /uploads/bc3e2e97-d706-4b8e-a5c3-3d83e2b30f62.png responded 200 in 33.2094 ms
+2026-04-27 21:08:13.096 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 204 in 0.1251 ms
+2026-04-27 21:08:13.393 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:08:13.477 +07:00 [INF] HTTP POST /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 200 in 375.1917 ms
+2026-04-27 21:08:14.289 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0614 ms
+2026-04-27 21:08:14.289 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0274 ms
+2026-04-27 21:08:14.384 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 84.4585 ms
+2026-04-27 21:08:14.408 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 19.0861 ms
+2026-04-27 21:08:22.272 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.4886 ms
+2026-04-27 21:08:22.272 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.4597 ms
+2026-04-27 21:08:22.361 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 85.2727 ms
+2026-04-27 21:08:22.366 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 7.5747 ms
+2026-04-27 21:08:25.686 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.3809 ms
+2026-04-27 21:08:25.687 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.0574 ms
+2026-04-27 21:08:25.687 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.0421 ms
+2026-04-27 21:08:25.687 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 204 in 0.0236 ms
+2026-04-27 21:08:25.688 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 204 in 0.0598 ms
+2026-04-27 21:08:25.687 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.0750 ms
+2026-04-27 21:08:25.705 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 11.3676 ms
+2026-04-27 21:08:25.712 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 17.8921 ms
+2026-04-27 21:08:25.717 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 9.7929 ms
+2026-04-27 21:08:25.724 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 10.1041 ms
+2026-04-27 21:08:25.759 +07:00 [INF] HTTP GET /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 200 in 58.4590 ms
+2026-04-27 21:08:25.769 +07:00 [INF] HTTP GET /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 200 in 8.9568 ms
+2026-04-27 21:08:28.089 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.1030 ms
+2026-04-27 21:08:28.100 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 7.0293 ms
+2026-04-27 21:08:28.222 +07:00 [INF] HTTP GET /uploads/b12cb9b6-5ea2-4dd8-b829-a1c7ae53196b.png responded 200 in 4.7071 ms
+2026-04-27 21:08:30.032 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 204 in 0.0919 ms
+2026-04-27 21:08:30.062 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:08:30.098 +07:00 [ERR] Failed executing DbCommand (16ms) [Parameters=[@__productId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='120']
+DELETE FROM [p]
+FROM [ProductVariants] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[ProductId] = @__productId_0
+2026-04-27 21:08:30.283 +07:00 [ERR] HTTP POST /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 500 in 247.2866 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:08:30.313 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:08:37.687 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.0674 ms
+2026-04-27 21:08:37.689 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 204 in 0.0851 ms
+2026-04-27 21:08:37.957 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0741 ms
+2026-04-27 21:08:37.694 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.3959 ms
+2026-04-27 21:08:38.036 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 8.6425 ms
+2026-04-27 21:08:38.082 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 36.4936 ms
+2026-04-27 21:08:38.092 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 51.5052 ms
+2026-04-27 21:08:38.109 +07:00 [INF] HTTP GET /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 200 in 78.7081 ms
+2026-04-27 21:08:42.185 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.0558 ms
+2026-04-27 21:08:42.202 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 11.2754 ms
+2026-04-27 21:08:42.354 +07:00 [INF] HTTP GET /uploads/a23ee56d-0744-4904-b6bf-11cbf40ef910.png responded 200 in 4.7337 ms
+2026-04-27 21:08:44.178 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 204 in 0.0502 ms
+2026-04-27 21:08:44.191 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:08:44.214 +07:00 [ERR] Failed executing DbCommand (6ms) [Parameters=[@__productId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='120']
+DELETE FROM [p]
+FROM [ProductVariants] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[ProductId] = @__productId_0
+2026-04-27 21:08:44.450 +07:00 [ERR] HTTP POST /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 500 in 266.2468 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:08:44.459 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:09:33.294 +07:00 [INF] HTTP GET /uploads/72f1587f-c702-4412-884d-1a4cd0e074d2.png responded 200 in 39.9934 ms
+2026-04-27 21:09:33.312 +07:00 [INF] HTTP GET /uploads/f463aa11-e628-4a56-9a4f-4d01da2fe0be.png responded 200 in 18.9596 ms
+2026-04-27 21:09:33.313 +07:00 [INF] HTTP GET /uploads/1cd268ca-ec40-4b55-8800-34fbb5e632b7.png responded 200 in 21.2193 ms
+2026-04-27 21:09:33.337 +07:00 [INF] HTTP GET /uploads/16c66af8-4e3b-47b2-82e9-bc4b3542e91e.png responded 200 in 81.7779 ms
+2026-04-27 21:09:33.339 +07:00 [INF] HTTP GET /uploads/17f7fc08-1cf9-4ade-a0c3-f0c203dcb067.png responded 200 in 74.9225 ms
+2026-04-27 21:09:33.339 +07:00 [INF] HTTP GET /uploads/a427b265-e17d-4a6d-8e8a-69df92fbe3e8.png responded 200 in 83.3906 ms
+2026-04-27 21:09:37.656 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 204 in 0.0407 ms
+2026-04-27 21:09:37.666 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:09:37.673 +07:00 [ERR] Failed executing DbCommand (2ms) [Parameters=[@__productId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='120']
+DELETE FROM [p]
+FROM [ProductVariants] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[ProductId] = @__productId_0
+2026-04-27 21:09:37.824 +07:00 [ERR] HTTP POST /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 500 in 163.1816 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:09:37.833 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:10:24.049 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 204 in 0.0437 ms
+2026-04-27 21:10:24.059 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:10:24.101 +07:00 [ERR] Failed executing DbCommand (5ms) [Parameters=[@__productId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='120']
+DELETE FROM [p]
+FROM [ProductVariants] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[ProductId] = @__productId_0
+2026-04-27 21:10:24.249 +07:00 [ERR] HTTP POST /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 500 in 194.9370 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:10:24.257 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:6807527c-f7dc-4807-8b22-99c3411f4ca3
+Error Number:547,State:0,Class:16
+2026-04-27 21:10:27.521 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.1049 ms
+2026-04-27 21:10:27.522 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.2511 ms
+2026-04-27 21:10:27.522 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 204 in 0.0138 ms
+2026-04-27 21:10:27.566 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 26.6376 ms
+2026-04-27 21:10:27.569 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 42.4222 ms
+2026-04-27 21:10:27.586 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 60.4981 ms
+2026-04-27 21:10:27.601 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 24.4461 ms
+2026-04-27 21:10:27.602 +07:00 [INF] HTTP GET /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 200 in 69.5088 ms
+2026-04-27 21:10:29.694 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 204 in 0.0555 ms
+2026-04-27 21:10:29.702 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:10:29.708 +07:00 [ERR] Failed executing DbCommand (2ms) [Parameters=[@__productId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='120']
+DELETE FROM [p]
+FROM [ProductVariants] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[ProductId] = @__productId_0
+2026-04-27 21:10:29.851 +07:00 [ERR] HTTP POST /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 500 in 153.7299 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:0eb6275c-0bfa-4f09-88d7-feb1c1f36662
+Error Number:547,State:0,Class:16
+2026-04-27 21:10:29.860 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:0eb6275c-0bfa-4f09-88d7-feb1c1f36662
+Error Number:547,State:0,Class:16
+2026-04-27 21:10:34.313 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 0.1028 ms
+2026-04-27 21:10:34.315 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.0457 ms
+2026-04-27 21:10:34.315 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 204 in 0.0158 ms
+2026-04-27 21:10:34.330 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 7.1652 ms
+2026-04-27 21:10:34.343 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 22.7745 ms
+2026-04-27 21:10:34.352 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.1135 ms
+2026-04-27 21:10:34.357 +07:00 [INF] HTTP GET /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5 responded 200 in 19.7604 ms
+2026-04-27 21:10:34.367 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 10.1617 ms
+2026-04-27 21:10:37.005 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 204 in 0.1643 ms
+2026-04-27 21:10:37.014 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:10:37.020 +07:00 [ERR] Failed executing DbCommand (1ms) [Parameters=[@__productId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='120']
+DELETE FROM [p]
+FROM [ProductVariants] AS [p]
+WHERE [p].[IsDeleted] = CAST(0 AS bit) AND [p].[ProductId] = @__productId_0
+2026-04-27 21:10:37.183 +07:00 [ERR] HTTP POST /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 500 in 174.1203 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:0eb6275c-0bfa-4f09-88d7-feb1c1f36662
+Error Number:547,State:0,Class:16
+2026-04-27 21:10:37.192 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): The DELETE statement conflicted with the REFERENCE constraint "FK_OrderItems_ProductVariants_VariantId". The conflict occurred in database "KetSatVietTiep_V2", table "dbo.OrderItems", column 'VariantId'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.RemoveProductChildEntitiesAsync(Guid productId, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 365
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 229
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 238
+--- End of stack trace from previous location ---
+   at Services.ProductModule.ProductService.<>c__DisplayClass7_0.<<UpdateAsync>b__0>d.MoveNext() in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 239
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.ExecutionStrategyExtensions.<>c.<<ExecuteAsync>b__3_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Services.ProductModule.ProductService.UpdateAsync(Guid id, UpdateProductRequest req, CancellationToken ct) in D:\souce\ketsat\server\Services\ProductModule\ProductService.cs:line 196
+   at Api.Controllers.Admin.AdminProductsController.Update(Guid id, UpdateProductRequest request, CancellationToken ct) in D:\souce\ketsat\server\Api\Controllers\Admin\AdminProductsController.cs:line 48
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+ClientConnectionId:0eb6275c-0bfa-4f09-88d7-feb1c1f36662
+Error Number:547,State:0,Class:16
+2026-04-27 21:11:33.305 +07:00 [INF] HTTP OPTIONS /api/portal/categories responded 204 in 0.0310 ms
+2026-04-27 21:11:33.305 +07:00 [INF] HTTP OPTIONS /api/portal/banners responded 204 in 0.0168 ms
+2026-04-27 21:11:33.312 +07:00 [INF] HTTP OPTIONS /api/portal/products responded 204 in 0.0420 ms
+2026-04-27 21:11:33.325 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0211 ms
+2026-04-27 21:11:33.355 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 32.3663 ms
+2026-04-27 21:11:33.361 +07:00 [INF] HTTP GET /api/portal/categories responded 200 in 43.0013 ms
+2026-04-27 21:11:33.369 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 35.6626 ms
+2026-04-27 21:11:33.372 +07:00 [INF] HTTP GET /api/portal/banners responded 200 in 52.2331 ms
+2026-04-27 21:11:33.530 +07:00 [INF] HTTP GET /uploads/eb0b0224-9aab-4a05-9b23-7f49df461281.png responded 200 in 5.0453 ms
+2026-04-27 21:11:33.541 +07:00 [INF] HTTP GET /uploads/8c62f7fa-af83-4e04-97ad-7686164c8811.png responded 200 in 15.8698 ms
+2026-04-27 21:11:36.444 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 7.8010 ms
+2026-04-27 21:11:36.456 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 8.8398 ms
+2026-04-27 21:11:41.871 +07:00 [INF] HTTP OPTIONS /api/portal/products/by-slug/hanoitelecom responded 204 in 0.0307 ms
+2026-04-27 21:11:41.872 +07:00 [INF] HTTP OPTIONS /api/portal/products/by-slug/hanoitelecom responded 204 in 0.0301 ms
+2026-04-27 21:11:41.929 +07:00 [INF] HTTP GET /api/portal/products/by-slug/hanoitelecom responded 200 in 50.9904 ms
+2026-04-27 21:11:41.943 +07:00 [INF] HTTP GET /api/portal/products/by-slug/hanoitelecom responded 200 in 12.6717 ms
+2026-04-27 21:11:41.970 +07:00 [INF] HTTP GET /uploads/6b6b738b-d842-42ca-b9b8-5e7f2e31dad9.png responded 200 in 6.6688 ms
+2026-04-27 21:11:41.970 +07:00 [INF] HTTP GET /uploads/aebe7866-b930-46b7-ab6c-e3e9a41c1951.png responded 200 in 6.7145 ms
+2026-04-27 21:11:44.295 +07:00 [INF] HTTP OPTIONS /api/portal/products responded 204 in 0.0405 ms
+2026-04-27 21:11:44.295 +07:00 [INF] HTTP OPTIONS /api/portal/products responded 204 in 0.0096 ms
+2026-04-27 21:11:44.317 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 14.4796 ms
+2026-04-27 21:11:44.348 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 7.1926 ms
+2026-04-27 21:12:06.815 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.2572 ms
+2026-04-27 21:12:06.845 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 26.5434 ms
+2026-04-27 21:12:06.877 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0324 ms
+2026-04-27 21:12:06.901 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 19.4618 ms
+2026-04-27 21:12:07.440 +07:00 [INF] HTTP GET /uploads/c7f3fa58-28da-451d-ae54-9a9e9729a275.png responded 304 in 2.1538 ms
+2026-04-27 21:12:53.340 +07:00 [INF] Now listening on: https://localhost:7251
+2026-04-27 21:12:53.369 +07:00 [INF] Now listening on: http://localhost:5255
+2026-04-27 21:12:53.413 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-27 21:12:53.414 +07:00 [INF] Hosting environment: Development
+2026-04-27 21:12:53.415 +07:00 [INF] Content root path: D:\souce\ketsat\server\Api
+2026-04-27 21:12:57.206 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 3.0080 ms
+2026-04-27 21:12:57.206 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 3.0108 ms
+2026-04-27 21:12:57.206 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 3.0150 ms
+2026-04-27 21:12:57.206 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 2.9845 ms
+2026-04-27 21:12:57.206 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 2.9863 ms
+2026-04-27 21:12:57.206 +07:00 [INF] HTTP OPTIONS /api/admin/categories responded 204 in 2.9953 ms
+2026-04-27 21:12:58.121 +07:00 [WRN] Entity 'Product' has a global query filter defined and is the required end of a relationship with the entity 'ProductTag'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-27 21:12:58.124 +07:00 [WRN] Entity 'ProductAttributeValue' has a global query filter defined and is the required end of a relationship with the entity 'ProductVariantAttributeValue'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-04-27 21:12:58.865 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 1646.2939 ms
+2026-04-27 21:12:58.877 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 1658.0459 ms
+2026-04-27 21:12:58.908 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 43.4646 ms
+2026-04-27 21:12:58.914 +07:00 [INF] HTTP GET /api/admin/categories responded 200 in 35.3093 ms
+2026-04-27 21:12:58.947 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 1728.7251 ms
+2026-04-27 21:12:58.958 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 8.5232 ms
+2026-04-27 21:13:00.949 +07:00 [INF] HTTP GET /uploads/bc3e2e97-d706-4b8e-a5c3-3d83e2b30f62.png responded 304 in 9.9190 ms
+2026-04-27 21:13:06.005 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 204 in 0.2128 ms
+2026-04-27 21:13:06.274 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:13:06.377 +07:00 [INF] HTTP POST /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 200 in 368.0741 ms
+2026-04-27 21:13:06.682 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.1139 ms
+2026-04-27 21:13:06.682 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.1140 ms
+2026-04-27 21:13:06.703 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 15.8290 ms
+2026-04-27 21:13:06.715 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 10.4803 ms
+2026-04-27 21:13:10.936 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0927 ms
+2026-04-27 21:13:10.956 +07:00 [INF] HTTP OPTIONS /api/portal/products responded 204 in 0.0935 ms
+2026-04-27 21:13:11.040 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 79.7725 ms
+2026-04-27 21:13:11.051 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 110.8800 ms
+2026-04-27 21:13:14.303 +07:00 [INF] HTTP OPTIONS /api/portal/banners responded 204 in 0.1500 ms
+2026-04-27 21:13:14.303 +07:00 [INF] HTTP OPTIONS /api/portal/categories responded 204 in 0.3249 ms
+2026-04-27 21:13:14.304 +07:00 [INF] HTTP OPTIONS /api/portal/banners responded 204 in 0.0242 ms
+2026-04-27 21:13:14.304 +07:00 [INF] HTTP OPTIONS /api/portal/categories responded 204 in 0.1864 ms
+2026-04-27 21:13:14.325 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 21.6699 ms
+2026-04-27 21:13:14.328 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 7.7423 ms
+2026-04-27 21:13:14.352 +07:00 [INF] HTTP GET /api/portal/categories responded 200 in 35.8962 ms
+2026-04-27 21:13:14.358 +07:00 [INF] HTTP GET /api/portal/banners responded 200 in 47.4081 ms
+2026-04-27 21:13:14.358 +07:00 [INF] HTTP GET /api/portal/categories responded 200 in 4.4506 ms
+2026-04-27 21:13:14.363 +07:00 [INF] HTTP GET /api/portal/banners responded 200 in 4.1109 ms
+2026-04-27 21:13:24.975 +07:00 [INF] HTTP OPTIONS /api/admin/upload responded 204 in 0.0678 ms
+2026-04-27 21:13:25.055 +07:00 [INF] HTTP POST /api/admin/upload responded 200 in 73.0515 ms
+2026-04-27 21:13:25.193 +07:00 [INF] HTTP GET /uploads/92594449-4385-4da0-9f15-bc0891d03318.png responded 200 in 18.7204 ms
+2026-04-27 21:13:26.844 +07:00 [INF] HTTP OPTIONS /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 204 in 0.0581 ms
+2026-04-27 21:13:26.872 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:13:26.921 +07:00 [INF] HTTP POST /api/admin/products/0f56afa2-6077-4a19-b8f6-de0bc86674e5/update responded 200 in 71.4311 ms
+2026-04-27 21:13:33.070 +07:00 [INF] HTTP OPTIONS /api/portal/categories responded 204 in 0.0558 ms
+2026-04-27 21:13:33.071 +07:00 [INF] HTTP OPTIONS /api/portal/banners responded 204 in 0.2739 ms
+2026-04-27 21:13:33.071 +07:00 [INF] HTTP OPTIONS /api/portal/products responded 204 in 0.1702 ms
+2026-04-27 21:13:33.081 +07:00 [INF] HTTP GET /api/portal/categories responded 200 in 6.0164 ms
+2026-04-27 21:13:33.087 +07:00 [INF] HTTP GET /api/portal/banners responded 200 in 11.2438 ms
+2026-04-27 21:13:33.089 +07:00 [INF] HTTP GET /api/portal/products responded 200 in 10.7144 ms
+2026-04-27 21:13:33.098 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0772 ms
+2026-04-27 21:13:33.112 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 10.7789 ms
+2026-04-27 21:13:34.180 +07:00 [INF] HTTP OPTIONS /api/portal/products/by-slug/hanoitelecom responded 204 in 0.3677 ms
+2026-04-27 21:13:34.180 +07:00 [INF] HTTP OPTIONS /api/portal/products/by-slug/hanoitelecom responded 204 in 0.0280 ms
+2026-04-27 21:13:34.219 +07:00 [INF] HTTP GET /api/portal/products/by-slug/hanoitelecom responded 200 in 33.6529 ms
+2026-04-27 21:13:34.232 +07:00 [INF] HTTP GET /api/portal/products/by-slug/hanoitelecom responded 200 in 11.6795 ms
+2026-04-27 21:13:34.247 +07:00 [INF] HTTP GET /uploads/92594449-4385-4da0-9f15-bc0891d03318.png responded 304 in 0.5025 ms
+2026-04-27 21:19:38.952 +07:00 [INF] HTTP OPTIONS /api/portal/products/by-slug/hanoitelecom responded 204 in 0.0757 ms
+2026-04-27 21:19:38.963 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0335 ms
+2026-04-27 21:19:39.046 +07:00 [INF] HTTP GET /api/portal/products/by-slug/hanoitelecom responded 200 in 77.5883 ms
+2026-04-27 21:19:39.048 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 79.2955 ms
+2026-04-27 21:19:39.078 +07:00 [INF] HTTP GET /uploads/92594449-4385-4da0-9f15-bc0891d03318.png responded 304 in 0.2609 ms
+2026-04-27 21:19:50.933 +07:00 [INF] HTTP OPTIONS /api/admin/brands responded 204 in 0.1077 ms
+2026-04-27 21:19:50.944 +07:00 [INF] HTTP GET /api/admin/brands responded 200 in 5.8204 ms
+2026-04-27 21:19:51.004 +07:00 [INF] HTTP OPTIONS /api/auth/me responded 204 in 0.0502 ms
+2026-04-27 21:19:51.023 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 15.1886 ms
+2026-04-27 21:19:51.404 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0241 ms
+2026-04-27 21:19:51.431 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 24.3973 ms
+2026-04-27 21:19:51.468 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 7.2646 ms
+2026-04-27 21:19:51.918 +07:00 [INF] HTTP GET /uploads/c7f3fa58-28da-451d-ae54-9a9e9729a275.png responded 304 in 0.1894 ms
+2026-04-27 21:19:55.810 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 10.1185 ms
+2026-04-27 21:19:55.860 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 8.2787 ms
+2026-04-27 21:21:41.541 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0547 ms
+2026-04-27 21:21:41.594 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 33.9142 ms

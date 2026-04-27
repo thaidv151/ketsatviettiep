@@ -108,3 +108,29 @@ public sealed class UpdateOrderNoteRequest
     public string? TrackingNumber { get; set; }
     public string? ShippingProvider { get; set; }
 }
+
+/// <summary>Đặt hàng từ cổng portal (khách đã đăng nhập).</summary>
+public sealed class CreatePortalOrderRequest
+{
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public string Address { get; set; } = string.Empty;
+    public string? City { get; set; }
+    public string? Ward { get; set; }
+    public string? ZipCode { get; set; }
+    /// <summary>ví dụ: cod, chuyen-khoan</summary>
+    public string PaymentMethod { get; set; } = "cod";
+    public List<CreatePortalOrderLineRequest> Items { get; set; } = new();
+}
+
+public sealed class CreatePortalOrderLineRequest
+{
+    public Guid ProductId { get; set; }
+    public Guid? VariantId { get; set; }
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+}
+
+public sealed record CreatePortalOrderResult(Guid OrderId, string OrderCode);

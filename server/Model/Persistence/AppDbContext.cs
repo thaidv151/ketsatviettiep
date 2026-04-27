@@ -47,6 +47,9 @@ public sealed class AppDbContext : DbContext
     public DbSet<DanhMuc> DanhMucs => Set<DanhMuc>();
     public DbSet<NhomDanhMuc> NhomDanhMucs => Set<NhomDanhMuc>();
 
+    // ── CMS ───────────────────────────────────────────────────────────────────
+    public DbSet<Banner> Banners => Set<Banner>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AppUser>(entity =>
@@ -205,6 +208,12 @@ public sealed class AppDbContext : DbContext
         {
             e.HasQueryFilter(x => !x.IsDeleted);
             e.HasIndex(x => x.MaNhomDanhMuc).IsUnique().HasFilter("[IsDeleted] = 0");
+        });
+
+        // ── Banner ────────────────────────────────────────────────────────────
+        modelBuilder.Entity<Banner>(e =>
+        {
+            e.HasQueryFilter(x => !x.IsDeleted);
         });
 
         // Tắt cascade delete cho tất cả các mối quan hệ (tránh lỗi multiple cascade paths)

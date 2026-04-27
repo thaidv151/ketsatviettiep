@@ -31,7 +31,51 @@ Forum_Topic/
 ### UI / style (Forum_Topic)
 
 - Nền layout: `bg-slate-50/50 min-h-screen`, padding âm (`-m-4 p-4 lg:-m-8 lg:p-8`) để full width trong vùng content.
-- **Breadcrumb**: icon `lucide-react` (Home, ChevronRight), text xanh `#007f32` / `#006b2c`.
+- **Breadcrumb** (màn quản trị Next.js hiện tại): dùng component chung `@/components/common/AdminBreadcrumb` (icon nhà, `RightOutlined`, các cấp bấm được, cấp hiện tại). Không lắp breadcrumb tùy từng trang từ icon Ant lẻ.
+
+#### `AdminBreadcrumb` — cách dùng
+
+- **Import**: `import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'`
+- **Ý tưởng**: luôn có **icon trang chủ** (mặc định tới `/dashboard` qua `Link`); tham số `items` là các cấp **có thể bấm** theo thứ tự trái → phải; `currentPage` là tên cấp hiện tại (in đậm, không bấm).
+- **Cấp trung gian** — mỗi phần tử là `AdminBreadcrumbLink`:
+  - `href: string` — ưu tiên khi route thuần (SEO, mở tab mới).
+  - `onClick: () => void` — khi cần logic (đóng modal, `router.push` động, v.v.).
+
+Ví dụ **danh sách** (Quản lý → Sản phẩm):
+
+```tsx
+<AdminBreadcrumb
+  items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+  currentPage="Sản phẩm"
+/>
+```
+
+Ví dụ **form tạo/sửa** (Sản phẩm → Thêm mới) — cấp “Sản phẩm” gọi `onCancel` về list:
+
+```tsx
+<AdminBreadcrumb
+  items={[{ label: 'Sản phẩm', onClick: onCancel }]}
+  currentPage="Thêm mới"
+/>
+```
+
+Ví dụ **chi tiết 3 tầng** (Quản lý → Sản phẩm → Chi tiết):
+
+```tsx
+<AdminBreadcrumb
+  items={[
+    { label: 'Quản lý', onClick: () => router.push('/dashboard') },
+    { label: 'Sản phẩm', onClick: () => router.push('/products') },
+  ]}
+  currentPage="Chi tiết"
+/>
+```
+
+- **Tùy chọn thường dùng**:
+  - `showHomeButton={false}` — ẩn icon nhà (hiếm).
+  - `onHomeClick` / `rootHref` — tùy chỉnh hành vi icon nhà (mặc định: `rootHref="/dashboard"`, bấm bằng `Link` nếu không truyền `onHomeClick`).
+  - `accent="green"` — hover và chữ cấp hiện tại theo tông xanh `#007f32` (dùng ở màn **Dữ liệu danh mục** / **Nhóm danh mục**).
+  - `className`, `currentClassName`, `linkClassName` — override Tailwind nếu cần.
 - **Header khối**: `bg-white`, `rounded-sm`, `border border-slate-200`, `shadow-sm`; icon khối `bg-green-50 text-[#007f32]`.
 - **Nút chính**: `bg-[#007f32] hover:bg-[#006b2c]`, có thể kèm `shadow-[0_4px_20px_rgba(0,127,50,0.25)]`.
 - **Khối tìm kiếm thu gọn**: card có header click để expand/collapse (`max-h-0` / `max-h-[2000px]`), icon `Search`, `ChevronDown`.
@@ -100,6 +144,45 @@ Forum_Topic/
 2. File types trong `src/@types/{Domain}/…`.
 3. File `services/.../{entity}Service.ts` dùng `ApiService`, URL khớp `api/[controller]`.
 4. Tái dùng `Card`, `Button`, `Input`, `Dialog`, `ConfirmDialog` từ `@/components/ui` và pattern breadcrumb / màu chủ đạo xanh lá đã dùng ở Forum_Topic.
+
+---
+
+## Rich Text Editor (chuẩn clone dùng lại)
+
+Khi cần trường nhập **mô tả HTML** (sản phẩm, bài viết, banner...), dùng component chuẩn:
+
+- `@/components/ui/Editor` (đã clone từ source VOS2026).
+- API giữ ổn định:
+  - `value?: string`
+  - `onChange?: (value: string) => void`
+  - `isUploadFile?: boolean` (`false` để tắt các chức năng upload)
+- `Form.Item` (AntD) dùng trực tiếp vì `Editor` nhận cặp `value`/`onChange` chuẩn controlled component.
+
+Ví dụ trong form:
+
+```tsx
+import { Editor } from '@/components/ui/Editor'
+
+<Form.Item name="description" label="Mô tả chi tiết">
+  <Editor isUploadFile />
+</Form.Item>
+```
+
+Ví dụ thao tác qua `ref` (chèn HTML từ toolbar riêng):
+
+```tsx
+const editorRef = useRef<EditorRef>(null)
+
+editorRef.current?.insertHtml('<p><strong>Nội dung mẫu</strong></p>')
+```
+
+Ghi chú triển khai:
+
+- Upload ảnh/video/file đang map qua `uploadService.uploadFile`.
+- Cụm extension nằm tại `client/src/components/ui/Editor/`:
+  - `Extensions.ts` (build extension theo `isUploadFile`)
+  - `ImageExtension/*` (paste/drop image + resize)
+  - `ImportWordCustomExtension/*`, `ParagraphExtension/*` (giữ tương thích source mẫu)
 
 ---
 

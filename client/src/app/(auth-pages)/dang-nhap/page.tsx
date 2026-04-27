@@ -4,30 +4,44 @@ import appConfig from '@/configs/app.config'
 import { loginRequest } from '@/services/auth/authApi'
 import { setAccessToken } from '@/services/auth/tokenStorage'
 import { dispatch } from '@/stores/authStore'
+import { useToast } from '@/hooks/use-toast'
 import { loading, useLoading } from '@/stores/uiStore'
 import axios from 'axios'
 import { Lock, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useMemo } from 'react'
-import { Button, Form, Input, message } from 'antd'
+import { Button, Form, Input } from 'antd'
 
 type LoginFormValues = {
   login: string
   password: string
 }
 
+/** Vai trò khách hàng — sau đăng nhập về trang chủ cửa hàng, không vào quản trị. */
+const ROLE_CODE_CUSTOMER = 'NGUOIDUNG'
+
+/** `?redirect=` có ưu tiên; không thì: chỉ NGUOIDUNG (hoặc không có vai trò) → `/`, còn lại → dashboard. */
+function resolveAfterLoginPath(
+  roleCodes: string[] | undefined,
+  queryRedirect: string | null,
+): string {
+  const explicit = queryRedirect?.trim()
+  if (explicit) return explicit
+  const codes = roleCodes ?? []
+  const hasNonCustomerRole = codes.some((c) => c !== ROLE_CODE_CUSTOMER)
+  if (hasNonCustomerRole) return appConfig.authenticatedEntryPath
+  return '/'
+}
+
 function LoginForm() {
   const router = useRouter()
+  const { toast } = useToast()
   const searchParams = useSearchParams()
   const [form] = Form.useForm<LoginFormValues>()
   const { isLoading } = useLoading()
 
-  const redirectUrl = useMemo(
-    () =>
-      searchParams.get('redirect')?.trim() || appConfig.authenticatedEntryPath,
-    [searchParams],
-  )
+  const queryRedirect = useMemo(() => searchParams.get('redirect'), [searchParams])
 
   const onFinish = async (values: LoginFormValues) => {
     const login = values.login.trim()
@@ -44,17 +58,18 @@ function LoginForm() {
         payload: {
           user: res.user,
           menuItems: res.menuItems,
+          roleCodes: res.roleCodes ?? [],
         },
       })
 
-      message.success('Đăng nhập thành công')
-      router.push(redirectUrl)
+      toast({ variant: 'success', title: 'Đăng nhập thành công' })
+      router.push(resolveAfterLoginPath(res.roleCodes, queryRedirect))
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const data = error.response?.data as { message?: string } | undefined
-        message.error(data?.message ?? 'Đăng nhập thất bại')
+        toast({ variant: 'destructive', title: data?.message ?? 'Đăng nhập thất bại' })
       } else {
-        message.error('Đăng nhập thất bại')
+        toast({ variant: 'destructive', title: 'Đăng nhập thất bại' })
       }
     } finally {
       loading.dispatch({ type: 'SET_LOADING', payload: false })
@@ -62,33 +77,30 @@ function LoginForm() {
   }
 
   return (
-    <div className="py-8">
-      <div className="container mx-auto px-4 xl:px-0">
-        <nav className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
-          <Link href="/" className="hover:text-[#1677ff]">
+    <div className="flex min-h-screen flex-col justify-center px-4 py-12 sm:py-16">
+      <div className="mx-auto w-full max-w-[420px]">
+        <nav className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+          <Link href="/" className="transition hover:text-primary">
             Trang chủ
           </Link>
-          <span aria-hidden="true">/</span>
-          <span className="font-medium text-slate-800">Đăng nhập</span>
+          <span aria-hidden="true" className="text-border">
+            /
+          </span>
+          <span className="font-medium text-foreground">Đăng nhập</span>
         </nav>
 
-        <div className="mt-5 grid min-h-0 grid-cols-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm xl:min-h-[680px] xl:grid-cols-[1.05fr_1fr]">
-          <aside className="hidden min-h-0 overflow-hidden xl:block">
-            <div className="flex h-full min-h-[240px] w-full flex-col items-center justify-center bg-linear-to-br from-slate-100 to-slate-200 xl:min-h-full">
-              <p className="max-w-[240px] text-center text-sm text-slate-500">
-                Khu vực banner — bạn có thể thay bằng ảnh (ví dụ{' '}
-                <code className="rounded bg-white/60 px-1 text-xs">&lt;img /&gt;</code>) sau.
-              </p>
-            </div>
-          </aside>
-
-          <section className="flex min-h-0 flex-col justify-center gap-y-4 p-6 sm:p-8 lg:p-10 xl:h-full">
+        <div className="mt-6 overflow-hidden rounded-2xl border border-border/80 bg-card/95 shadow-xl shadow-primary/10 ring-1 ring-border/50 backdrop-blur-sm">
+          <div
+            className="h-1.5 bg-gradient-to-r from-primary via-primary/80 to-amber-500/90"
+            aria-hidden
+          />
+          <div className="p-6 sm:p-8">
             <div className="text-center">
-              <h1 className="text-3xl font-extrabold text-slate-900">
-                Đăng nhập tài khoản
+              <h1 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+                Đăng nhập
               </h1>
-              <p className="mt-2 text-slate-600">
-                Đăng nhập để tiếp tục sử dụng dịch vụ.
+              <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+                Nhập tài khoản để tiếp tục mua sắm và theo dõi đơn hàng.
               </p>
             </div>
 
@@ -96,15 +108,15 @@ function LoginForm() {
               form={form}
               layout="vertical"
               requiredMark={false}
-              className="mt-6"
+              className="mt-8"
               onFinish={onFinish}
               autoComplete="off"
             >
               <Form.Item
                 name="login"
                 label={
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-slate-800">
-                    <UserRound className="h-4 w-4 text-slate-600" />
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <UserRound className="h-4 w-4 text-primary" />
                     Email hoặc tên đăng nhập
                   </span>
                 }
@@ -122,8 +134,8 @@ function LoginForm() {
               <Form.Item
                 name="password"
                 label={
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-slate-800">
-                    <Lock className="h-4 w-4 text-slate-600" />
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <Lock className="h-4 w-4 text-primary" />
                     Mật khẩu
                   </span>
                 }
@@ -143,23 +155,20 @@ function LoginForm() {
                   size="large"
                   loading={isLoading}
                   block
-                  className="font-bold uppercase tracking-wide"
+                  className="!h-11 !font-bold !uppercase !tracking-wide"
                 >
                   Đăng nhập
                 </Button>
               </Form.Item>
             </Form>
 
-            <div className="mt-6 border-t border-slate-200 pt-4 text-center text-sm text-slate-600">
+            <div className="mt-8 border-t border-border pt-5 text-center text-sm text-muted-foreground">
               Chưa có tài khoản?{' '}
-              <Link
-                href="/dang-ky"
-                className="font-bold text-[#1677ff] hover:text-[#0958d9]"
-              >
+              <Link href="/dang-ky" className="font-bold text-primary hover:underline">
                 Đăng ký ngay
               </Link>
             </div>
-          </section>
+          </div>
         </div>
       </div>
     </div>

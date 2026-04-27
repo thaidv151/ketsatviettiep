@@ -1,11 +1,11 @@
 'use client'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Table, Button, Card, Popconfirm, message, Space, Badge } from 'antd'
+import { useCallback, useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Table, Button, Card, Popconfirm, Space, Badge } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
-import {
-  TagOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined,
-  HomeOutlined, RightOutlined,
-} from '@ant-design/icons'
+import { TagOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
 import CategorySearch, { type CategorySearchState } from './search'
 import CategoryCreateOrUpdate from './createOrUpdate'
 import type { CategoryDto } from '@/services/category.service'
@@ -14,21 +14,14 @@ import { categoryApi } from '@/services/category.service'
 const primaryBtn =
   'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 
-function matchesFilter(row: CategoryDto, q: CategorySearchState): boolean {
-  const kw = q.keyword.trim().toLowerCase()
-  if (kw) {
-    const ok =
-      row.name.toLowerCase().includes(kw) ||
-      row.slug.toLowerCase().includes(kw)
-    if (!ok) return false
-  }
-  if (q.isActive === 'true' && !row.isActive) return false
-  if (q.isActive === 'false' && row.isActive) return false
-  return true
-}
-
 export default function CategoryManagementPage() {
-  const [raw, setRaw] = useState<CategoryDto[]>([])
+  const router = useRouter()
+  const { toast } = useToast()
+  /** Dữ liệu bảng (một trang) từ server */
+  const [rows, setRows] = useState<CategoryDto[]>([])
+  const [total, setTotal] = useState(0)
+  /** Toàn bộ cho dropdown chọn danh mục cha trong modal */
+  const [allForSelect, setAllForSelect] = useState<CategoryDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
   const [applied, setApplied] = useState<CategorySearchState>({ keyword: '', isActive: '' })
@@ -42,29 +35,47 @@ export default function CategoryManagementPage() {
   const load = useCallback(async () => {
     try {
       setLoading(true)
-      const list = await categoryApi.list()
-      setRaw(list)
+      const isActiveParam =
+        applied.isActive === 'true' ? true : applied.isActive === 'false' ? false : undefined
+      const { items, totalCount } = await categoryApi.pagedList({
+        pageIndex: page,
+        pageSize,
+        query: applied.keyword.trim() || undefined,
+        isActive: isActiveParam,
+      })
+      setRows(Array.isArray(items) ? items : [])
+      setTotal(typeof totalCount === 'number' ? totalCount : 0)
     } catch {
-      message.error('Không tải được danh sách danh mục')
+      toast({ variant: 'destructive', title: 'Không tải được danh sách danh mục' })
+      setRows([])
+      setTotal(0)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [page, pageSize, applied])
 
   useEffect(() => { void load() }, [load])
 
-  const filtered = useMemo(() => raw.filter((r) => matchesFilter(r, applied)), [raw, applied])
-  const paged = useMemo(() => filtered.slice((page - 1) * pageSize, page * pageSize), [filtered, page, pageSize])
+  const loadForSelect = useCallback(async () => {
+    try {
+      const list = await categoryApi.listForAdminForm()
+      setAllForSelect(Array.isArray(list) ? list : [])
+    } catch {
+      setAllForSelect([])
+    }
+  }, [])
+
+  useEffect(() => { void loadForSelect() }, [loadForSelect])
 
   useEffect(() => { setPage(1) }, [applied, pageSize])
 
   const handleDelete = async (row: CategoryDto) => {
     try {
       await categoryApi.remove(row.id)
-      message.success('Đã xóa danh mục')
+      toast({ variant: 'success', title: 'Đã xóa danh mục' })
       void load()
     } catch {
-      message.error('Không xóa được')
+      toast({ variant: 'destructive', title: 'Không xóa được' })
     }
   }
 
@@ -106,13 +117,10 @@ export default function CategoryManagementPage() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <HomeOutlined className="hover:text-[#1677ff] cursor-pointer" />
-        <RightOutlined />
-        <span className="hover:text-[#1677ff] cursor-pointer">Quản lý</span>
-        <RightOutlined />
-        <span className="font-semibold text-[#0958d9]">Danh mục</span>
-      </div>
+      <AdminBreadcrumb
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Danh mục"
+      />
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
@@ -135,10 +143,10 @@ export default function CategoryManagementPage() {
 
       <Card className="rounded-sm border border-slate-200 shadow-sm" styles={{ body: { padding: 0 } }}>
         <Table<CategoryDto>
-          rowKey="id" loading={loading} columns={columns} dataSource={paged}
+          rowKey="id" loading={loading} columns={columns} dataSource={rows}
           scroll={{ x: 900 }}
           pagination={{
-            current: page, pageSize, total: filtered.length,
+            current: page, pageSize, total,
             showSizeChanger: true, pageSizeOptions: [10, 20, 50],
             showTotal: (t) => `${t} danh mục`,
             onChange: (p, ps) => { setPage(p); setPageSize(ps ?? 10) },
@@ -147,9 +155,9 @@ export default function CategoryManagementPage() {
       </Card>
 
       <CategoryCreateOrUpdate open={modalOpen} mode={modalMode} item={selected}
-        categories={raw}
+        categories={allForSelect}
         onClose={() => { setModalOpen(false); setSelected(null) }}
-        onSuccess={() => { message.success(modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật'); void load() }} />
+        onSuccess={() => { toast({ variant: 'success', title: modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật' }); void load() }} />
     </div>
   )
 }

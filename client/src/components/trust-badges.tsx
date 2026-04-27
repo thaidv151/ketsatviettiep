@@ -35,7 +35,7 @@ export default function TrustBadges() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Tại sao chọn SafeVault
+            Tại sao chọn Két sắt việt tiệp
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Chúng tôi cam kết mang đến những giải pháp an ninh chất lượng cao nhất cùng dịch vụ vượt trội.

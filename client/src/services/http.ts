@@ -10,4 +10,7 @@ export const http = {
 
   post: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) =>
     axiosBase.post<T>(url, data, config).then((r) => r.data),
+
+  put: <T>(url: string, data?: unknown, config?: AxiosRequestConfig) =>
+    axiosBase.put<T>(url, data, config).then((r) => r.data),
 }

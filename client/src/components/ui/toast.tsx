@@ -3,7 +3,7 @@
 import * as React from 'react'
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { X, CheckCircle2, AlertCircle } from 'lucide-react'
+import { X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -29,10 +29,15 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border bg-background text-foreground',
+        /** Thông tin trung tính (ví dụ: đã gỡ khỏi danh sách) */
+        default:
+          'border-slate-200 bg-slate-50 text-slate-900 shadow-md dark:border-slate-600 dark:bg-slate-900/70 dark:text-slate-100',
+        /** Lỗi / cảnh báo — dễ phân biệt với thành công */
         destructive:
-          'destructive group border-destructive bg-destructive text-destructive-foreground',
-        success: 'border-green-500 bg-green-50 text-green-900 dark:bg-green-900/20 dark:text-green-100',
+          'destructive group border-red-500/90 bg-red-50 text-red-950 ring-1 ring-red-500/20 dark:border-red-500/70 dark:bg-red-950/45 dark:text-red-50',
+        /** Thao tác thành công (giỏ hàng, yêu thích, tải lên…) */
+        success:
+          'group border-emerald-500/90 bg-emerald-50 text-emerald-950 ring-1 ring-emerald-500/25 dark:border-emerald-500/60 dark:bg-emerald-950/35 dark:text-emerald-50',
       },
     },
     defaultVariants: {

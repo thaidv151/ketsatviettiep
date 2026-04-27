@@ -16,6 +16,7 @@ public sealed class AppUserRepository : RepositoryBase<AppUser>, IAppUserReposit
     {
         var normalizedEmail = email.Trim();
         return await Db.Set<AppUser>()
+            .AsNoTracking()
             .FirstOrDefaultAsync(u => u.Email == normalizedEmail, cancellationToken);
     }
 
@@ -23,6 +24,7 @@ public sealed class AppUserRepository : RepositoryBase<AppUser>, IAppUserReposit
     {
         var normalized = username.Trim();
         return await Db.Set<AppUser>()
+            .AsNoTracking()
             .FirstOrDefaultAsync(u => u.Username == normalized, cancellationToken);
     }
 }

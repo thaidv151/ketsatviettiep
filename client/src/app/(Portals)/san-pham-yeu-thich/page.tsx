@@ -5,7 +5,8 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ShoppingCartOutlined, DeleteOutlined } from '@ant-design/icons'
 import Link from 'next/link'
-import { portalApi, PortalProductDto } from '@/services/portal.service'
+import { portalApi, type PortalProductDto } from '@/services/portal.service'
+import type { CartLine } from '@/types/cart'
 import { getFullImagePath } from '@/lib/path-utils'
 import { useToast } from '@/hooks/use-toast'
 import { Loader2 } from 'lucide-react'
@@ -56,6 +57,7 @@ export default function WishlistPage() {
       setWishlistItems(prev => prev.filter(item => item.id !== id))
 
       toast({
+        variant: 'default',
         title: 'Đã xóa',
         description: 'Sản phẩm đã được xóa khỏi danh sách yêu thích.',
       })
@@ -63,25 +65,30 @@ export default function WishlistPage() {
   }
 
   const addToCart = (product: PortalProductDto) => {
-    const cartItem = {
+    const cartItem: CartLine = {
       id: product.id,
+      slug: product.slug,
       name: product.name,
       price: product.salePrice ?? product.basePrice ?? 0,
       image: product.thumbnailUrl,
-      quantity: 1
+      quantity: 1,
+      category: product.categoryName,
+      variantId: null,
+      variantLabel: null,
     }
 
     const saved = localStorage.getItem('ketsat_cart')
-    let cart = []
+    let cart: CartLine[] = []
     if (saved) {
       try {
-        cart = JSON.parse(saved)
+        cart = JSON.parse(saved) as CartLine[]
       } catch (e) {
         cart = []
       }
     }
 
-    const index = cart.findIndex((item: any) => item.id === product.id)
+    const lineKey = `${product.id}::`
+    const index = cart.findIndex((item) => `${item.id}::${item.variantId ?? ''}` === lineKey)
     if (index > -1) {
       cart[index].quantity += 1
     } else {
@@ -155,7 +162,7 @@ export default function WishlistPage() {
                       <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-wider">
                         {item.categoryName || 'Két Sắt'}
                       </div>
-                      <Link href={`/san-pham/${item.id}`}>
+                      <Link href={`/san-pham/${encodeURIComponent(item.slug || item.id)}`}>
                         <h3 className="text-2xl font-bold text-foreground hover:text-primary transition-colors cursor-pointer line-clamp-2 leading-tight">
                           {item.name}
                         </h3>

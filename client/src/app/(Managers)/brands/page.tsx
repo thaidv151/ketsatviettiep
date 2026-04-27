@@ -1,11 +1,11 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Table, Button, Card, Popconfirm, message, Space, Avatar } from 'antd'
+import { useRouter } from 'next/navigation'
+import { Table, Button, Card, Popconfirm, Space, Avatar } from 'antd'
+import { useToast } from '@/hooks/use-toast'
 import type { ColumnsType } from 'antd/es/table'
-import {
-  ShoppingOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined,
-  HomeOutlined, RightOutlined,
-} from '@ant-design/icons'
+import { ShoppingOutlined, EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
+import AdminBreadcrumb from '@/components/common/AdminBreadcrumb'
 import BrandSearch, { type BrandSearchState } from './search'
 import BrandCreateOrUpdate from './createOrUpdate'
 import type { BrandDto } from '@/services/brand.service'
@@ -14,6 +14,8 @@ import { brandApi } from '@/services/brand.service'
 const primaryBtn = 'bg-[#1677ff] hover:bg-[#0958d9] border-[#1677ff] font-bold uppercase tracking-widest'
 
 export default function BrandManagementPage() {
+  const router = useRouter()
+  const { toast } = useToast()
   const [raw, setRaw] = useState<BrandDto[]>([])
   const [loading, setLoading] = useState(false)
   const [searchExpanded, setSearchExpanded] = useState(false)
@@ -27,7 +29,7 @@ export default function BrandManagementPage() {
 
   const load = useCallback(async () => {
     try { setLoading(true); setRaw(await brandApi.list()) }
-    catch { message.error('Không tải được thương hiệu') }
+    catch { toast({ variant: 'destructive', title: 'Không tải được thương hiệu' }) }
     finally { setLoading(false) }
   }, [])
 
@@ -47,8 +49,8 @@ export default function BrandManagementPage() {
   useEffect(() => { setPage(1) }, [applied, pageSize])
 
   const handleDelete = async (row: BrandDto) => {
-    try { await brandApi.remove(row.id); message.success('Đã xóa'); void load() }
-    catch { message.error('Không xóa được') }
+    try { await brandApi.remove(row.id); toast({ variant: 'success', title: 'Đã xóa' }); void load() }
+    catch { toast({ variant: 'destructive', title: 'Không xóa được' }) }
   }
 
   const columns: ColumnsType<BrandDto> = [
@@ -89,13 +91,10 @@ export default function BrandManagementPage() {
 
   return (
     <div className="space-y-6 pb-12 bg-slate-50/50 min-h-screen -m-4 p-4 lg:-m-8 lg:p-8">
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-5">
-        <HomeOutlined className="hover:text-[#1677ff] cursor-pointer" />
-        <RightOutlined />
-        <span className="hover:text-[#1677ff] cursor-pointer">Quản lý</span>
-        <RightOutlined />
-        <span className="font-semibold text-[#0958d9]">Thương hiệu</span>
-      </div>
+      <AdminBreadcrumb
+        items={[{ label: 'Quản lý', onClick: () => router.push('/dashboard') }]}
+        currentPage="Thương hiệu"
+      />
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-3 bg-blue-50 text-[#1677ff] rounded-sm text-2xl"><ShoppingOutlined /></div>
@@ -119,7 +118,7 @@ export default function BrandManagementPage() {
       </Card>
       <BrandCreateOrUpdate open={modalOpen} mode={modalMode} item={selected}
         onClose={() => { setModalOpen(false); setSelected(null) }}
-        onSuccess={() => { message.success(modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật'); void load() }} />
+        onSuccess={() => { toast({ variant: 'success', title: modalMode === 'create' ? 'Đã thêm' : 'Đã cập nhật' }); void load() }} />
     </div>
   )
 }

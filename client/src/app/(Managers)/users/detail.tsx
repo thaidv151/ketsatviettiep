@@ -123,7 +123,7 @@ export default function UserDetailDrawer({
               {data.phoneNumber ?? '—'}
             </Descriptions.Item>
             <Descriptions.Item label="Địa chỉ">
-              {[data.addressDetail, data.ward, data.district, data.province]
+              {[data.addressDetail, data.ward, data.province]
                 .filter(Boolean)
                 .join(', ') || '—'}
             </Descriptions.Item>
