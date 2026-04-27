@@ -1260,3 +1260,21 @@ Error Number:547,State:0,Class:16
 2026-04-27 21:19:55.860 +07:00 [INF] HTTP GET /api/auth/me responded 200 in 8.2787 ms
 2026-04-27 21:21:41.541 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0547 ms
 2026-04-27 21:21:41.594 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 33.9142 ms
+2026-04-27 21:22:42.739 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.3121 ms
+2026-04-27 21:22:42.767 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 20.7951 ms
+2026-04-27 21:22:42.773 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 204 in 0.0356 ms
+2026-04-27 21:22:42.780 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:22:42.793 +07:00 [INF] HTTP POST /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 200 in 17.7955 ms
+2026-04-27 21:22:42.796 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0343 ms
+2026-04-27 21:22:42.812 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 13.4368 ms
+2026-04-27 21:22:47.272 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 6.7260 ms
+2026-04-27 21:22:47.286 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:22:47.295 +07:00 [INF] HTTP POST /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 200 in 11.8699 ms
+2026-04-27 21:22:47.303 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 3.9555 ms
+2026-04-27 21:22:54.364 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 204 in 0.0391 ms
+2026-04-27 21:22:54.398 +07:00 [INF] HTTP GET /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd responded 200 in 29.3492 ms
+2026-04-27 21:22:54.423 +07:00 [INF] HTTP OPTIONS /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 204 in 0.0403 ms
+2026-04-27 21:22:54.430 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-27 21:22:54.462 +07:00 [INF] HTTP POST /api/admin/products/9621c5c2-754c-4720-aedd-778e176902fd/update responded 200 in 35.7286 ms
+2026-04-27 21:22:54.468 +07:00 [INF] HTTP OPTIONS /api/admin/products responded 204 in 0.0245 ms
+2026-04-27 21:22:54.485 +07:00 [INF] HTTP GET /api/admin/products responded 200 in 14.6237 ms
